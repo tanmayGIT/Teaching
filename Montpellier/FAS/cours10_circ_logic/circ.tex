@@ -1,0 +1,1495 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ulem}
+\usepackage{xcolor}
+% For multirow tables
+\usepackage{multirow}
+
+\usepackage[french]{babel}
+\usepackage{ulem}
+\usepackage{xcolor}
+
+\usepackage{xcolor}
+
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+\definecolor{mypink2}{RGB}{219, 48, 122}
+\definecolor{mypink3}{cmyk}{0, 0.7808, 0.4429, 0.1412}
+\definecolor{mygray}{gray}{0.6}
+
+
+\colorlet{Mycolor1}{green!10!orange!90!}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+
+
+\lstdefinestyle{C}
+{
+  language=C,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{green},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\newcommand{\mycolumns}[5]{
+\begin{columns}[#1]
+    \column{#2cm}
+    #4
+    \column{#3cm}
+    #5
+\end{columns}
+}
+
+\newcommand{\hlrose}[1]{\sethlcolor{rosepale}\hl{#1}}
+\newcommand{\non}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\mytriangle}[6]{
+\begin{center}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    #5 & \includegraphics[width=#1cm]{figs/#4} \\
+    \multicolumn{2}{m{#3cm}}{#6} \\
+\end{tabular}
+\end{center}
+}
+
+\title[Circuits logiques]{Circuits logiques}
+\author[T.~Mondal]{\large{Tanmoy MONDAL}\\
+	\vspace{1cm}
+	\small{tanmoy.mondal@lirmm.fr}\\
+	Diapos de D. Delahaye et Chouki TIBERMACINE}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{center}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{center}
+\end{frame}
+
+\note[itemize]{
+\item Début de semaine: les faire résumer les cours de la semaine précédente.
+\item Expliquer que l'objectif de ce chapitre c'est de pouvoir arriver a
+construire une UAL. Avoir un modèle pour les calcul arithmétique et logique en
+binaire...
+On sera capable de construire une telle UAL à la fin (pas de ce chapitre) du
+chapitre 7 sur le CPU (après avoir mentionné plus en détail le cycle des
+instructions).}
+
+\begin{frame}
+\frametitle{Objectifs du chapitre}
+
+\begin{enumerate}
+\item Maîtriser les bases de l'algèbre booléenne;
+\item Faire la synthèse et l'analyse d'un circuit combinatoire;
+\item Connaître les circuits logiques les plus importants;
+\item \color{gray}{Appréhender les principes des circuits séquentiels et des bascules.}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Notion de circuit logique}
+  \vspace{-.3cm}
+\begin{itemize}
+\item Les circuits des machines électroniques modernes ont \textcolor{Mycolor1}{2 états
+  d'équilibre 0 et 1} (i.e., 2 niveaux de tension) $\Rightarrow$ signal
+  logique
+\item Une ligne permet de \textcolor{Mycolor1}{transporter un signal logique}
+\end{itemize}
+\vspace{-.2cm}
+\begin{block}{Circuit logique}
+Représentation d'un circuit électronique. Exécute des opérations sur des
+variables logiques, transporte et traite des signaux logiques.
+\end{block}
+\vspace{-.2cm}
+\begin{itemize}
+\item \textbf{Circuit combinatoire}
+\begin{itemize}
+\item circuit idéalisé
+\item pas de prise en compte \textcolor{Mycolor1}{du temps de propagation des signaux}
+\item signaux de sortie dépendent que des signaux en entrée
+\end{itemize}
+\item \textbf{Circuit séquentiel}
+\begin{itemize}
+\item tiens compte du temps de propagation
+\item mémoire
+\item signaux de \textcolor{Mycolor1}{sortie dépendent des signaux en entrée antérieurs}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\note{Nous parlerons principalement de circuit combinatoires dans ce cours.}
+
+\begin{frame}
+\frametitle{Exemple de circuit logique (1/2)}
+
+$$(a+b)(a+\non{c})$$
+\begin{center}
+\includegraphics[width=10cm]{figs/circ1.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exemple de circuit logique (2/2)}
+
+\begin{center}
+\includegraphics[width=8.5cm]{figs/circ2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algèbre de Boole}
+  \begin{columns}
+
+  \column{5.5cm}
+ George Boole a défini (milieu du
+  19ème siècle) une algèbre qui s'applique \textcolor{Mycolor1}{à des fonctions logiques de
+  variables logiques (variables booléennes)}.
+  \column{4cm}
+  \includegraphics[width=3cm]{figs/boole.jpg}
+\end{columns}
+  \begin{itemize}
+\item Toute fonction logique peut être \textcolor{Mycolor1}{réalisée à partir de fonctions logiques
+de base} (opérateurs ou portes -- \textit{gates}).
+\item Les opérations arithmétiques peuvent être réalisées à l'aide d'opérations
+logiques de base.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Algèbre de Boole : définitions}
+
+\begin{block}{Fonction logique}
+\begin{itemize}
+\item Fonction définie par une \textcolor{Mycolor1}{table de vérité (i.e., tableau de
+  correspondance entre les états d'entrée et les états de sortie)};
+\item Toutes les combinaisons possibles des variables d'entrée;
+\item Représentée avec des \textcolor{Mycolor1}{diagrammes ou expressions algébriques};
+\item Trois opérateurs de base : NON, ET, OU.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Algèbre de Boole : définitions -suite-}
+\begin{block}{Table de vérité}
+	\footnotesize{
+	\begin{itemize}
+		\item La table de vérité d'une fonction de \textcolor{Mycolor1}{$n$ variables a autant de lignes que d'états d'entrée, soit $2^n$}. 
+		\item Comme pour chacun de ces états d'entrée, \textcolor{Mycolor1}{on peut avoir deux valeurs de sortie (0 et 1)}
+		\item Cela nous donne \textcolor{Mycolor1}{$2^{2^n}$ fonctions possibles à $n$ variables.}
+	\end{itemize}
+	}
+\end{block}
+\begin{tabular}{lr|lr}
+pour 1 variable, & 4 fonctions & pour 3 variables, & 256 fonctions\\
+pour 2 variables, & 16 fonctions & pour 4 variables, & 65536 fonctions
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fonctions d'une variable}
+
+\begin{center}
+\begin{tabular}{|l|cccc|ll}
+\cline{1-5}
+entrées & \multicolumn{4}{l|}{fonctions} & $Z_0=0$ & constante\\
+a & $Z_0$ & $Z_1$ & $Z_2$ & $Z_3$ & $Z_1=a$ & identité\\
+\cline{1-5}
+0 & 0 & 0 & 1 & 1 & $Z_2=\non{a}$ & complémentation\\
+1 & 0 & 1 & 0 & 1 & $Z_3=1$ & constante\\
+\cline{1-5}
+\end{tabular}
+\end{center}
+\begin{columns}[c]
+\column{5cm}
+\begin{block}{Opérateur NON}
+La seule \textcolor{Mycolor1}{fonction logique à une variable non triviale est la fonction de
+complémentation ($Z_2$)} réalisée par l'opérateur logique \emph{NON} (ou
+inverseur) : $\non{1}=0$ ou $\non{0}=1$
+\end{block}
+\column{5cm}
+\begin{block}{NON - Table de vérité}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+entrées & NON\\
+$a$ & $\non{a}$\\
+\hline
+$0$ & $1$\\
+$1$ & $0$\\
+\hline
+\end{tabular}
+\end{center}	
+\end{block}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fonctions de 2 variables (1/2)}
+
+Il existe \textcolor{Mycolor1}{16 fonctions logiques à 2 variables}. Les \textcolor{Mycolor1}{deux non triviales les plus
+importantes sont} les fonctions de produit logique (intersection) et somme
+logique (réunion) réalisées par les opérateurs ET et OU, notés respectivement
+$ab$ et $a+b$.
+\mycolumns{c}{5}{5}{
+\begin{block}{ET - Table de vérité}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+entrées & ET\\
+$a~~~~b$ & $ab$\\
+\hline
+$0~~~~0$ & $0$ \\
+$0~~~~1$ & $0$\\
+$1~~~~0$ & $0$\\
+$1~~~~1$ & $1$\\
+\hline
+\end{tabular}
+\end{center}	
+\end{block}}
+{\begin{block}{OU - Table de vérité}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+entrées & OU\\
+$a~~~~b$ & $a+b$\\
+\hline
+$0~~~~0$ & $0$\\
+$0~~~~1$ & $1$\\
+$1~~~~0$ & $1$\\
+$1~~~~1$ & $1$\\
+\hline
+\end{tabular}
+\end{center}	
+\end{block}}
+\end{frame}
+
+\note{
+Dans une brasserie vous commandez "un sandwich au pâté OU un sandwich au jambon
+ET un verre de bière". Quelles interprétations de cette phrase sont possibles
+d'un point de vue logique? Comment réduire le nombre de ces interprétations?
+\begin{enumerate}
+\item un sandwich au pâté
+\item un sandwich au jambon
+\item un verre de bière
+\item un sandwich au pâté et un verre de bière
+\item un sandwich au jambon et un verre de bière
+\item un sandwich au pâté et un sandwich au jambon
+\item un sandwich au pâté, un sandwich au jambon, un verre de bière
+\end{enumerate}}
+
+\note{
+\begin{block}{}
+1, 4, 5, 7 sont possibles. Les autres non. Attention, pour 7, n'oubliez pas que
+le OU logique est inclusif i.e., les 2 clauses d'un OU peuvent être vérifiées (à
+contrario du XOR qui est exclusif!).\\
+L'utilisation de virgules dans la phrase (i.e., équivalent aux parenthèses dans
+une expression logique) permet de réduire le nombre d'interprétations possibles:
+\begin{itemize}
+\item "un sandwich au pâté\textbf{,} OU un sandwich au jambon ET un verre de
+bière" $\Rightarrow$ 1, 5, 7.
+\item "un sandwich au pâté OU un sandwich au jambon\textbf{,} ET un verre de
+bière" $\Rightarrow$ 4, 5, 7.
+\end{itemize}
+\end{block}}
+
+\begin{frame}
+\frametitle{Fonctions de 2 variables (2/2)}
+
+\begin{columns}
+\column{0.33\textwidth}
+\begin{block}{XOR (ou exclusif $\oplus$)}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+entrées & XOR\\
+$a~~~~b$ & $a\oplus b$\\
+\hline
+$0~~~~0$ & $0$ \\
+$0~~~~1$ & $1$\\
+$1~~~~0$ & $1$\\
+$1~~~~1$ & $0$\\
+\hline
+\end{tabular}
+\end{center}
+\end{block}
+\column{0.33\textwidth}
+\begin{block}{NAND (non et)}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+entrées & NAND\\
+$a~~~~b$ & \non{ab}\\
+\hline
+$0~~~~0$ & $1$\\
+$0~~~~1$ & $1$\\
+$1~~~~0$ & $1$\\
+$1~~~~1$ & $0$\\
+\hline
+\end{tabular}
+\end{center}
+\end{block}
+%\end{columns}
+%\begin{columns}
+%\column{0.4\textwidth}
+\column{0.33\textwidth}
+\begin{block}{NOR (non ou)}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+entrées & NOR\\
+$a~~~~b$ & \non{a+b}\\
+\hline
+$0~~~~0$ & $1$\\
+$0~~~~1$ & $0$\\
+$1~~~~0$ & $0$\\
+$1~~~~1$ & $0$\\
+\hline
+\end{tabular}
+\end{center}
+\end{block}
+%\column{0.4\textwidth}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Opérateurs complets}
+
+\begin{itemize}
+\item L'ensemble, utilisé en pratique, [ET, OU , NON] \textcolor{Mycolor1}{permet bien d'exprimer
+tous les opérateurs}, mais il n'est pas minimal.
+\item On peut réaliser \textcolor{Mycolor1}{la fonction ET avec des OU et des NON et la fonction OU
+avec des ET et des NON.}
+\item Il y a deux autres opérateurs importants du point de vue
+  théorique dans l'algèbre de Boole: \textcolor{Mycolor1}{les opérateurs NAND (non et) et
+  NOR (non ou).}
+\item  En effet, ces fonctions forment un ensemble complet ou
+  minimal, c'est à dire \textcolor{Mycolor1}{qu'ils peuvent exprimer tous les opérateurs.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Symboles des principaux opérateurs logiques}
+
+\begin{center}
+\includegraphics[width=7.5cm]{figs/logic-gates.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercice}
+
+\begin{exampleblock}{Circuit logique combinatoire}
+Dessiner le circuit logique combinatoire qui réalise la fonction:
+
+\bigskip{}
+
+$f(a,b,c)= ab+\non{b}c+a\non{c}$.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Construire la table de vérité d'une fonction logique}
+
+Pour chaque combinaison de valeurs possibles des variables, on détermine la
+fonction booléenne.
+
+\begin{exampleblock}{$f(a,b,c)= a+\non{b}c$}
+\begin{table}
+\begin{center}
+\begin{tabular}{|c||c||c|}
+\hline
+$a~~~b~~~c$&$\non{b}c$&$f(a,b,c)$\\
+\hline
+$0~~~0~~~0$&0&0\\
+$0~~~0~~~1$&1&1\\
+$0~~~1~~~0$&0&0\\
+$0~~~1~~~1$&0&0\\
+$1~~~0~~~0$&0&1\\
+$1~~~0~~~1$&1&1\\
+$1~~~1~~~0$&0&1\\
+$1~~~1~~~1$&0&1\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{exampleblock}
+
+\end{frame}
+
+\note{Si possible recopier cette table/fonction au tableau, car on l'utilisera
+quelques fois.}
+
+\begin{frame}
+\frametitle{Théorèmes fondamentaux de l'algèbre de Boole (1/2)}
+
+\begin{block}{}
+\begin{center}
+\begin{tabular}{lll}
+Théorème des constantes & $a + 0 = a$ & $a.0 = 0$\\
+& $a + 1 = 1$ & $a.1 = a$\\
+Idempotence & $a + a = a$ & $a.a = a$\\
+Complémentation & $a + \non{a} = 1$ & $a.\non{a} = 0$\\
+Commutativité & $a + b = b + a$ & $a.b = b.a$\\
+Distributivité & $a + (bc) = (a + b)(a + c)$ &\\
+& $a(b + c) = (ab) + (ac)$ &\\
+Associativité & \multicolumn{2}{l}{$a+(b + c) = (a + b) + c = a + b + c$}\\
+& \multicolumn{2}{l}{$a(bc) = (ab)c = abc$}\\
+\end{tabular}
+\end{center}
+\end{block}
+\end{frame}
+
+\note{Pour démontrer ces théorèmes, il suffit de faire les tables de
+  vérité. Par exemple, regarder toutes les valeurs possibles de a.}
+
+\begin{frame}
+\frametitle{Théorèmes fondamentaux de l'algèbre de Boole (2/2)}
+
+\begin{block}{}
+\begin{center}
+\begin{tabular}{lll}
+Théorème de De Morgan & $\non{ab} = \non{a} + \non{b}$ &
+$\non{a+b} = \non{a}\non{b}$\\\\
+Autres relations & $\non{\non{a}} = a$ & $a + (ab) = a$\\\\
+& $a+(\non{a}b)=a+b$ & $a(a + b) = a$\\\\
+& $(a+b)(a+\non{b})=a$	
+\end{tabular}
+\end{center}
+\end{block}
+\end{frame}
+
+\note{Pour démontrer ceux la, on peut s'appuyer sur les
+  précédents. Par exemple, développer $(a+b)(a+\non{b})$ au
+  tableau. Compléter la table de vérité suivante pour démontrer le
+  théorème de Morgan:
+  $a|b|a+b|\non{a+b}|\non{a}|\non{b}|\non{a}\non{b}$}
+
+\begin{frame}
+\frametitle{Méthodes des minterms et des maxterms}
+
+À l'aide des théorèmes précédents, il est possible d'exprimer toute fonction
+logique à l'aide des opérateurs NON, ET, OU.
+
+\begin{block}{Méthodes des minterms (somme logique des produits logiques)}
+La fonction peut être exprimée comme étant la somme logique des minterms
+correspondant à chaque sortie valant 1 dans la table de vérité. \textcolor{Mycolor1}{Chaque variable
+d'entrée est prise telle quelle si elle a la valeur 1, sinon elle est remplacée
+par son complément}. Équivalent à la forme DNF en logique.
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Méthodes des minterms et des maxterms -suite-}
+\begin{block}{Méthodes des maxterms (produit logique des sommes logiques)}
+La fonction peut être exprimée comme étant le produit logique des maxterms
+correspondant à chaque sortie valant 0 dans la table de vérité. \textcolor{Mycolor1}{Chaque variable
+d'entrée est prise telle quelle si elle a la valeur 0, sinon elle est remplacée
+par son complément.} Équivalent à la forme CNF en logique.
+\end{block}
+
+L'expression algébrique obtenu est dite forme \textbf{normale} (ou
+\textbf{canonique}).
+\end{frame}
+
+\begin{frame}
+\frametitle{Exemple : l'opérateur XOR}
+
+On veut exprimer la fonction XOR (ou exclusif) en n'utilisant que les fonctions
+ET, OU , NON:
+
+\mycolumns{c}{6}{5}{
+\begin{itemize}
+\item avec la méthode des minterms : $a\oplus b = \non{a}b + a\non{b}$
+\item avec la méthode des maxterms : $a\oplus b = (a+b) (\non{a}+\non{b})$
+\end{itemize}
+\vspace{0.5cm}
+\includegraphics[width=6cm]{figs/xor.jpg}}
+{\begin{block}{XOR - Table de vérité}
+\begin{center}
+\begin{tabular}{|c||c|}
+\hline
+entrées & XOR\\
+$a~~~~b$ & $a\oplus b$\\
+\hline
+$0~~~~0$ & $0$ \\
+$0~~~~1$ & $1$\\
+$1~~~~0$ & $1$\\
+$1~~~~1$ & $0$\\
+\hline
+\end{tabular}
+\end{center}
+\end{block}}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Méthodes des minterms et des maxterms}
+	\begin{center}
+		\includegraphics[width=7cm]{img/min-max_2-var.png}
+	\\	\includegraphics[width=7cm]{img/min-max_4-var.png}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Exercice~1: méthodes des minterms et des maxterms}
+
+\begin{exampleblock}{Exemple}
+Appliquer les méthodes des minterms et des maxterms à la fonction:
+
+\begin{center}
+	\includegraphics[width=4cm]{img/min-max_4-var.png}
+\begin{tabular}{|c||c|}
+\hline
+$a~~~b~~~c$&f(a,b,c)\\
+\hline
+$0~~~0~~~0$&0\\
+$0~~~0~~~1$&1\\
+$0~~~1~~~0$&0\\
+$0~~~1~~~1$&1\\
+$1~~~0~~~0$&1\\
+$1~~~0~~~1$&0\\
+$1~~~1~~~0$&0\\
+$1~~~1~~~1$&0\\
+\hline
+\end{tabular}
+\end{center}
+%$$\Rightarrow f(a,b,c)=\non{a}\non{b}c+\non{a}bc+a\non{b}\non{c}$$
+%$$\Rightarrow f(a,b,c)=(a+b+c)(a+\non{b}+c)(\non{a}+b+\non{c})(\non{a}+\non{b}+c)(\non{a}+\non{b}+\non{c})$$
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercice~2: méthodes des minterms et des maxterms}
+
+\begin{exampleblock}{Exemple}
+Appliquer les méthodes des minterms et des maxterms à la fonction:
+
+\begin{center}
+	\includegraphics[width=4cm]{img/min-max_4-var.png}
+\begin{tabular}{|c||c|}
+\hline
+$a~~~b~~~c$&f(a,b,c)\\
+\hline
+$0~~~0~~~0$&0\\
+$0~~~0~~~1$&1\\
+$0~~~1~~~0$&0\\
+$0~~~1~~~1$&0\\
+$1~~~0~~~0$&1\\
+$1~~~0~~~1$&1\\
+$1~~~1~~~0$&1\\
+$1~~~1~~~1$&1\\
+\hline
+\end{tabular}
+\end{center}
+%$f(a,b,c)= \non{a}\non{b}c+a\non{b}\non{c}+a\non{b}c+ab\non{c}+abc$
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simplification de fonction logique: méthode algébrique}
+
+On utilise les théorèmes de l'algèbre de Boole vu précédemment pour simplifier
+l'expression algébrique.
+
+\begin{exampleblock}{Exemple (minterms de l'exercice~2)}
+$\begin{array}{ll}
+f(a,b,c)& = abc+ab\non{c}+a\non{b}c+a\non{b}\non{c}+\non{a}\non{b}c\\
+& = ab(c+\non{c})+a\non{b}(c+\non{c})+\non{a}\non{b}c\\
+& = ab+a\non{b}+\non{a}\non{b}c\\
+& = a(b+\non{b})+\non{a}\non{b}c\\
+& = a+\non{a}\non{b}c\\
+& = a+\non{b}c
+\end{array}$
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercice: simplification (méthode algébrique)}
+
+\begin{exampleblock}{Exemple (minterms de l'exercice~1)}
+Simplifier la fonction obtenue par la méthode des minterms à l'exercice~1.
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Simplification de fonction logique: tables de Karnaugh}
+
+Basée sur l'inspection visuelle de tables judicieusement construites
+($\approx$ table de vérité à 2 dimensions).
+\begin{itemize}
+\item On attribue la valeur 1 aux cases correspondantes aux états d'entrée où la
+fonction est vraie, 0 sinon.
+\item Regroupement par blocs rectangulaires de 2, 4 ou 8 variables, des cases à
+1 adjacentes.
+\begin{itemize}
+\item Attention la table se referme sur elle-même.
+\item Une case à 1 peut appartenir à plusieurs blocs.
+\item Blocs les plus gros possibles (on utilise un bloc une seule fois).
+\end{itemize}
+\item Pour chaque bloc:
+\begin{itemize}
+\item Si une variable prend comme valeur 0 et 1, on ne la prend pas en compte.
+\item On garde les variables dont la valeur ne varie pas.
+\item Opérateur = ET.
+\end{itemize}
+\item OU de tous les termes de tous les blocs.
+\end{itemize}
+\end{frame}
+
+\note{Au n lignes de la table de vérité correspondent les n cases de la table de
+Karnaugh.}
+
+\begin{frame}
+\frametitle{Table de Karnaugh à 2~variables}
+
+\begin{exampleblock}{Exemple}
+\mycolumns{c}{5}{4}{
+Table de vérité:
+$$\begin{array}{|cc||c|}
+\hline
+a & b & f(a,b)\\
+\hline
+0 & 0 & 0\\
+0 & 1 & 1\\
+1 & 0 & 1\\
+1 & 1 & 1\\
+\hline
+\end{array}$$
+Expression algébrique canonique (minterms):
+$f(a,b) =\non{a}b+a\non{b}+ab$}
+{Table de Karnaugh:
+\includegraphics[width=4cm]{figs/karnaugh1.png}
+$$\Rightarrow f(a,b) = a+b$$}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Table de Karnaugh à 3~variables}
+
+\begin{exampleblock}{Exemple}
+\mycolumns{c}{5.5}{4.5}{
+Table de vérité:
+$$\begin{array}{|ccc||c|}
+\hline
+a & b & c & f(a,b,c)\\
+\hline
+0 & 0 & 0 & 0\\
+0 & 0 & 1 & 1\\
+0 & 1 & 0 & 0\\
+0 & 1 & 1 & 0\\
+1 & 0 & 0 & 1\\
+1 & 0 & 1 & 1\\
+1 & 1 & 0 & 1\\
+1 & 1 & 1 & 1\\
+\hline
+\end{array}$$
+Expression (minterms):
+$f(a,b,c)=\non{a}\non{b}c+ab\non{c}+abc+a\non{b}\non{c}+a\non{b}c$}
+{Table de Karnaugh:
+\includegraphics[width=5cm]{figs/karnaugh2.png}
+$$\Rightarrow f(a,b,c)= a+\non{b}c$$}
+\end{exampleblock}
+\end{frame}
+
+\note{C'est la fonction que nous avons fait précédemment et on retrouve la même
+forme canonique.
+\begin{itemize}
+\item bloc rouge = a, car a ne change pas dans ces 4 cases
+\item bloc rose = \non{b}c, car \non{b} et c ne change pas dans ce bloc
+\end{itemize}}
+
+\begin{frame}
+\frametitle{Table de Karnaugh à 4 variables}
+
+\begin{exampleblock}{Exemple}
+\mycolumns{c}{5}{5}{
+Expression algébrique canonique (minterms):
+$f(a,b,c,d)= \non{a}\non{b}\non{c}\non{d} + a\non{b}\non{c}\non{d}
++\non{a}b\non{c}d + ab\non{c}d + a\non{b}\non{c}d + a\non{b}cd +
+\non{a}\non{b}c\non{d} + a\non{b}c\non{d}$}
+{Table de Karnaugh:
+\includegraphics[width=5cm]{figs/karnaugh3.png}
+$$\Rightarrow f(a,b,c,d)= a\non{b}+\non{b}\non{d}+b\non{c}d$$}
+\end{exampleblock}
+\end{frame}
+
+\note{\begin{itemize}
+\item bloc rouge = b\non{c}d
+\item bloc bleu = a\non{b}
+\item bloc rose = \non{b}\non{d}
+\end{itemize}}
+
+\begin{frame}
+\frametitle{Table de Karnaugh à 4 variables}
+
+\begin{exampleblock}{Autre exemples}
+\begin{center}
+\includegraphics[width=11cm]{figs/karnaugh4.png}
+\end{center}
+\end{exampleblock}
+\end{frame}
+
+\note{Les bloc rouges sont des blocs à ne pas considérer. Ils sont déjà inclus
+dans des blocs plus gros ou ne permettrait pas d'inclure tous les 1 dans des
+blocs les plus gros possibles. Montrer au tableau que si on prends le bloc
+rouge de droite, on exclus un 1 d'un grand bloc.} 
+
+\begin{frame}
+\frametitle{Exercices}
+
+Donnez les fonctions simplifiées à partir des tables de Karnaugh suivantes:\\
+
+\mycolumns{c}{6}{6}{
+\begin{block}{}
+\includegraphics[width=5cm]{figs/karnaugh-ex1.jpg}
+\end{block}}
+{\begin{block}{}
+\includegraphics[width=5cm]{figs/karnaugh-ex2.jpg}
+\end{block}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercices: correction}
+
+Donnez les fonctions simplifiées à partir des tables de Karnaugh suivantes:\\
+
+\mycolumns{c}{6}{6}{
+\begin{block}{}
+\includegraphics[width=5cm]{figs/karnaugh-ex1-corr.jpg} \\
+$f(a,b,c,d)=\non{d} + ab + a\non{c}$
+\end{block}}
+{\begin{block}{}
+\includegraphics[width=5cm]{figs/karnaugh-ex2-corr.jpg}\\
+$f(a,b,c,d)=\non{b}\non{d} + a + b\non{c}d$
+\end{block}}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Règles de tables de Karnaugh}
+	
+	\begin{itemize}
+		\item Les groupes doivent contenir que 1 ou X
+		\item Les groupes doivent contenir 1, 2, 4, 8, 16 $(2^n)$ cellules
+		\item Chaque cellule contenant un 1 doit appartenir à au moins un groupe
+		\item Le groupe peut être horizontal ou vertical, mais pas en diagonale
+		\item Les groupes doivent être aussi grands que possible
+		\item Il devrait y avoir le moins de groupes possible
+		\item Les groupes peuvent se chevaucher
+		\item Les groupes peuvent s'asseoir autour de la table. La cellule la plus à gauche d'une rangée peut être groupée avec la cellule du bas
+
+	\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Synthèse d'un circuit combinatoire}
+
+\begin{block}{Méthode de synthèse}
+À partir d'une fonction logique, déterminer un circuit logique réalisant cette
+fonction et obtenir le meilleur (i.e., le  plus simple en nombre de portes, de
+connexions):
+\begin{enumerate}
+\item Construire la \emph{table de vérité} de la fonction logique;
+\item En dériver une \emph{expression algébrique} (par exemple par la méthode
+des minterms);
+\item Simplifier cette expression (méthode algébrique ou tables de Karnaugh);
+\item Réaliser la fonction logique à l'aide d'opérateurs divers (NON, ET, OU,
+XOR, NAND, NOR, etc.) pour obtenir un logigramme.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\note{Méthode algébrique = utiliser les théorèmes de l'algèbre de Boole vu plus
+haut.}
+
+\begin{frame}
+\frametitle{Exercice}
+
+\begin{exampleblock}{Synthèse}
+Déduire le circuit de chacune des fonctions suivantes:
+\begin{enumerate}
+\item $xyz+x\non{y}+\non{x}y$;
+\item $(x+z)(y+z)+y$.
+\end{enumerate}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Analyse d'un circuit combinatoire}
+
+L'analyse est l'opération inverse de la synthèse.
+\begin{block}{Méthode de d'analyse}
+Retrouver la fonction d'un circuit dont on connaît uniquement le logigramme:
+\begin{enumerate}
+\item En procédant des entrées vers les sorties, donner, pour chaque opérateur
+l'expression de sa sortie en fonction de ses entrées, jusqu'à obtention d'une
+expression pour chaque fonction réalisée par le circuit;
+\item Donner la table de vérité correspondante;
+\item En déduire le rôle du circuit.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exemple d'analyse}
+
+\begin{exampleblock}{}
+\begin{center}
+\includegraphics[width=10cm]{figs/circ1.png}
+\end{center}
+$$\Rightarrow f(a,b,c) = (a+b)(a+\non{c})$$
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercice}
+
+\begin{exampleblock}{Analyse}
+Donner la fonction logique correspondant au circuit ci-dessous.\\
+Simplifier la fonction et re-dessiner le circuit obtenu.
+
+\begin{center}
+\includegraphics[width=6.5cm]{figs/circ3.png}
+\end{center}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Circuits logiques les plus importants}
+
+\begin{itemize}
+\item Demi-additionneur (addition sans gestion de la retenue) et additionneur
+complet (addition avec gestion de la retenue);
+\item Multiplexeur (plusieurs signaux en entrées, 1 seule sortie) et
+démultiplexeur (un seul signal en entrée et plusieurs sorties);
+\item Décodeur, codeur et transcodeur (e.g., conversion de base).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Synthèse d'un demi-additionneur}
+
+Circuit logique capable de faire la somme de 2 nombres binaires mais
+qui ne tient pas compte de la retenue éventuelle provenant d'une
+opération précédente.
+
+\begin{exampleblock}{Demi-additionneur}
+\begin{columns}
+\column{5cm}
+\begin{tabular}{|c||c||c|}
+\hline
+$a~~~~b$ & Sortie S & Retenue R\\
+\hline
+$0~~~~0$ & 0 & 0 \\
+$0~~~~1$ & 1 & 0 \\
+$1~~~~0$ & 1 & 0 \\
+$1~~~~1$ & 0 & 1 \\
+\hline
+\end{tabular}
+Expression algébrique canonique (minterms) :
+$S=a\non{b}+\non{a}b=a\oplus{}b$\\
+$R=ab$
+\column{6cm}
+\includegraphics[width=6cm]{figs/add-demibit.jpg}\\
+ou plus simple:\\
+\includegraphics[width=3cm]{figs/add-demibit-xor.jpg}
+\end{columns}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Synthèse d'un étage d'additionneur (1/2)}
+
+Circuit logique capable de faire la somme de 2 nombres binaires et d'une
+retenue provenant d'une opération précédente.
+
+\begin{exampleblock}{Étage d'additionneur}
+\begin{columns}
+\column{5cm}
+\begin{tabular}{|ccc||c||c|}
+\hline
+a & b & $R_0$ & S & $R_1$\\
+\hline
+0 & 0 & 0 & 0 & 0\\
+0 & 0 & 1 & 1 & 0\\
+0 & 1 & 0 & 1 & 0\\
+0 & 1 & 1 & 0 & 1\\
+1 & 0 & 0 & 1 & 0\\
+1 & 0 & 1 & 0 & 1\\
+1 & 1 & 0 & 0 & 1\\
+1 & 1 & 1 & 1 & 1\\
+\hline
+\end{tabular}
+\column{6cm}
+Expression algébrique canonique (minterms):
+\begin{tabular}{ll}
+S & $= \non{a}\non{b}R_0 + \non{a}b~\non{R_0} + a\non{b}\non{R_0} + abR_0 $\\
+& $= R_0(\non{a}\non{b}+ab) + \non{R_0}(\non{a}b+a\non{b})$ \\
+& $= R_0(\non{a \oplus b})+ \non{R_0}(a \oplus b)$ \\
+& $= R_0 \oplus (a \oplus b)$ \\
+& \\
+$R_1$ & $= \non{a}bR_0 + a\non{b}R_0 + ab\non{R_0} + abR_0 $ \\
+& $= R_0(\non{a}b+a\non{b}) + ab (R_0 + \non{R_0}) $\\
+& $= R_0(a \oplus b) + ab$\\
+\end{tabular}
+\end{columns}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Synthèse d'un étage d'additionneur (2/2)}
+
+Logigramme correspondant:
+\begin{center}
+\includegraphics[width=11cm]{figs/etage-add.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Synthèse d'un étage d'additionneur (2/2)}
+	
+	Logigramme correspondant:
+	\begin{center}
+		\includegraphics[width=11cm]{img/adder.png}
+	\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Additionneur binaire complet}
+
+\begin{itemize}
+\item L'\textbf{étage d'additionneur} est composé de 2 demi-additionneurs et
+d'un OU. Il fait la somme de 2 bits en tenant compte d'une éventuelle retenue.
+\includegraphics[width=11cm]{figs/add-1bit.pdf}
+\item L'\textbf{additionneur complet} est obtenu en utilisant en parallèle
+plusieurs étages additionneurs (il faut autant d'étages que de bits composants
+les nombre binaires à additionner).
+\end{itemize}	
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercice}
+
+\begin{exampleblock}{Additionneur complet sur 4~bits}
+\begin{itemize}
+\item Dessiner le schéma d'un additionneur de deux nombres sur 4~bits.
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Additionneur complet sur 4~bits}
+
+\begin{itemize}
+	\footnotesize{
+	\item Dessiner le schéma d'un additionneur de deux nombres sur 4~bits.
+	\item Les nombres binaires 4 bits : $A = A_3, A_2, A_1, A_0$ and $B = B_3, B_2, B_1, B_0$
+	\item Utilisez quatre additionneurs complets, puisque le "carry" initial $C_{in}$ est égal à zéro. 
+	}
+\end{itemize}
+
+\includegraphics[width=11cm]{figs/add.jpg}
+\end{frame}
+
+\note{Ça y est on sait faire l'addition, on sait donc faire toute l'arithmétique
+binaire.}
+
+
+
+\begin{frame}
+\frametitle{Multiplexeur}
+
+\begin{itemize}
+	\footnotesize{	
+		\item $2^n$ entrées, $n$ variables, 1 sortie
+		\item La sortie (K) prend la valeur d'une des entrées selon la valeur des $n$
+		variables : \textbf{une des 4 entrées est acheminé sur la sortie K}.
+		\begin{itemize}
+			\footnotesize{	
+				\item Basé sur la combinaison des entrées présentes sur ces deux lignes de sélection
+			}
+		\end{itemize}
+	}
+\end{itemize}
+\begin{center}
+	\includegraphics[width=7cm]{figs/multiplexeur.pdf}
+	\includegraphics[width=3cm]{img/multiplexer.png}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Démultiplexeur}
+	
+	\begin{itemize}
+		\footnotesize{
+		\item 1 entrée, $n$ variables, $2^n$ sorties
+		\item Une des sorties prend la valeur de l'entrée (K) selon la valeur des $n$
+		variables (deux lignes de sélection): \textbf{la variable K est acheminé sur l'une des 4 sorties}.
+		}
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=7cm]{figs/demultiplexeur.pdf}
+		\includegraphics[width=4cm]{img/demultiplex_1.png}
+		\includegraphics[width=1cm]{img/demultiplex_2.png}
+	\end{center}
+\end{frame}
+
+\note{Pour que K soit maintenu, il faut qu'il passe une porte AND avec que
+	d'autres valeurs à 1.\\
+	Les n variables sont appelées lignes de sélection ou lignes de contrôle ou
+	commande.\\
+	Faire la synthèse du démultiplexeur.}
+
+
+\begin{frame}
+\frametitle{Applications de multiplexeurs}
+
+\begin{itemize}
+\item Fonction universelle (i.e., un multiplexeur à n variables peut réaliser
+les $2^{2^n}$ fonctions logiques à n variables;
+\item Multiplexage (i.e., concentrer plusieurs lignes en une seule ou faire
+l'opération inverse);
+\item Codage, décodage, transcodage.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Décodeur (1/2)}
+
+Fait correspondre à un code en entrée (sur n lignes) une seule sortie active
+(i.e., a 1) parmi les $2^n$ sorties possibles.
+%\begin{center}
+\includegraphics[width=11cm]{figs/decodeur.pdf}
+%\end{center}
+Le décodeur peut être utilisé pour convertir un nombre binaire en nombre décimal
+ou pour adresser une mémoire.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Décodeur (2/2)}
+
+\begin{center}
+\includegraphics[width=8cm]{figs/decodeur2.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercice}
+
+\begin{exampleblock}{Décodeur 2 vers 4}
+\begin{itemize}
+\item Construire la table de vérité d'un décodeur 2 vers 4;
+\item Dessiner le circuit logique correspondant.
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercice: correction}
+
+\begin{exampleblock}{Décodeur 2 vers 4}
+\begin{itemize}
+\item Dessiner le circuit logique correspondant.
+
+\includegraphics[width=11cm]{figs/decodeur.png}
+\end{itemize}
+\end{exampleblock}
+\end{frame}
+
+\begin{frame}
+\frametitle{Codeur}
+
+Fait correspondre à une entrée active, parmi les $2^n$ entrées, un code sur n
+lignes en sortie.
+\begin{center}
+\includegraphics[width=6cm]{figs/codeur.pdf}
+\end{center}
+Un \textbf{transcodeur} fait correspondre une entrée sur $n$ lignes
+correspondant à un certain codage, une sortie sur $m$ lignes correspondant à un
+autre codage.
+\end{frame}
+
+\note{Faire la synthèse du décodeur.}
+
+\begin{frame}
+\frametitle{Circuits séquentiels}
+
+\textbf{Circuits combinatoires} $\Rightarrow$ pas de rétroactions (i.e., de
+retours des sorties dans les entrées).
+
+\begin{block}{}
+Les \textbf{circuits séquentiels} possèdent des rétroactions: les signaux de
+sortie ne dépendent pas uniquement des entrées mais aussi de leur séquence. Le
+circuit se rappelle des entrées et des états précédents : il a une
+\textbf{mémoire} du passé.
+\end{block}
+\begin{itemize}
+\item Ajout des notions d'états et de mémoire.
+\item Ajout de la notion de temps (i.e., horloge).
+\item Repose sur la théorie des automates finis.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Circuits séquentiels}
+	\begin{center}
+		\includegraphics[width=8cm]{img/sequential_1.png}
+		\\\includegraphics[width=8cm]{img/sequential_2.png}
+	\end{center}
+\end{frame}
+% \begin{frame}
+% \frametitle{Horloge}
+
+% Besoin de séquentialiser les opérations, pour cela on utilise une horloge :
+% \begin{itemize}
+% \item Système logique qui émet régulièrement une impulsion.
+% \item Deux impulsions = le temps du cycle.
+% \end{itemize}
+% Ajout de circuit de retardement pour obtenir plusieurs impulsions décalées
+% permettant de décomposer un cycle en plusieurs phases et de synchroniser ainsi
+% les différentes phases.
+% \begin{columns}
+% \column{6cm}	
+% \includegraphics[width=6cm]{figs/horloge.pdf}
+% \column{5.5cm}
+% Cycle composé de 4 phases:
+% \begin{enumerate}
+% \item le front montant de $H_1$;
+% \item le front descendant de $H_1$;
+% \item le front montant de $H_2$;
+% \item le front descendant de $H_2$.
+% \end{enumerate}
+% \end{columns}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Horloge à quartz}
+% \begin{columns}
+%   \column{6cm}
+%   \includegraphics[width=6cm]{figs/quartz.jpg}
+%   \column{5.5cm}
+%   \begin{itemize}
+% \item Les horloges des machines
+%   sont souvent réalisées grâce à des oscillateurs à quartz
+% \item Un quartz est un composant qui possède comme propriété utile
+%   d'osciller à une fréquence stable lorsqu'il est stimulé
+%   électriquement.
+%   \end{itemize}
+% \end{columns}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Concept d'automate fini}
+
+% \begin{block}{}
+% Un \textbf{automate fini} (ou machine à états finie) est une machine abstraite
+% constituée d'un nombre fini d'états et de transitions. Un automate fini est
+% caractérisé, entre un temps $t$ et $t+1$ par:
+% \begin{itemize}
+% \item sa réponse S,
+% \item son entrée E,
+% \item son état Q.
+% \end{itemize}
+% \end{block}
+% Le comportement d'un automate fini est déterminé par:
+% \begin{itemize}
+% \item Ses \textbf{fonctions de transfert}:
+% \begin{itemize}
+% \item $S(t+1) = f( Q(t), E(t))$: sortie à t+1 dépend des entrées et états à t
+% \item $Q(t+1) = g ( Q(t), E(t))$: état à t+1 dépend des entrées et états à t
+% \end{itemize}
+% \item Ses \textbf{tables de transitions}:
+% \begin{itemize}
+% \item Valeurs de $Q(t+1)$ et $S(t+1)$ pour chaque combinaison de valeurs de
+% $E(t)$ et $Q(t)$
+% \end{itemize}
+% \item Diagrammes d'états (i.e., représentation graphique : état=rond,
+% transition=flèche)
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Exemple d'automate fini : mémoire binaire (1/3)}
+
+% On veut un automate fini qui soit capable de mémoriser la valeur d'un bit.
+% \begin{itemize}
+% \item 1 entrée (0 : on mémorise 0, 1 on mémorise 1).
+% \item 2 états: 0 ou 1.
+% \item la sortie à t+1 ne dépend que de l'état a t (opération de lecture)
+% \item l'état a t+1 ne dépend que de l'entrée a t (opération d'écriture)
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Exemple d'automate fini : mémoire binaire (2/3)}
+
+% \begin{itemize}
+% \item Fonctions de transfert
+% \begin{itemize}
+% \item $S(t+1) = Q(t)$ : la sortie à t+1 est égale à l'état à t
+% \item $Q(t+1) = E(t)$ : l'état à t+1 est égal à l'entrée à t
+% \end{itemize}
+% \item Table de transitions (i.e., Valeurs de $Q(t+1)$ et $S(t+1)$ en fonction de
+% $E(t)$ et $Q(t)$)
+% \end{itemize}
+% \begin{columns}
+% \column{0.4\textwidth}
+% S(t+1)
+% \begin{center}
+% \begin{tabular}{|c|cc|}
+% \hline
+% $~~~~~${E(t)} & 0 & 1\\
+% {Q(t)}$~~~~~$ & &\\
+% \hline
+% 0 & 0 & 0\\
+% 1 & 1 & 1\\
+% \hline
+% \end{tabular}
+% \end{center}
+% $\Rightarrow$ Quelque soit l'entrée, c'est l'état qui est renvoyé.
+% \column{0.4\textwidth}
+% Q(t+1)
+% \begin{center}
+% \begin{tabular}{|c|cc|}
+% \hline
+% $~~~~~${E(t)} & 0 & 1\\
+% {Q(t)}$~~~~~$ & &\\
+% \hline
+% 0 & 0 & 1\\
+% 1 & 0 & 1\\
+% \hline
+% \end{tabular}
+% \end{center}
+% $\Rightarrow$ Quelque soit l'état, c'est l'entrée qui est mémorisée.
+% \end{columns}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Exemple d'automate fini: mémoire binaire (3/3)}
+
+% \begin{itemize}
+% \item Diagrammes d'états.
+% \end{itemize}
+% \begin{center}
+% \includegraphics[width=11cm]{figs/automate.pdf}
+% \end{center}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Bistables (ou bascules ou flip-flop)}
+
+% Automate ayant 2 états stables.
+% \begin{itemize}
+% \item Circuit permettant de mémoriser 1 bit.
+% \begin{itemize}
+% \item Possède une variable codée sur 1 bit.
+% \item Valeur conservée et modifiable dans le temps.
+% \end{itemize}
+% \item Plusieurs types de bistables :
+% \begin{itemize}
+% \item \textbf{Asynchrone} (bascule RS) : Les sorties sont recalculées à chaque
+% changement des valeurs en entrées.
+% \item \textbf{Synchrone} (bascule RSh, D, flip-flop) : Les sorties sont
+% recalculées en fonction d'un signal d'horloge en entrée (notée $C$ ou $ck$ pour
+% clock).
+% \end{itemize}
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Bascule RS (1/2)}
+
+% \begin{itemize}
+% \item Stocke 1 bit ($\Rightarrow$ un mot de n bits = n bascules)
+% \item Accès aux informations/bascules
+% \begin{itemize}
+% \item Lecture/écriture de tous les bits d'un mot en parallèle et en même temps
+% (accès mot par mot et non pas bit par bit)
+% \end{itemize}
+% \item 2 entrées:
+% \begin{itemize}
+% \item R (reset) pour la remise à 0.
+% \item S (set) pour la mise à l'état 1.
+% \end{itemize}
+% \item 2 sorties:
+% \begin{itemize}
+% \item $Q$
+% \item $\non{Q}$
+% \end{itemize}
+% \item Réalisé à l'aide de 2 portes NON-OU
+% \end{itemize}
+% \begin{center}
+% \includegraphics[width=11cm]{figs/bascule-rs.pdf}
+% \end{center}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Bascule RS (2/2)}
+
+% \textbf{S (Set) est activée (=1) pour écrire un bit dans le bistable}:
+% \begin{itemize}
+% \item Si $S=1$ alors que $Q=0$, alors $Q$ est mis à 1.
+% $$\non{Q}=\non{S+Q}=\non{1+0}=0\Rightarrow Q=\non{R+\non{Q}}=\non{0+0}=1$$
+% \item Si $S=0$ alors que $Q=1$, alors $Q$ reste à 1.
+% $$\non{Q}=\non{S+Q}=\non{0+1}=0\Rightarrow Q=\non{R+\non{Q}}=\non{0+0}=1$$
+% \end{itemize}
+% \textbf{R (Reset) est activée (=1) pour effacer un bit dans le bistable}:
+% \begin{itemize}
+% \item Si $R=1$ alors que $Q=1$, alors $Q$ est mis à $0$
+% \item Si $R=1$ alors que $Q=0$, alors $Q$ reste à 0.
+% \end{itemize}
+% Dans les deux cas on est donc dans un état stable.
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Bascule RSh}
+
+% Dans la pratique on ne veut changer l'état d'une bascule qu'à un instant précis.
+% \begin{itemize}
+% \item 3 entrées:
+% \begin{itemize}
+% \item R (reset) pour la remise à 0.
+% \item S (set) pour la mise à l'état 1.
+% \item ck pour l'horloge : ck = 1 alors bascule RS sinon ne fonctionne pas.
+% \end{itemize}
+% \item 2 sorties:
+% \begin{itemize}
+% \item $Q$,
+% \item $\non{Q}$
+% \end{itemize}
+% \item Réalisé à l'aide de 2 portes NON-OU et 2 portes ET
+% \item Change d'état à un moment précis en fonction de l'activation ou non de ck
+% \end{itemize}
+% \begin{center}
+% \includegraphics[width=11cm]{figs/bascule-rsh.pdf}
+% \end{center}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Bascule D (delay)}
+
+% Recopie sur sa sortie $Q$ l'unique signal applique à son entrée $D$, avec un
+% retard d'une période d'horloge.
+% \begin{itemize}
+% \item 2 entrées:
+% \begin{itemize}
+% \item D pour la valeur en entrée
+% \item Ck pour l'entrée de contrôle.
+% \end{itemize}
+% \item 1 sortie Q:
+% \begin{itemize}
+% \item Q$_{t+1}$ = D si $ck= 1$
+% \item Q$_{t+1}$ = Q si $ck= 0$.
+% \end{itemize}
+% \item Le signal d'horloge retarde le signal en entrée D d'une période d'horloge
+% \end{itemize}
+% \begin{center}
+% \includegraphics[width=9cm]{figs/bascule-d.pdf}
+% \end{center}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Bascule T (toggle)}
+
+% Si son entrée T est active, elle bascule à chaque impulsion d'horloge d'où son
+% nom. Si son entrée T est inactive, elle conserve son état.
+
+% \begin{itemize}
+% \item Si T=1, on bascule à chaque impulsion d'horloge.
+% \item Si T=0, la sortie ne change pas: état mémoire.
+% \end{itemize}
+% \end{frame}
+
+% \note{Faire remarquer que la notion de bascule qui mémorise en fonction de
+% l'horloge est importante... c'est comme ça qu'on aura des mémoires qui ont
+% besoin d'être rafraîchie.\\
+% On ne détaille pas plus les bistables... on essaye juste de comprendre à quoi
+% ils peuvent servir pour construire un ordinateur ;)}
+
+% \begin{frame}
+% \frametitle{Applications des bistables: les registres}
+
+% Plusieurs bistables en parallèle permettent de mémoriser plusieurs bits
+% d'information. Ce sont des \textbf{registres}. Ils sont utilisés dans un
+% processeur pour stocker des valeurs lors de l'exécution d'un programme.
+% \begin{exampleblock}{Registre 8 bits}
+% \begin{itemize}
+% \item 8 bascules D.
+% \item 8 bits en entrée pour écrire le mot.
+% \item 8 bits en sortie pour récupérer la valeur du mot.
+% \end{itemize}
+% \end{exampleblock}
+% \begin{center}
+% \includegraphics[width=6cm]{figs/registre.pdf}
+% \end{center}
+% \end{frame}
+
+% \note{VCC et GRD c'est l'alimentation et la masse. Je ne détaille pas.}
+
+% \begin{frame}
+% \frametitle{Synthèse d'un circuit séquentiel}
+
+% Pour faire la synthèse d'un circuit séquentiel il faut:
+% \begin{enumerate}
+% \item décrire la fonction du circuit (sa réponse) pour toute entrée valable, à
+% l'aide d'un diagramme de transition;
+% \item construire la table d'états en indiquant toutes les entrées et toutes les
+% sorties;
+% \item réaliser les circuits combinatoires associes à chaque flip-flop;
+% \item réaliser les circuits combinatoires associes aux sorties;
+% \item dessiner le circuit.
+% \end{enumerate}
+% \end{frame}
+
+% \begin{frame}
+% \frametitle{Synthèse d'un compteur cyclique 2 bits}
+
+% Réaliser un compteur cyclique sur 2 bits capable de sortir la séquence 00, 01,
+% 10, 11 de façon cyclique. Les transitions à la valeur suivante étant contrôlées
+% par une entrée X (X=0 $\rightarrow$ pas de changement, X=1 $\rightarrow$
+% incrémentation du compteur). La sortie est égale a la valeur générée.
+% \end{frame}
+
+
+\begin{frame}
+\frametitle{Diapos et références}
+
+\begin{block}{Diapos constuites sur la base du cours de :}
+	David Delahaye, professeur à la FDS (mon prédécesseur)
+	\\Chouki TIBERMACINE, MCF à  PolyTech-Montpellier (mon prédécesseur)
+\end{block}
+
+\begin{block}{Références bibliographiques}
+\begin{itemize}
+\item Paolo Zanella, Yves Ligier et Emmanuel Lazard. Architecture et
+  technologie des ordinateurs - 6e éd. - Cours et exercices
+  corrigés. Septembre 2018
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\end{document}

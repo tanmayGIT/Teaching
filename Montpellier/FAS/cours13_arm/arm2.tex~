@@ -1,0 +1,559 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{ulem}
+\usepackage{listingsutf8}
+
+\usepackage{lstlangarm}
+\usepackage{xcolor}
+% For multirow tables
+\usepackage{multirow}
+\definecolor{CommentGreen}{rgb}{0,.6,0}
+\lstdefinestyle{arm}
+{
+  language=[arm]Assembler,
+  escapechar=@@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{CommentGreen},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\lstdefinestyle{C}
+{
+  language=C,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{darkgray},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\lstset{%
+  inputencoding=utf8,
+  extendedchars=true,
+  literate=%
+  {é}{{\'e}}{1}%
+  {è}{{\`e}}{1}%
+  {à}{{\`a}}{1}%
+  {ç}{{\c{c}}}{1}%
+  {œ}{{\oe}}{1}%
+  {ù}{{\`u}}{1}%
+  {É}{{\'E}}{1}%
+  {È}{{\`E}}{1}%
+  {À}{{\`A}}{1}%
+  {Ç}{{\c{C}}}{1}%
+  {Œ}{{\OE}}{1}%
+  {Ê}{{\^E}}{1}%
+  {ê}{{\^e}}{1}%
+  {î}{{\^i}}{1}%
+  {ô}{{\^o}}{1}%
+  {û}{{\^u}}{1}%
+  {ë}{{\¨{e}}}1
+  {û}{{\^{u}}}1
+  {â}{{\^{a}}}1
+  {Â}{{\^{A}}}1
+  {Î}{{\^{I}}}1
+}
+
+\newcommand{\mycolumns}[5]{
+\begin{columns}[#1]
+    \column{#2cm}
+    #4
+    \column{#3cm}
+    #5
+\end{columns}
+}
+
+\newcommand{\hlrose}[1]{\sethlcolor{rosepale}\hl{#1}}
+\newcommand{\non}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\mytriangle}[6]{
+\begin{center}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    #5 & \includegraphics[width=#1cm]{figs/#4} \\
+    \multicolumn{2}{m{#3cm}}{#6} \\
+\end{tabular}
+\end{center}
+}
+
+\title[Assembleur ARM avancé]{Assembleur ARM avancé}
+\author[C.~Tibermacine]{\large{Chouki TIBERMACINE}\\
+\vspace{1cm}
+\small{Chouki.Tibermacine@umontpellier.fr}}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{center}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Objectifs du chapitre}
+
+\begin{enumerate}
+\item Donner l'intuition de la compilation des langages de haut
+  niveau;
+\item Comprendre le mécanisme d'appel de fonction;
+\item Comprendre l'utilisation de la pile;
+\item Étudier la définition et l'utilisation de tableaux.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Haut niveau et bas niveau}
+
+\begin{block}{Traduction assembleur}
+\begin{itemize}
+\item Des constructions qui peuvent sembler élémentaires dans un
+  langage tel que C ou Python (tests, boucles, fonctions) seront
+  traduites par de nombreuses instructions assembleur
+
+\item Par ailleurs, des notions d'apparence pourtant simple n'ont pas
+  d'équivalent. Par exemple, les variables de Python seront traduites
+  en termes d'emplacements mémoire et de registres, une tâche non
+  triviale (manipuler des adresses).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Conditionnelles}
+
+\begin{block}{Code C}
+{\small
+\begin{lstlisting}[style=C]
+if (r1 < r2)
+  r3 = r1;
+else
+  r3 = r2;
+\end{lstlisting}}
+\end{block}
+
+\begin{block}{Code ARM}
+{\small
+\begin{lstlisting}[style=arm]
+      cmp r1, r2
+      blt then        // si r1 < r2 saut vers then
+      mov r3, r2      // r3 := r2
+      b done          // saut vers done
+then: mov r3, r1      // r3 := r1
+done:                 // suite du programme
+\end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Boucles}
+
+\begin{block}{Code C}
+{\small
+\begin{lstlisting}[style=C]
+r2 = 0;
+while (r1 > 0) {
+  r2 = r2 + r1;
+  r1 = r1 - 1;
+}
+\end{lstlisting}}
+\end{block}
+
+\begin{block}{Code ARM}
+{\small
+\begin{lstlisting}[style=arm]
+       mov r2, #0     // r2 := 0
+       cmp r1, #0
+while: ble done       // si r1 <= 0 saut vers done
+       add r2, r2, r1 // r2 := r2 + r1
+       sub r1, r1, #1  // r1 := r1 - 1
+       b while        // retour vers while
+done:                 // suite du programme
+\end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tableaux}
+\begin{block}{Déclaration d'un tableau}
+  En C : int a[100];
+\begin{lstlisting}[style=arm]
+	.balign 4
+a:	.skip 400
+\end{lstlisting}
+
+\end{block}
+
+\begin{block}{Accès à un élément du tableau}
+En C : a[3] = 3;
+  \begin{lstlisting}[style=arm]
+         ldr r1, =a
+         mov r2, #3
+         str r2, [r1, #+12]
+\end{lstlisting}
+
+\end{block}
+
+\begin{block}{Exercice}
+  Écrire un programme qui remplit un tableau de 100 éléments avec les
+  100 premiers entiers positifs (0$\rightarrow$99) et les affiche ensuite
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonctions}
+
+\begin{block}{Code C}
+{\small
+\begin{lstlisting}[style=C]
+int succ (int x) {
+  return x + 1;
+}
+\end{lstlisting}}
+\end{block}
+
+\begin{block}{Code ARM}
+{\small
+\begin{lstlisting}[style=arm]
+/* Fonction succ */
+succ:                // r0 contient l'argument x
+      add r0, r0, #1 // r0 contient le résultat
+      bx lr          // retour à l'appelant (lr : registre qui contient
+                     // l'adresse de l'instruction suivant l'appel)
+
+/* Côté appelant */
+      mov r0, #10    // On met la valeur de l'argument dans r0
+      bl succ        // On appelle la fonction succ
+    \end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonctions avec un corps qui modifie le registre lr}
+
+\begin{block}{Code ARM}
+{\small
+\begin{lstlisting}[style=arm]
+      .data
+msg:  .string "Nouvelle valeur : %d\n"
+      .text
+succ: add r1, r0, #1
+      ldr r0, =msg  
+      bl printf      // Instruction qui modifie lr
+      mov r0, r1
+      bx lr     
+
+      // Côté appelant :
+      mov r0, #10
+      bl succ
+    \end{lstlisting}}
+\end{block}
+\only<1>{
+  {\color{red}Problème avec l'instruction $bx~lr$ car lr a été modifié par $bl~printf$ (Qu'est-ce qui va se passer à l'exécution ?)}
+}
+\only<2>{
+    {\color{red}Problème avec l'instruction $bx~lr$ car lr a été modifié par $bl~printf$ (boucle infinie, entre les 2 dernières instructions de succ)}
+  }
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonctions avec un corps qui modifie le registre lr}
+
+\begin{block}{Solution : enregistrer en mémoire l'@ qui se trouve dans $lr$}
+{\small
+\begin{lstlisting}[style=arm]
+        .data
+return: .word 0 // Déclarer une variable return
+msg:    .string "Nouvelle valeur : %d\n"
+        .text
+succ:   ldr r1, =return // Enregistrer dans r1 l'adresse de return
+	str lr, [r1] // Enregistrer dans return l'adresse dans lr
+        add r1, r0, #1
+        ldr r0, =msg  
+        bl printf
+        mov r0, r1
+        ldr r1, =return // Récupérer de return l'adresse enregistrée
+	ldr lr, [r1] // Remettre cette adresse dans lr
+        bx lr     
+      \end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Variables locales et appels récursifs}
+  \begin{itemize}
+  \item Si l'on veut déclarer des variables locales dans une fonction ?
+  \item Si l'on veut faire des appels récursifs, comment on va gérer
+    les adresses de retour (solution précédente : variable globale,
+    écrasée à chaque appel)?
+  \end{itemize}
+
+\begin{block}{Solution : utiliser la pile}
+  \begin{itemize}
+  \item C'est quoi une pile ? c'est un espace en mémoire utilisé lors
+    d'un appel de fonction
+  \item L'adresse du sommet de la pile est stockée dans le registre
+    $sp$ (\textit{stack pointer})
+  \item Cet espace est extensible ``à souhait'' par une fonction pour
+    stocker des valeurs locales pour ses calculs
+  \item Cet espace doit (par convention) être libéré par la fonction
+  \end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Enregistrement de l'adresse qui se trouve dans lr dans
+    la pile}
+
+\begin{block}{Code ARM}
+{\small
+\begin{lstlisting}[style=arm]                  
+foo: sub sp, sp, #8  // sp := sp - 8. On aggrandit la pile de 8 octets
+                     // sommet de pile : adresse du dernier octet
+                     // d'où la soustraction (sub). La pile grandit
+                     // dans le sens des adresses décroissantes.
+                     // Pourquoi 8 octets et non 4 ? standard ARM !
+     str lr, [sp]    // On enregistre lr en sommet de pile 
+     ... // Code de la fonction foo
+     ldr lr, [sp]    // On restitue lr depuis la pile 
+     add sp, sp, #8  // sp := sp + 8.
+                     // pour réduire la taille de la pile de 8 octets
+                     // et donc remettre le pointeur de pile à sa valeur
+                     // d'origine
+     bx lr
+\end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variables locales}
+
+\begin{block}{Code C}
+{\small
+\begin{lstlisting}[style=C]
+int succ (int x) {
+  int y;
+  y = x + 1;
+  return y;
+}
+\end{lstlisting}}
+\end{block}
+
+\begin{block}{Code ARM}
+{\small
+\begin{lstlisting}[style=arm]                  
+succ: sub sp, sp, #8   // allocation mémoire pour la variable locale
+      add r0, r0, 1    // opération
+      str r0, [sp]     // enregistrement de la valeur dans la pile
+      add sp, sp, #8   // désallocation
+      bx lr            // retour
+\end{lstlisting}}
+\end{block}
+\end{frame}
+  
+\begin{frame}
+\frametitle{Convention d'appel}
+
+\begin{block}{Règles}
+
+  La convention d'appel régit la communication entre appelant et
+  appelé lors de l'appel de fonction. Pour l'ARM, la convention
+  proposée par le fabricant est la suivante:
+\begin{footnotesize}
+\begin{itemize}
+\item les arguments sont passés dans $r0$-$r3$, puis (s'il y en a plus
+  de 4) sur la pile;
+\item les valeurs de retour sont renvoyées dans $r0$ (et dans
+  $r1$-$r3$ si renvoi de plusieurs/grandes valeurs). L'appelant ne
+  doit pas faire d'hypothèse sur les valeurs dans ces registres, à
+  moins qu'ils soient utilisés pour le passage de paramètres;
+\item les registres restants ($r4$-$r11$ et $sp$), peuvent être
+  modifiés par l'appelé mais leurs valeurs doivent être rétablies à la
+  fin de la fonction (l'appelant fait l'hypothèse que ces registres ne
+  sont pas altérés par l'appelé).
+\end{itemize}
+\end{footnotesize} {\color{red}Exercice : Écrire un programme qui fait
+  un appel à $printf$ pour afficher \textit{Hello World}; ensuite
+  debugger ce programme avec $gdb$ pour voir l'état du registre r0
+  avant et après l'appel à $printf$}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonctions récursives}
+
+\begin{block}{Code C}
+{\small
+\begin{lstlisting}[style=C]
+int fact (int n) {
+  if (n <= 0)
+    return 1;
+  else
+    return n * fact (n - 1);
+}
+\end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonctions récursives}
+
+\begin{block}{Code ARM}
+{\footnotesize
+\begin{lstlisting}[style=arm]
+fact:	sub sp, sp, #8
+        str lr, [sp]   // enregistrer lr en sommet de pile
+	cmp r0, #0
+	ble fact0      // si r0 <= 0 saut vers fact0
+	sub r0, #1     // r0 := r0 - 1
+	mov r1, r0     // enregistrer r0 dans r1
+	b fact         // appel récursif
+endf:  	
+	mul r0, r1     // r0 := r0 * r1 (r1 : résultat précédent)
+	ldr lr, [sp]
+	add sp, sp, #8
+	bx lr          // retour à l'appelant
+	
+fact0:	mov r0, #1     // valeur de retour = 0
+	b endf
+	
+\end{lstlisting}}
+
+Ce code est erroné. Où est l'erreur?
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fonctions récursives}
+
+\begin{block}{Pourquoi le code est-il erroné?}
+\begin{itemize}
+\item Parce que fact est récursive, plusieurs appels à la même
+  fonction qui s'accumulent (appels actifs en même temps).
+
+\item L'appel récursif modifie $r0$ et $r1$; en fait, il en détruit le
+  contenu. Or, celui-ci est utilisé après l'appel.
+
+\item Il faut donc sauvegarder le contenu de $r0$ avant l'appel, puis
+  le restaurer après l'appel (comme pour $lr$).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Fonctions récursives}
+\vspace{-1cm}
+\begin{block}{Code ARM}
+  \vspace{-.2cm}
+{\small
+\begin{lstlisting}[style=arm]
+fact:	sub sp, sp, #8
+	str lr, [sp]
+	cmp r0, #0
+	ble fact0
+	sub sp, sp, #8 
+	str r0, [sp]   // Enregistrer r0 dans la pile (empiler r0)
+	sub r0, #1     
+	bl fact        // Appel récursif avec r0-1
+endf:	ldr r1, [sp]   // Récupérer dans r1 la valeur empilée
+	add sp, sp, #8
+	mul r0, r1     // Multiplier r0 par r1 (résultat dans r0)
+	ldr lr, [sp]
+	add sp, sp, #8
+	bx lr          // Retourner vers endf ou vers l'appelant de fact
+fact0:	mov r0, #1     
+	sub sp, sp, #8
+	str r0, [sp]   // Empiler la valeur 1 pour fact(0)
+	b endf
+      \end{lstlisting}}
+    Dérouler l'exécution d'un programme avec un appel : $fact(3)$
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sujet de TP}
+  \begin{block}{Exercices}
+\begin{itemize}
+\item Écrire une fonction qui permute le contenu de deux variables
+  entières de la zone de données au moyen d'une variable locale (en
+  utilisant la pile) pour effectuer la permutation;
+
+\item Écrire le code assembleur correspondant au code C suivant:
+
+{\small
+\begin{lstlisting}[style=C]
+int sqr (int x) {
+  return x * x;
+}
+
+int sum_sqr (int x, int y) {
+  return sqr(x) + sqr(y);
+}
+\end{lstlisting}}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sujet de TP -suite-}
+
+\begin{block}{Exercices}
+\begin{itemize}
+\item Écrire une fonction qui effectue récursivement la somme des $n$
+  premiers entiers, où $n$ est un entier passé en argument;
+
+\item Écrire la fonction de Fibonacci:
+
+$$fib(n)=
+\left\{
+\begin{array}{l}
+1\mbox{, si }n=0,1\\
+fib(n-1)+fib(n-2)\mbox{, sinon}
+\end{array}
+\right.$$
+\end{itemize}
+\end{block}
+\end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Plus simplement}
+
+% \begin{block}{Appels de fonctions dans les fonctions}
+% \begin{itemize}
+% \item Le registre $lr$ sera écrasé par un sous-appel;
+% \item Il faut donc le sauvegarder systématiquement;
+% \item Même s'il n'y a pas de sous-appel;
+% \item Cela permet d'éviter de devoir y penser.
+% \end{itemize}
+% \end{block}
+
+% \begin{block}{Toute fonction sera parenthésée par}
+% {\small
+% \begin{lstlisting}[style=arm]
+% func: sub sp, sp, #8
+%       str lr, [sp]
+%       ...
+%       ldr lr, [sp]
+%       add sp, sp, #8
+%       bx lr
+% \end{lstlisting}}
+% \end{block}
+% \end{frame}
+
+\end{document}

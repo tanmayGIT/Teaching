@@ -1,0 +1,698 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ulem}
+\usepackage{xcolor}
+
+\lstdefinestyle{C}
+{
+  language=C,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{green},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\title[FAS]{\Large{Bibliothèques logicielles}}
+\author[C.~Tibermacine]{\large{Chouki TIBERMACINE}\\
+\vspace{1cm}
+\small{Chouki.Tibermacine@umontpellier.fr}}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{flushright}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{flushright}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bibliothèques logicielles}
+
+\begin{block}{Qu'est-ce que c'est?}
+\begin{itemize}
+\item Ensemble de routines, qui peuvent être déjà compilées et prêtes
+  à être utilisées par des programmes;
+\item Enregistrées dans des fichiers semblables aux fichiers de
+  programmes, ou sous la forme d'un ensemble de fichiers de code objet
+  rassemblés;
+\item Apparues dans les années 1950 et devenues un outil
+  incontournable dans les langages de programmation;
+\item Opérations fréquentes en prog.~: manipulation des
+  interfaces utilisateur, des bases de données ou calculs maths;
+\item Manipulées par l'éditeur de lien (si compilées) et le système
+  d'exploitation (qu'elles soient statiques ou partagées).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Problématique}
+
+\begin{block}{Plusieurs questions}
+\begin{itemize}
+\item Comment retrouver une routine dans une bibliothèque?
+\item Comment écrire des bibliothèques?
+\end{itemize}
+\end{block}
+
+\begin{block}{Les réponses dépendent}
+\begin{itemize}
+\item Du système (Unix, Windows, ou Mac OS X);
+\item Si le langage utilisé est un langage compilé ou non;
+\item Si la bibliothèque est statique ou partagée.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Un peu de vocabulaire}
+
+\only<1>{
+\begin{block}{Bibliothèque statique}
+\begin{itemize}
+\item destinée à être copiée dans les programmes qui l'utilisent
+\end{itemize}
+\end{block}
+
+\begin{block}{Bibliothèque partagée (dynamique)}
+\begin{itemize}
+\item destinée à être associée aux programmes à l'exécution;
+\item même copie de la bib. peut être utilisée par +ieurs
+  programmes.
+\end{itemize}
+\end{block}
+
+\begin{block}{Éditeur de liens}
+\begin{itemize}
+\item le programme qui combine différents fichiers de code objet
+  (après compilation), parmi lesquels des bibliothèques, pour en faire
+  un programme exécutable.
+\end{itemize}
+\end{block}}
+
+\only<2>{
+  \begin{block}{Table de symboles}
+\begin{itemize}
+\item C'est une structure manipulée par les compilateurs et les
+  éditeurs de liens, qui contient, entre autres :
+\begin{enumerate}
+\item les noms d'éléments du programme (routines, variables,
+  constantes),
+\item leur adresses, c'est-à-dire leur emplacement dans le
+  programme.
+\end{enumerate}
+\item La table de symboles produite par le compilateur est utilisée
+  ensuite par l'éditeur de liens pour déterminer l'emplacement des
+  routines qui se trouvent dans les bibliothèques.
+\end{itemize}
+\end{block}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Résolution de noms}
+
+\only<1>{
+\begin{block}{Ce que l'on veut}
+\begin{itemize}
+\item Pour qu'un programme utilise une routine, il est nécessaire que
+  la provenance de la routine soit connue;
+\item La provenance est déterminée conjointement par le compilateur,
+  l'éditeur de liens et le système d'exploitation, dans un processus
+  de résolution qui recherche dans les bibliothèques;
+\item Le processus diffère selon que la ou les bibliothèques utilisées
+  sont statiques ou partagées.
+\end{itemize}
+\end{block}}
+
+\only<2>{
+\begin{block}{Processus préalable}
+\begin{itemize}
+\item Lors de la traduction d'un fichier de code source en code objet,
+  le compilateur ajoute à la table de symboles les noms des routines
+  utilisées dans ce fichier source ainsi que leurs adresses;
+\item L'adresse est laissée vide si la routine n'a pas été trouvée
+  dans le fichier de code source;
+\item Puis l'éditeur de liens recherchera alors à quoi correspond
+  chaque routine dont l'adresse est laissée vide par le compilateur.
+\end{itemize}
+\end{block}}
+
+\only<3>{
+\begin{block}{Dans le cas d'une bibliothèque statique}
+\begin{itemize}
+\item L'éditeur de liens copie l'intégralité de la bibliothèque dans
+  le programme (qui utilise des routines de la bibliothèque);
+\item Le fichier de bibliothèque (qui a été copié) n'est alors plus
+  nécessaire à l'exécution du programme;
+\item La bibliothèque est ainsi copiée dans chaque programme qui
+  l'utilise.
+\end{itemize}
+\end{block}}
+
+\only<4>{
+  \begin{block}{Dans le cas d'une bibliothèque partagée}
+\begin{itemize}
+\item Si la routine provient d'une bibliothèque partagée alors
+  l'éditeur de liens ne la copie pas dans le programme;
+\item Au lieu de cela le système d'exploitation placera la
+  bibliothèque en mémoire en même temps que le programme avant son
+  exécution;
+\item Une seule copie de la bibliothèque est enregistrée, et tous les
+  programmes utilisent la même copie de la bibliothèque, ce qui permet
+  d'économiser de la place par rapport à une bibliothèque statique.
+\end{itemize}
+\end{block}}
+
+\only<5>{
+\begin{block}{Difficultés avec les bibliothèques partagées}
+\begin{itemize}
+\item Bibliothèque utilisée par un programme non trouvée au moment où
+  le programme en a besoin, entraînant l'échec du programme;
+\item Interface de programmation (API) de la bibliothèque trouvée ne
+  correspondant pas à celle dont le programme a besoin, entraînant un
+  crash de ce dernier;
+\item Très sensible aux changements de versions (parfois l'API n'a pas
+  changé mais l'implantation oui, et cela peut entraîner des crashs);
+\item Problèmes de concurrence si la bibliothèque est exécutée
+  simultanément par plusieurs programmes (les variables globales
+  peuvent potentiellement être modifiées simultanément).
+\end{itemize}
+\end{block}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Bibliothèques logicielles selon les systèmes}
+
+\only<1>{
+\begin{block}{Unix}
+\begin{itemize}
+\item Fichiers \og{}.so\fg{} (partagées), \og{}.a\fg{} (statiques);
+\item Répertoires /lib ou /usr/lib (à l'installation de l'OS) et
+  /usr/local/lib ou /etc/lib (à l'installation d'un logiciel);
+\item Variable d'environnement LD\_LIBRARY\_PATH.
+\end{itemize}
+\end{block}
+
+\begin{block}{Windows}
+\begin{itemize}
+\item Fichiers \og{}.dll\fg{} (partagées), \og{}.lib\fg{} (statiques);
+\item Autres extensions: \og{}.ocx\fg{}, \og{}.drv\fg{} ou \og{}.cpl\fg{}
+(dynamiques);
+\item Répertoires \char`\\Windows ou \char`\\Windows\char`\\System.
+\end{itemize}
+\end{block}}
+
+\only<2>{
+\begin{block}{Mac OS X}
+\begin{itemize}
+\item Système de \og{}frameworks\fg{};
+\item \og{}Framework\fg{}: répertoire dans lequel se trouve la/les
+  bibliothèque(s) ainsi que la documentation et les headers (description
+  des routines dans un langage de programmation);
+\item Fichiers \og{}.a\fg{} (statiques) \og{}.dylib\fg{} (partagées);
+\item Répertoire /System/Library/Frameworks.
+\end{itemize}
+\end{block}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bibliothèques : cas du langage C}
+%\frametitle{Utilisation des bibliothèques partagées et statiques}
+
+\begin{block}{Un exemple: un fichier de code C}
+  \begin{lstlisting}[style=C]
+// main.c
+#include <stdio.h>
+void helper () {
+  puts("helper"); // Écrit le mot helper
+}
+int main () {
+  helper();
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bibliothèques : cas du langage C}
+
+  \begin{block}{Compilation}
+    \begin{lstlisting}
+    $  gcc -c main.c
+    \end{lstlisting}
+    Produit un fichier main.o (qui contient le code objet)
+  \end{block}
+  \begin{block}{Affichage de la table de symboles}
+    \begin{lstlisting}
+$  nm main.o
+                 ...
+0000000000000000 T helper
+0000000000000013 T main
+                 U puts
+    \end{lstlisting}
+    $U$ veut dire (symbole) Undefined (sera lié plus tard)\\
+    $T$ veut dire (qu'il apparaît dans la section de) Text (code)  
+  \end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bibliothèques : cas du langage C}
+  \begin{block}{Édition des liens}
+  \begin{lstlisting}
+    $ gcc -o main main.o    
+  \end{lstlisting}
+  Produit un fichier main (le fichier exécutable)\\
+
+\end{block}
+  \begin{block}{Exécution du programme}
+  \begin{lstlisting}
+    $ ./main    
+  \end{lstlisting}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Utilisation des bibliothèques partagées et statiques}
+
+\begin{block}{Compilation avec bibliothèques partagées}
+\begin{itemize}
+\item Dépendance de l'exécutable vis-à-vis de bibliothèques dynamiques;
+\item Bibliothèques partagées chargées une seule fois en mémoire;
+\item Exemple:
+{\tiny
+\begin{lstlisting}
+$ gcc -o main main.c (compilation + édition des liens)
+$ ldd main (pour lister les dépendances dynamiques)
+        linux-vdso.so.1 =>  (0x00007ffe9b949000)
+        libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f8d526af000)
+        /lib64/ld-linux-x86-64.so.2 (0x000055b86d571000)
+\end{lstlisting}}
+\end{itemize}
+\end{block}
+\end{frame}
+  
+\begin{frame}[fragile]
+  \frametitle{Utilisation des bibliothèques partagées et statiques}
+
+\begin{block}{Compilation avec bibliothèques statiques}
+\begin{itemize}
+\item Exécutable \og{}standalone\fg{} (aucune dépendance);
+\item Exécutable plus \og{}lourd\fg{} (bibliothèques intégrées);
+\item Exemple:
+{\tiny
+\begin{lstlisting}
+$ gcc -static -o main main.c
+$ ldd main
+        n'est pas un exécutable dynamique
+      \end{lstlisting}}
+\end{itemize}
+\end{block}
+  \begin{center}
+\includegraphics[width=8cm]{figs/taille_executables.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Création des bibliothèques partagées et statiques}
+
+\begin{block}{Code de la bibliothèque (l'entête -- \textit{header} :
+    \og{}helper.h\fg{})}
+\begin{lstlisting}[style=C]
+// helper.h
+void helper();
+\end{lstlisting}
+\end{block}
+
+\begin{block}{Code de la bibliothèque (le programme : \og{}helper.c\fg{})}
+\begin{lstlisting}[style=C]
+// helper.c
+#include <stdio.h>
+#include "helper.h"
+void helper () {
+  puts("helper");
+}
+\end{lstlisting}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Création des bibliothèques partagées et statiques}
+
+\begin{block}{Création de la bibliothèque partagée}
+\begin{itemize}
+\item Tout se fait avec gcc:
+{\tiny
+\begin{lstlisting}
+$ gcc -c -fPIC helper.c -o helper.o
+$ gcc -shared -Wl,-soname,libhelper.so.1 \
+      -o libhelper.so.1.0.1 helper.o
+\end{lstlisting}}
+\end{itemize}
+\end{block}
+
+\begin{block}{Création de la bibliothèque statique}
+\begin{itemize}
+\item Compilation normale, puis utilisation de l'\og{}archiver\fg{}
+(\og{}ar\fg{}):
+{\tiny  
+\begin{lstlisting}
+$ gcc -c helper.c -o helper.o
+$ ar rcs libhelper.a helper.o
+\end{lstlisting}}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Création des bibliothèques partagées et statiques}
+
+\begin{block}{Programme utilisant la bibliothèque (\og{}main.c\fg{})}
+\begin{lstlisting}[style=C]
+#include "helper.h"
+
+int main () {
+  helper();
+}
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Création des bibliothèques partagées et statiques}
+
+\begin{block}{Édition de liens et exécution en partagé}
+{\tiny
+\begin{lstlisting}
+$ gcc main.c -o dynamically_linked -L. -lhelper
+$ export LD_LIBRARY_PATH=.
+$ ./dynamically_linked
+\end{lstlisting}}
+\end{block}
+
+\begin{block}{Édition de liens et exécution en statique}
+{\tiny
+\begin{lstlisting}
+$ gcc -static main.c -L. -lhelper -o statically_linked
+$ ./statically_linked
+\end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bibliothèques : cas de Python}
+
+\begin{block}{Système de gestion de paquets (\og{}pip\fg{})}
+{\tiny
+\begin{lstlisting}
+$ sudo apt-get install python-pip
+$ sudo apt-get install python3-pip
+$ pip search smbus2 (ou bien : python -m pip search smbus2)
+$ sudo pip install smbus2
+$ pip show smbus2
+$ pip install smbus2 --upgrade
+$ pip freeze
+$ sudo pip uninstall smbus2
+\end{lstlisting}}
+\end{block}
+
+\begin{block}{Publier ses propres bibliothèques (sur Pypi)}
+  {\footnotesize
+\begin{itemize}
+\item Écrire sa bibliothèque (on va le voir);
+\item Utiliser \og{}setuptools\fg{} (on ne fera pas);
+\item Mettre à jour le fichier \og{}setup.py\fg{} (on ne fera pas).
+\end{itemize}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Importer des fonctions d'autres fichiers}
+
+\begin{block}{Fichier \og{}func.py\fg{} (module)}
+{\tiny
+\begin{lstlisting}
+#!/usr/bin/python2.7
+#-*- coding: utf-8 -*-
+
+def ajoute_un(v):
+	return v + 1
+\end{lstlisting}}
+\end{block}
+\begin{itemize}
+\item Bibliothèque = Module = fichier Python contenant des
+  définitions et des instructions réutilisables
+\item Chaque module a sa propre table de symboles (définitions
+  globales)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Importer des fonctions d'autres fichiers}
+\begin{block}{Fichier \og{}fiche.py\fg{}}
+{\tiny
+\begin{lstlisting}
+#!/usr/bin/python2.7
+#-*- coding: utf-8 -*-
+
+import func
+
+age = input("Quel est votre âge? : ")
+print "Vous avez %d ans" % age
+age_plus_un = func.ajoute_un(age)
+print "Dans un an vous aurez %d ans" % age_plus_un
+\end{lstlisting}}
+\end{block}
+
+Le nom du module est inséré dans la table de symboles du code objet de
+fiche.py (fonctions du module accessibles avec $<nom\_module>.<fonction>$)
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Variante d'importation de fonctions}
+\begin{block}{Fichier \og{}fiche.py\fg{}}
+{\tiny
+\begin{lstlisting}
+#!/usr/bin/python2.7
+#-*- coding: utf-8 -*-
+
+from func import *
+
+age = input("Quel est votre âge? : ")
+print "Vous avez %d ans" % age
+age_plus_un = ajoute_un(age)
+print "Dans un an vous aurez %d ans" % age_plus_un
+\end{lstlisting}}
+\end{block}
+
+Les noms des fonctions du module sont insérés dans la table de
+symboles du code objet de fiche.py
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Créer des packages}
+
+\begin{block}{Étapes}
+\begin{itemize}
+\item Un package = ensemble de modules (et de packages)
+\item Créer un répertoire qui sera le nom du package;
+\item Dans ce répertoire, on y met:
+\begin{itemize}
+\item Un fichier \og{}\_\_init\_\_.py\fg{} (qui peut être vide);
+\item Des modules (fichiers Python classiques) et des packages.
+\end{itemize}
+\end{itemize}
+\end{block}
+
+\begin{block}{Exemple}
+\begin{itemize}
+\item On crée un package \og{}utils\fg{};
+\item On ajoute un module \og{}operations.py\fg{}.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Créer des packages}
+
+\begin{block}{Dossier du projet}
+\includegraphics[height=1cm]{figs/python1.png}
+\end{block}
+
+\begin{block}{Dossier \og{}utils\fg{}}
+\includegraphics[height=1cm]{figs/python2.png}
+\end{block}
+
+\begin{block}{Fichier \og{}operations.py\fg{}}
+{\tiny
+\begin{lstlisting}
+#!/usr/bin/python2.7
+#-*- coding: utf-8 -*-
+
+def ajoute_deux(v):
+	return v + 2
+\end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Créer des packages}
+
+\begin{block}{Fichier \og{}fiche.py\fg{}}
+{\tiny
+\begin{lstlisting}
+#!/usr/bin/python2.7
+#-*- coding: utf-8 -*-
+
+from func import *
+from utils.operations import ajoute_deux
+
+age = input("Quel est votre âge? : ")
+print "Vous avez %d ans" % age
+age_plus_un = ajoute_un(age)
+print "Dans un an vous aurez %d ans" % age_plus_un
+age_plus_deux = ajoute_deux(age)
+print "Dans un an vous aurez %d ans" % age_plus_deux
+\end{lstlisting}}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pré-compilation de scripts Python}
+
+\only<1>{
+  \begin{center}
+  \includegraphics[width=9cm]{figs/py_interp_process.png}
+  \scriptsize
+  \url{https://indianpythonista.wordpress.com/2018/01/05/demystifying-pyc-files/}
+  \normalsize
+\end{center}
+  }
+
+\only<3>{
+  \begin{center}
+  \includegraphics[width=9cm]{figs/pyc_files.png}
+  \scriptsize
+  \url{https://indianpythonista.wordpress.com/2018/01/05/demystifying-pyc-files/}
+  \normalsize
+  \end{center}
+  }
+\only<2>{
+\begin{block}{Une vraie compilation ? Non!}
+\begin{itemize}
+\item Fonctionnalité permettant de mettre en cache la phase de
+  compilation d'un fichier source;
+\item Création de fichiers avec l'extension \og{}.pyc\fg{}, placés au
+  même niveau que les fichiers \og{}.py\fg{} correspondants (dans rép.
+  $\_\_pycache\_\_/$ récemment);
+\item Compilation bytecode (interprète toujours nécessaire), qui permet
+d'améliorer la vitesse de chargement d'un module lors de sa prochaine
+invocation (mais non sa vitesse d'exécution);
+\item Effectué automatiquement pour les fichiers sources composant un
+  module lors de son chargement\\ (ne compile que si .py est plus
+  récent que .pyc).
+  
+\end{itemize}
+\end{block}
+}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Compilation à la main de programmes Python}
+
+\begin{block}{Utiliser le module $py\_compile$}
+  {\tiny
+\begin{lstlisting}
+$ python
+>>> import py_compile
+>>> py_compile.compile('abc.py')
+\end{lstlisting}}
+  génère un fichier abc.pyc
+\end{block}
+
+\begin{block}{Utiliser la commande $compileall$}
+    {\tiny
+\begin{lstlisting}
+python -m compileall .
+\end{lstlisting}}
+compile tous les fichiers dans le répertoire courant (.)
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Affichage du bytecode (code objet pour l'interprète
+    Python)}
+
+  {\tiny
+\begin{lstlisting}
+>>> def hello():
+...     print "hello!"
+>>> import dis
+>>> dis.dis(hello)
+  2           0 LOAD_CONST               1 ('hello!')
+              3 PRINT_ITEM
+              4 PRINT_NEWLINE
+              5 LOAD_CONST               0 (None)
+              8 RETURN_VALUE
+\end{lstlisting}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Recherche de modules/packages Python}
+  \begin{itemize}
+  \item Lorsqu'un module est importé dans un programme Python, il est
+    recherché (dans l'ordre) dans~:
+    \begin{enumerate}
+    \item le répertoire courant
+    \item la liste de répertoires indiquée dans la variable
+      d'environnement $PYTHONPATH$ (éq. à $PATH$)
+    \item la liste de répertoires fixée à l'installation de Python
+      ($/usr/lib/python2.7/$, ...)
+    \end{enumerate}
+  \item La variable $sys.path$ contient la liste de répertoires où
+    l'interprète recherche les modules/packages importés
+  \item La variable (une liste) peut être modifiée
+    ($sys.path.append(<un\_chemin>)$)
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Remerciements et références}
+
+\begin{block}{Remerciements}
+  David Delahaye, professeur à la FDS (mon prédécesseur)
+\end{block}
+
+\begin{block}{Références bibliographiques}
+\begin{itemize}
+\item Andrew Tanenbaum. Architecture de l'ordinateur, 5ème
+  édition. Pearson Education, 2009\\
+  Andrew Tanenbaum. \textit{Structured Computer Organization, 6th
+    edition}. Pearson, 2012.
+\item Andrew Tanenbaum. Systèmes d'exploitation 3ème Ed. Pearson,
+  2008.\\
+  Andrew Tanenbaum \& Herbert Bos. Modern Operating Systems. Pearson
+  2016.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\end{document}

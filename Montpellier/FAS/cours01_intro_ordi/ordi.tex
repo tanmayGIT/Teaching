@@ -1,0 +1,1609 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{caption}
+
+\usepackage{xcolor}
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+\definecolor{mypink2}{RGB}{219, 48, 122}
+\definecolor{mypink3}{cmyk}{0, 0.7808, 0.4429, 0.1412}
+\definecolor{mygray}{gray}{0.6}
+
+
+\colorlet{Mycolor1}{green!10!orange!90!}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+\resetcounteronoverlays{saveenumi}
+\setbeamerfont{caption}{series=\normalfont,size=\fontsize{8}{10}} 
+%\input{head}
+% %%%%%%%%%%%%%%%%%%% SLIDE PATTERN %%%%%%%%%%%%%%%%%%%%
+
+% 2 columns slide
+% \mycolumns{align}{size_c1}{size_c2}{content_c1}{content_c2}
+\newcommand{\mycolumns}[5]{
+\begin{columns}[#1]
+    \column{#2cm}
+    #4
+    \column{#3cm}
+    #5
+\end{columns}
+}
+
+% 2 columns and 1 row slide
+% \mytriangle{figure_size}{column_size}{row_size}{figure}{column}{row}
+\newcommand{\mytriangle}[6]{
+\begin{center}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    #5 & \includegraphics[width=#1cm]{figs/#4} \\
+    \multicolumn{2}{m{#3cm}}{#6} \\
+\end{tabular}
+\end{center}
+}
+
+% 2 columns and 2 rows slide
+% \mygrid{text_size}{image_size}{figure1}{figure2}{text1}{text2}
+\newcommand{\mygrid}[6]{
+\begin{center}
+\begin{tabular}{m{#1cm}m{#2cm}}
+    #5 & \includegraphics[width=#2cm]{figs/#3} \\
+\end{tabular}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    \includegraphics[width=#2cm]{figs/#4} & #6\\
+\end{tabular}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title[Histoire de l'ordinateur]{\Large{Histoire de l'ordinateur}}
+\author[C.~Tibermacine]{\large{Tanmoy~Mondal}\\
+\vspace{1cm}
+\small{tanmoy.mondal@lirmm.fr}}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+%\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{flushright}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{flushright}
+\end{frame}
+
+\note{Expliquer que le PC est la première machine dont l'architecture a était
+diffusée/ouverte pour favoriser son adoption...  mais c'est plutôt Apple qui a
+inventer le PC... "IBM PC compatible", etc.}
+
+\begin{frame}
+\frametitle{Objectifs de ce cours}
+
+\begin{flushright}
+\includegraphics[width=4cm]{figs/ibm-pc.jpg}
+\end{flushright}
+
+\begin{enumerate}
+\item Connaître les grandes étapes de l'histoire de l'informatique;
+\item Découvrir l'architecture de Von~Neumann.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Besoin de calculer}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Tablettes scolaires mathématiques de l'époque \textbf{paléo-babylonienne} ( \textcolor{Mycolor2}{deuxième
+			millénaire} avant notre ère);
+			\item L'ordinateur est né du besoin de calculer de manière:
+			\begin{itemize}
+				\item toujours plus complexe;
+				\item toujours rapide.
+			\end{itemize}
+			\item $\Rightarrow$ Automatiser le calcul.
+	\end{itemize}}
+	{\includegraphics[width=4.5cm]{figs/plimton.png}\\
+		\includegraphics[width=4.5cm]{figs/boulier.jpg}}
+\end{frame}
+
+\note{Boulier utilisé plusieurs siècles avant JC.\\
+	La numérotation romaine (1er millénaire) n'était pas une numérotation
+	positionnelle: c'est a dire que la position des chiffres dans la représentation
+	d'un nombre n'était pas associée à des poids (unités, dizaines) permettant une
+	écriture des chiffres plus compacte et une grande simplification des calculs.\\
+	C'est le cas des chiffres arabes + base 10.}
+\begin{frame}
+	\frametitle{L'histoire du Ordinateur-- Tally Stick}
+
+	\mycolumns{c}{7}{5}{
+		\begin{itemize}
+			\item Un "Tally Stick" était un ancien dispositif de mémoire
+			\item Utilisé pour \textcolor{Mycolor2}{enregistrer et documenter} des \textbf{numéros, des quantités} ou même des \textbf{messages}
+			\item  Marco Polo (1254-1324), qui mentionne l'utilisation du décompte en Chine
+			\item Il était utilisé pour : 
+			\begin{itemize}
+				\item La messagerie et la planification
+				\item En particulier dans les transactions financières et juridiques
+			\end{itemize}
+	\end{itemize}}
+	{\includegraphics[width=5cm]{figs/Ishango_bone.jpg}\\
+		\includegraphics[width=5cm]{figs/tally_stick_01.jpg}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{L'histoire du Ordinateur -- Abaque (Abacus)}
+	\mycolumns{c}{9}{3}{
+		\begin{itemize}
+			\footnotesize{
+			\item Un abaque ("Abacus") est un dispositif mécanique utilisé pour aider un individu à \textbf{effectuer des calculs mathématiques}			
+			\item L'abaque a été inventé à \textbf{Babylone en 2400 Av. J.-C.}
+			\item Le abaques, que nous connaissons le mieux a été utilisé pour \textbf{la première fois en Chine vers 500 Av. J.-C.}
+			\item Il effectuait des opérations arithmétiques
+			\item Les abaques sont encore \textbf{d'usage courant dans certains pays}
+			\item Les marchands, \textbf{les commerçants et les employés dans certaines régions d'Europe orientale, en Russie, en Chine et en Afrique} utilisent des abaques
+			\item  Ils sont toujours utilisés pour \textbf{enseigner l'arithmétique} aux enfants
+			\item Certaines personnes qui \textbf{ne peuvent pas utiliser une calculatrice}, peuvent utiliser un abaque
+			}
+		\end{itemize}}
+	{
+	\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.22]{figs/RomanAbacus.jpg}
+	\vspace{0.2mm}
+	\\ \includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/abuscus_2.jpeg}
+	\vspace{0.2mm}
+	\\ \includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.33]{figs/abuscus_1.jpeg}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Napier\'s Bones)}
+	\mycolumns{c}{6}{5}{
+	\begin{itemize}
+			\item \emph{John~Neper} (1614): Permettez à l'opérateur de se multiplier, divisez et calculez les racines carrées et cubiques
+			\item En déplaçant les barres et en les plaçant dans des planches spécialement construites	
+	\end{itemize}
+	}
+	{
+	\begin{figure}
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.25]{figs/john_napier.jpg}
+		\hfill
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.2]{figs/napier-computer.jpg} \\
+		\vspace{2mm}
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.23]{figs/napier-computer-1.jpg}
+		\hfill
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=1.2]{figs/napier-computer-2.jpg}
+	\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Slide Rule)}
+	\mycolumns{c}{6}{5}{
+		\begin{itemize}
+			\item \emph{William ~Oughtred} (1622): Est basé sur les idées de Napier sur les logarithmes
+			\item Utilisé principalement pour : 
+			\begin{itemize}
+				\item Multiplication
+				\item Division
+				\item Les Racines
+				\item Logarithmes
+				\item Trigonométrie
+			\end{itemize}
+			\item Non utilisé normalement pour la soustraction et l'addition	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.25]{figs/william_oughtred.jpeg}
+			\hfill
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.15]{figs/TachersSlideRule.jpg} \\
+			\vspace{2mm}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.23]{figs/slide_rule-1.jpeg}
+			\hfill
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.7]{figs/Slide_rule_scales_back.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Pascaline)}
+	\mycolumns{c}{6}{5}{
+		\begin{itemize}
+			\item \emph{Blaise ~Pascal} (1642): \textcolor{Mycolor2}{Première machine a calculer}, la pascaline \textbf{(principe de roues dentées)}
+			\item Cette machine pouvait \textbf{additionner et soustraire} \textcolor{Mycolor2}{des nombres de six chiffres} et prenait en compte les retenues!
+			 \item C'était trop cher 	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.25]{figs/Blaise_Pascal.jpg}
+			\hfill
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.16]{figs/pascaline_1.jpg}\\
+			\vspace{2mm}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.07]{figs/Arts_et_Metiers_Pascaline_dsc03869.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Fondations -- (Stepped Reckoner)}
+	\mycolumns{c}{8}{3}{
+		\begin{itemize}
+			\item \emph{Gottfried~Leibniz} (1673), mathématicien:
+			\item \textcolor{Mycolor2}{Améliore la machine de Pascal} en y ajoutant un mécanisme 
+			\item Permettant d'automatiser \textbf{l'exécution répétitive d'additions et de soustraction} 
+			\item La première machine à calculer autorisant les 4~opérations arithmétiques était née
+			\begin{itemize}
+				\item Additions
+				\item Soustraction
+				\item Multiplication 
+				\item Division
+			\end{itemize}
+%			\item Système binaire sous sa forme moderne basé sur les deux chiffres 0 et 1 
+%			\item Montra la puissance et la simplicité de l'arithmétique binaire, système utilisé par les ordinateurs actuels	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.055]{figs/leibniz.png}
+			\hfill
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.12]{figs/Leibniz_Stepped_Reckoner_mechanism.png}\\
+			\vspace{2mm}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.18]{figs/reconerMachine.png}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Automatisation du Tissage -- (Basile Bouchon)}
+	\mycolumns{c}{8}{3}{
+		\begin{itemize}
+			\footnotesize{
+			\item \textcolor{Mycolor2}{Basile Bouchon était un pionnier français} pour automatiser les modèles du tissage
+			\item En 1725, il inventa un moyen de contrôler \textbf{un métier à tisser} avec un \textbf{ruban de papier perforé}
+			\item Il automatise \textcolor{Mycolor2}{partiellement le processus de configuration} du tirant
+		}
+			\begin{itemize}
+				\item  Dans le métier à cordon, un opérateur soulève les fils de chaîne à en utilisant de cordes
+			\end{itemize}
+			\item Ce était la première application industrielle d'une machine semi-automatisée	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.25]{figs/BasileBouchon.png}
+			\hfill
+			\includegraphics[trim = 9cm 2cm 3cm 6cm, clip,scale=0.13]{figs/BouchonMachine.png}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Automatisation du Tissage -- (Jean-Baptiste Falcon  et Jacques de Vaucanson)}
+	\mycolumns{c}{11}{0}{
+		\large{Jean-Baptiste Falcon :-}
+		\begin{itemize}
+			\footnotesize{
+				\item Un assistant du Basile Bouchon  
+				\item En utilisant des cartes rectangulaires qui étaient assemblées en une boucle (1728)
+				\item Il a augmenta le \textbf{nombre de cordes} pouvant être manipulées en \textbf{organisant les trous} en rangées
+			}	
+		\end{itemize}
+		\large{Jacques de Vaucanson :-}
+		\begin{itemize}
+			\footnotesize{
+				\item Cela élimina les erreurs de levage des fils 
+				\item Mais il fallut encore \textcolor{Mycolor2}{un opérateur supplémentaire pour le contrôler}
+				\item \textcolor{Mycolor2}{La première tentative d'automatisation} fut faite par Jacques de Vaucanson en 1745. 
+			}	
+		\end{itemize}
+	}
+	{
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Jacquard Loom)}
+	\mycolumns{c}{8}{3}{
+		\begin{itemize}
+			\item Le métier à tisser Jacquard est un métier à tisser mécanique, inventé par \textbf{Joseph-Marie Jacquard} en \textbf{1804}
+			\item C'est un métier à tisser automatique contrôlé par des cartes perforées	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.25]{figs/Joseph-Jacquard-1.jpg}
+			\hfill
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.028]{figs/Wooden_Jacquard_loom_MOSI-11_5544.JPG}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Arithmometer)}
+	\mycolumns{c}{8}{3}{
+		\begin{itemize}
+			\item Une \textcolor{Mycolor2}{calculatrice mécanique} inventée par \textcolor{Mycolor2}{Thomas de Colmarin 1820}
+			\item La première machine à calculer \textcolor{Mycolor2}{fiable, utile et commercialement réussie}
+			\item La machine peut \textcolor{Mycolor2}{exécuter les quatre fonctions} mathématiques de base
+			\item Le \textcolor{Mycolor2}{premier calculateur fabriqué en masse}	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.25]{figs/ThomasColmar.jpeg}
+			\hfill
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/colmarMachine.jpeg}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Moteur Différence et Moteur Analytique)}
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\item Considéré comme le père de l'ordinateur (\textcolor{Mycolor2}{rapprochement entre commande externe et machine calculer})
+			\item C'est une calculatrice automatique, mécanique conçue pour \textcolor{Mycolor2}{tabuler les fonctions polynomiales}
+			\item Inventé par \textbf{Charles Babbage en 1822 et 1834}
+			\item C'est le \textcolor{Mycolor2}{premier ordinateur mécanique}
+		\end{itemize}
+	\text{\hspace{4cm}\tiny{Moteur analytique} \hspace{1.5cm}\tiny{Moteur de Différence }}
+	\vspace{-0.3cm}
+	\begin{figure}
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.1]{figs/CharlesBabbage.jpg}
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.15]{figs/AnalyticalMachine_Babbage_London.jpg}
+		%	\caption{Moteur Analytique}\\
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.025]{figs/Babbage_Difference_Engine.jpg}
+		%\caption{Moteur Difference}
+	\end{figure}	
+	}
+	{
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Calcul de Scheutzian)}
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\item Inventé par Per \textbf{Georg Scheutz} en 1843.
+			\item Basé sur le moteur de différence de Charles Babbage
+			\item Le \textcolor{Mycolor2}{premier calculateur d'impression}	
+		\end{itemize}
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.12]{figs/Georg_Scheutz.jpg}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.18]{figs/ScheutzianCalculationEngine.jpg}
+			%	\caption{Moteur Analytique}\\
+			% \includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.028]{figs/Babbage_Difference_Engine.jpg}
+			%\caption{Moteur Difference}
+		\end{figure}	
+	}
+	{
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Premier programmeur informatique)}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item En \textbf{1840}, \textbf{Augusta Ada Byrons} suggère à Babbage \textcolor{Mycolor2}{qu'il utilise le système binaire}
+			\item Elle \textcolor{Mycolor2}{écrit des programmes pour le moteur d'analyse}	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.09]{figs/AugustaAdaByrons.jpg} \\
+			\vspace{2mm}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.18]{figs/AugustaAdaByrons-1.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (Machine à tabuler)}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Inventé par \textbf{Herman Hollerithin 1890}
+			\item Pour aider à résumer l'information et la comptabilité
+			\item Calculateur à statistiques (tabulatrice)\\
+			\item Cartes perforées: \textcolor{Mycolor2}{premiers supports d'entrée-sortie} et premières \textcolor{Mycolor2}{mémoires de masse (mécanographie)}	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.18]{figs/HermanHollerith.jpg} \\
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.22]{figs/hh-tabulator.png}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Fondations -- (George Boole)}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item George Boole était un mathématicien anglais
+			\item Inventé \textcolor{Mycolor2}{Système de logique symbolique} en 1854
+			\item Calcul booléen: fonctions logiques décrivant le fonctionnement d'un système le plus simple possible.	
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.13]{figs/georgeboole.jpg} \\
+		%	\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.22]{figs/hh-tabulator.png}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Les grandes étapes}
+	
+	\begin{itemize}
+		\item \emph{Basile Bouchon} (1725): Inventé un moyen de controler un métier à tisser\\
+			\footnotesize
+			$\Rightarrow$\emph{Jean-Baptiste Falcon} (1728): En utilisant des cartes rectangulaires qui étaient assemblées en une boucle sans fin \\
+			\footnotesize
+			$\Rightarrow$\emph{Jacques de Vaucanson} (1745): La première tentative d'automatisation fut faite
+		\normalsize
+		\item \emph{Joseph~Jacquard} (1805): Un métier à tisser automatique contrôlé par des cartes perforées
+		
+	\end{itemize}
+{\begin{figure}[h]
+		\includegraphics[width=4cm]{figs/holcard.jpg}
+		\vspace{-2mm}
+		\caption{Cartes perforées}
+\end{figure}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Les grandes étapes}	
+	\begin{itemize}
+		\item \emph{Charles~Babbage} (1833): considéré comme le père de l'ordinateur
+		(rapprochement entre commande externe et machine calculer).\\
+		\footnotesize
+		$\Rightarrow$ Réalisation de sa machine analytique avec l'aide
+		d'\emph{Ada~Augusta}, l'ancêtre des ordinateurs.
+		\normalsize
+		\item \emph{George~Boole} (1854): système de logique symbolique.\\
+		\footnotesize
+		$\Rightarrow$ Calcul booléen: fonctions logiques décrivant le fonctionnement
+		d'un système le plus simple possible.
+		\normalsize
+		\item \emph{Herman~Hollerith} (1890): calculateur à statistiques (tabulatrice).\\
+		\footnotesize
+		$\Rightarrow$ Cartes perforées: premiers supports d'entrée-sortie et premières
+		mémoires de masse (mécanographie).
+		\normalsize
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{figure}[h]
+		\begin{center}
+			\includegraphics[width=8cm]{figs/pascaline.jpg}
+		\end{center}
+		\caption{La pascaline (exposée au CNAM à Paris)}
+	\end{figure}
+\end{frame}
+
+\note{L'idée de la gestion de la retenue était que chaque roue dentées pouvait
+	dépasser le chiffre 9 en effectuant une rotation complète et en décalant d'un
+	cran la roue supérieure.}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Un peu d'histoire}
+
+\begin{itemize}
+\item XIème siècle: adoption des chiffres arabes;
+\item XVIIème siècle et avant: arithmétique, mathématique;
+\item XIXème siècle: les calculateurs;
+\item XXème siècle: théorie de l'information + machine universelle;
+\item 1945: architecture de Von~Neumann et naissance de l'ordinateur;
+\item Depuis 1945: 4~grandes générations d'ordinateurs se sont succédées.
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+
+\note{\begin{itemize}
+\item Babbage: premier a avoir l'idée de s'inspirer à la fois des machines a
+calculer e.g., Pascaline et des métiers à tisser
+\item La machine analytique de Babbage: conçue pour exécuter des séquences
+d'opérations arithmétiques en fonctions d'instructions données par
+l'utilisateur => ne verra jamais le jour (trop en avance sur son temps)
+\item Herman~Hollerith est le fondateur en 1896 d'une société qui deviendra plus
+tard IBM.
+\end{itemize}}
+
+%\begin{frame}
+%
+%\mycolumns{c}{6}{5}{
+%\begin{figure}[h]
+%\includegraphics[width=5cm]{figs/tabulating.pdf}
+%\caption{La \og{}Tabulating Machine\fg{} d'Herman~Hollerith}
+%\end{figure}}
+
+%\end{frame}
+
+\begin{frame}
+	\frametitle{Naissance de l'ordinateur (Havard Mark 1)}
+	
+	\mycolumns{c}{5}{5}{
+	\begin{itemize}
+		\item Également connu sous le nom de \textbf{\emph{"Automatic Sequence Controlled Calculator (ASCC)"}} du IBM\\
+		\item Inventé par \textbf{\emph{Howard H. Aiken}} en 1943
+		\item Le premier ordinateur \textcolor{Mycolor2}{électro-mécanique}
+	\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/Aiken.jpg}
+			\includegraphics[width=5cm]{figs/eniac.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Naissance de l'ordinateur (Z1)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Le \textcolor{Mycolor2}{premier ordinateur programmable}\\
+			\item Créé par \textbf{Konrad Zusein} Allemagne de \textbf{1936 à 1938}
+			\item L'utilisateur \textbf{devait insérer une bande-perforée} dans un lecteur de bande-perforée \item Toutes les \textbf{sorties étaient également générées} par la bande-perforée
+		\end{itemize}
+	}
+	{\includegraphics[width=4.5cm]{figs/Z-3_Zuse.jpg}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Naissance de l'ordinateur (Atanasoff-Berry Computer(ABC) )}
+	
+	\mycolumns{c}{5}{5}{
+		\begin{itemize}
+			\item C'était le premier ordinateur numérique et électronique\\
+			\item  Inventé par le professeur \textbf{John Atanasoff} son étudiant \textbf{Clifford Berry} à \textcolor{Mycolor2}{l'Iowa State University} entre 1939 et 1942.
+
+		\end{itemize}
+	}
+	{
+	\begin{figure}
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/berry.jpeg}
+		\includegraphics[width=4.5cm]{figs/berryComputer.jpeg}
+	\end{figure}
+}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Construction de l'ENIAC (1946)}
+	
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\footnotesize{
+			\item Electronic Numerical Integrator Analyser and Calculator (ENIAC)
+			\item Technologie des tubes à vide (18000, 30~tonnes);
+			\item Construit à \textbf{l'Université de Pennsylvanie} par \textbf{John Presper Eckert} et \textbf{John W. Mauchly}
+			\item Construit pour développer le modèle Turing-complet
+			\item Multiplication de 2~nombres de 10~chiffres en 3~ms!	
+		}
+	\end{itemize}
+		\centering \includegraphics[width=6cm]{figs/ENIAC.jpg}
+	}
+	{}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Construction de l'UNIVAC 1 (1946)}
+	
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\footnotesize{
+			\item La UNIVAC I (\textbf{UNIV}ersal \textbf{A}utomatic \textbf{C}omputer 1) était le premier ordinateur commercial
+			\item Conçu par \textbf{J. Presper Eckert} et \textbf{John Mauchly}
+			\item Prix: 1,25 M \$ - 1,5 M \$
+			\item Unités produites: 46
+		}
+	\end{itemize}
+		\centering\includegraphics[width=6cm]{figs/UNIVAC.jpeg}
+	}
+	{
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Bug informatique (1947)}
+	
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\footnotesize{
+			\item Les opérateurs travaillant avec \textbf{Grace Murray Hopper} sur l'ordinateur \textbf{Mark II} au \textbf{Université Harvard} 
+			\item Découvrent un «bogue», \textcolor{Mycolor2}{un papillon} logé dans les composants 
+			\item Les opérateurs ont apposé le papillon sur le journal-de-l'ordinateur, avec la mention: \textbf{"First actual case of bug being found"}
+			}
+	\end{itemize}
+			\centering\includegraphics[width=5cm]{figs/bugs.jpg}
+	}
+	{
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Transistor (1947)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item \textbf{Bell Labs} développe le transistor (à droite) 
+			\item Un commutateur électronique constitué \textcolor{Mycolor2}{d'un petit morceau de silicium} avec impuretés ajoutées
+			\item Il est plus petit 
+			\item Consomme moins d'énergie
+			\item Est plus fiable et plus économique à produire que \og{}les tubes à vide\fg{}
+	\end{itemize}}
+	{
+	\begin{figure}
+		\centering{
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.13]{figs/vaccumTubes.jpg}
+		\centering \caption{Les tubes à vide}
+		\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.18]{figs/Transistorer.jpg}
+		\centering \caption{Le transistor}
+		}
+	\end{figure}
+}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{FORTRAN (1954)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item \textbf{John Backus} et IBM développent \textbf{FORTRAN}, \textcolor{Mycolor2}{le premier langage de programmation et compilateur} de haut niveau à succès
+			\item Développé pour des \textbf{problèmes scientifiques} et encore largement utilisé aujourd'hui
+	\end{itemize}}
+	{\includegraphics[width=4.5cm]{figs/article_john-backus_1.jpg}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Construction de l'EDVAC (1952)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item EDVAC signifie \textbf{E}lectronic \textbf{D}iscrete \textbf{V}ariable \textbf{A}utomatic \textbf{C}omputer		
+			\item Le premier ordinateur à programme enregistré
+			\item Conçu par \textcolor{Mycolor2}{Von Neumann en 1952}
+			\item Il a une \textcolor{Mycolor2}{mémoire pour stocker un programme et aussi les données}
+	\end{itemize}}
+	{\includegraphics[width=4.5cm]{figs/vonneuman.jpg}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Circuit Intégré (1958)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Les circuits intégrés (puces/chips) co-inventés indépendamment par : 
+			 \begin{itemize}
+			 	\item Jack Kilby de \textcolor{Mycolor2}{Texas Instruments}
+			 	\item Robert Noyce de \textcolor{Mycolor2}{Fairchild Semi-conducteurs}
+			\end{itemize}	
+			\item \textbf{Transistors, et autres composants électroniques} tous fabriqués sur une seule puce de silicium
+	\end{itemize}}
+	{\includegraphics[width=4.5cm]{figs/800px-Microchips.jpg}}
+\end{frame}
+
+
+
+\begin{frame}
+	\begin{center}
+		\includegraphics[width=6.5cm]{figs/historique.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Principes de l'ordinateur selon Von~Neumann}
+	
+	\begin{itemize}
+		\item Machine universelle contrôlée par programme;
+		\item Programme = séquence d'instructions décrivant comment effectuer
+		une tâche;
+		\item Instructions du programme codées sous forme numérique binaire et
+		enregistrées en mémoire (tout comme les données utilisées par le
+		programme);
+		\item Existence d'instructions permettant les ruptures de séquences.
+	\end{itemize}
+\end{frame}
+
+\note{Remarque: Un programme est constitué de plusieurs instructions.
+	Question: quel est le nouveau concept dans cette transparent? "instruction en
+	séquence" le reste avaient plus ou moins déjà était proposé avant VN... qui a
+	était le premier à imaginer tout ensemble.}
+
+\begin{frame}
+	\frametitle{Architecture de Von~Neumann}
+	
+	\begin{center}
+		\includegraphics[width=6cm]{figs/archi_von_neumann.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Composants classiques d'un ordinateur}
+	
+	\mycolumns{c}{5}{6}{
+		\begin{itemize}
+			\item La mémoire centrale qui contient les données et les programmes à
+			exécuter;
+			\item L'unité centrale de traitement (UCT/CPU) qui exécute les programmes
+			chargés en mémoire;
+			\item Les unités d'entrée/sortie qui permettent le lien et l'échange
+			d'information avec les périphériques (clavier, écran, souris, imprimante,
+			etc.).
+	\end{itemize}}
+	{\includegraphics[width=6cm]{figs/composant.pdf}}
+\end{frame}
+
+\note{Expliquer la séparation données/programmes. Par exemple, la fonction qui
+	réalise la moyenne de 10 nombres: c'est le programme. Les 10 notes des
+	étudiants d'IG, c'est les données.}
+
+\begin{frame}
+	\frametitle{ ARPANET (1969)}
+	
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\footnotesize{
+			\item \textbf{ARPANET}, qui finit par devenir Internet, \textbf{commencé en connectant seulement 4 noeuds}
+			\item \og{}Le ministère de la Défense\fg{} sponsorise l'ARPA ( \textcolor{Mycolor2}{Agence de projets de recherche avancée}) pour consolider d'un \textbf{réseau interconnecté d'ordinateurs} géographiquement éloignés
+		}		
+	\end{itemize}
+	\begin{figure}
+		\centering{
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/ARPANET.jpg}
+			\centering \caption{Journal ARPANET IMP montrant que Charles S. Kline a envoyé son premier message sur ARPANET le 29 octobre 1969}
+		}
+	\end{figure}
+	}
+	{
+
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Besoin d'inventer un système d'exploitation}
+	\begin{itemize}
+		\item Dans les premiers jours de l'informatique (années 50), les
+		ordinateurs étaient des machines complètements ouvertes
+		\item Pour exécuter un programme Fortran (1954) :
+		\mycolumns{c}{6}{5}{
+			\begin{enumerate}
+				\item Réserver un créneau d'utilisation de l'ordinateur
+				\item Charger dans le lecteur de cartes perforées le bloc de cartes du
+				compilateur (traducteur) Fortran
+				\item Charger les cartes du programme Fortran
+				\seti
+			\end{enumerate}
+		}
+		{
+			\includegraphics[width=5cm]{figs/punched_card.jpg}
+		}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Besoin d'inventer un système d'exploitation}
+	\begin{itemize}
+		\item Pour exécuter un programme Fortran (1954) : -suite-
+		\begin{enumerate}
+			\conti
+			\item L'ordinateur lit les cartes (``lentement'') parfois plusieurs fois
+			\item Il produit des cartes avec le programme compilé (en langage
+			machine) s'il n'y a pas d'erreurs
+			\item Introduire les nouvelles cartes + les librairies
+			\item S'il y a des erreurs, il faut corriger et répéter
+		\end{enumerate}
+	\end{itemize}
+	\only<2>{
+		\color{red}{ $\Rightarrow$ Naissance (autour de 1960) des systèmes
+			d'exploitation = programmes ``permanents'', qui
+			évitent de répéter ces tâches}
+		
+		\vspace{.5cm}
+		
+		\color{black}{Un système d'exploitation fait bien plus de choses que
+			cette prise en charge des programmes utilisateurs (objet du cours
+			suivant)} }
+\end{frame}
+
+\begin{frame}
+	\frametitle{ UNIX (1972)}
+	
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\item Système d'exploitation UNIX développé aux \textbf{Laboratoires Bell} par: 
+			\begin{itemize}
+				\item Ken Thompson
+				\item Dennis Ritchie 
+				\item Brian Kernighan et d'autres
+			\end{itemize}
+			\item Réécrit en 1972 utilisant langage C 
+			\item Plusieurs variantes d'UNIX sont populaires: \textcolor{Mycolor2}{Mac OS X, Linux, BSD}		
+	\end{itemize}
+	\begin{figure}
+		\begin{minipage}[b]{0.3\linewidth}
+			\centering
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/kenThompson.jpeg} 
+			\centering \caption{Ken Thompson}
+		\end{minipage}
+		\hfill 
+		\begin{minipage}[b]{0.3\linewidth}
+			\centering
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/dennisritchie.jpeg} 
+			\centering \caption{Dennis Ritchie} 
+		\end{minipage}	
+		\hfill
+		\begin{minipage}[b]{0.3\linewidth}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.3]{figs/briankernighan.jpeg}
+			\centering \caption{Brian Kernighan}
+		\end{minipage}	
+	\end{figure}
+	}
+	{
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ Microprocesseur (1971)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Microprocesseur: la totalité du processeur (CPU) \textbf{s'inscrit sur une seule puce} 
+			
+			\item \textbf{Trois sociétés} ont simultanément développé le microprocesseur de manière indépendante: 
+			\begin{itemize}
+				\item Texas Instruments
+				\item Intel 
+				\item Garrett AiResearch	
+			\end{itemize}
+	\end{itemize}}
+	{
+	\begin{figure}
+		\centering {
+		\includegraphics[width=4cm]{figs/micorprocessor.png}
+		 \caption{Regardez par un microscope (200x) sur un microprocesseur Intel}
+		}
+	\end{figure}
+	}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Naissance de l'ordinateur}
+	\mycolumns{c}{7}{4}{
+	\begin{itemize}
+		\footnotesize{
+		\item Claude Shannon était un \textbf{mathématicien, ingénieur électronicien et cryptographe américain}, surnommé \textcolor{Mycolor2}{"le père de la théorie de l'information}
+			
+		\item Shannon est connu pour avoir fondé \textcolor{Mycolor2}{la théorie de l'information} avec un article historique, "A Mathematical Theory of Communication", en \textbf{1948}
+		\item Il démontre que \textcolor{Mycolor2}{les applications électriques de l'algèbre booléenne pourraient construire toute relation numérique logique}}\\
+		\scriptsize{
+		$\Rightarrow$ Tout calcul peut être réalisé avec les 3~opérations logiques de
+		base \og{}et\fg{}, \og{}ou\fg{}, et \og{}non\fg{}}
+
+	\end{itemize}}
+	{
+			\begin{figure}
+			\centering {
+				\includegraphics[width=4cm]{figs/shannon.png}
+				\caption{}
+			}
+		\end{figure}	
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Naissance de l'ordinateur (Alan Turing)}
+		\mycolumns{c}{7}{4}{
+	\begin{itemize}
+		\item \emph{Alan~Turing} (1936): formalise une \textcolor{Mycolor2}{machine universelle ou Machine de
+		Turing}
+		\item Décrivant un \textcolor{Mycolor2}{modèle abstrait du fonctionnement des appareils mécaniques de calcul}\\
+		\footnotesize
+		$\Rightarrow$ La thèse de Turing postule que \textbf{tout problème de calcul
+		fondé sur une procédure algorithmique} peut être résolu par une machine de
+		Turing \\
+		$\Rightarrow$ Invente le concept de programme.
+		\normalsize
+	\end{itemize}
+}
+{
+		\begin{figure}
+		\centering {
+			\includegraphics[width=4cm]{figs/alan_turing_note.png}
+			\caption{}
+		}
+	\end{figure}
+}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ Apple II Ordinateur Personnel (1977)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Apple II, conçu principalement par \textbf{Steve Wozniak} 
+			\item Il est le premier ordinateur personnel produit en série et qui connaît un grand succès
+			\item \textbf{Prix: 1300} \$ pour le modèle avec \textbf{4 Ko de RAM}		
+			\item \textbf{Prix: 2600} \$ pour un modèle de \textbf{48 Ko de RAM}
+				
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/appleII.jpeg}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ IBM Ordinateur Personnel (1981)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item IBM développe un PC avec un microprocesseur Intel et \textbf{le système d'exploitation} \textcolor{Mycolor2}{DOS de Microsoft}
+			\item Prix commencé à \textbf{1565} \$
+			\item \textbf{300 000} vendus en \textbf{1981}	
+			\item \textbf{3 274 000} vendus en \textbf{1982}
+			
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/IBM_Computer.jpg}}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{ Apple Macintosh (1984)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item \textbf{Apple Computers} (\textcolor{Mycolor2}{Steve Jobs et Steve Wozniak}) ont développé le Macintosh qui a popularisé \textcolor{Mycolor2}{l'interface utilisateur graphique (GUI)}
+			\item La publicité commerciale d'Apple publiée en 1984 faisant la promotion du Macintosh 
+			\begin{itemize}
+				\item Cette publicité était la plus chère jamais produite à l'époque (\textcolor{Mycolor2}{environ 1 million de dollars})
+			\end{itemize}
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/Apple_Macintosh_Desktop.png}}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{ World Wide Web (WWW) (1990)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item \textbf{Tim Berners-Lee} du \textbf{CERN} développe le WWW
+			\item Un réseau mondial de \og{}documents interconnectés\fg{} sur Internet
+			\item \og{}Le Web\fg{} deviendra \textcolor{Mycolor2}{populaire plusieurs années plus tard}, lorsque \textbf{Netscape} développée un \og{}Web Navigateur\fg{}
+			
+	\end{itemize}}
+	{	
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.2]{figs/Tim_Berners-Lee.jpg}
+			\includegraphics[width=4.5cm]{figs/First_Web_Server.jpg}
+		\end{figure}	
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{ Microsoft Windows (1992)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item \textbf{Microsoft (Bill Gates)} lance Windows 3.1, la première version de Windows qui a connu un grand succès
+			
+	\end{itemize}}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.35]{figs/windows1993.png} \\
+			\vspace{2mm}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.12]{figs/windows-1993-1.png}
+		\end{figure}
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{ Deep Blue (1997)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item L'ordinateur \textbf{Deep Blue} d'IBM bat le champion du monde d'échecs \textbf{Garry Kasparov} lors de son \textbf{deuxième affrontement de six matchs}
+			
+			\item Devenant ainsi \textbf{le premier système informatique} à battre \textbf{un champion du monde} sous les contrôles de temps \og{}de tournoi d'échecs standard\fg{}  
+			
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/deepblue.jpeg}}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{ Google (1998)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Les doctorats :  \textbf{Larry Page} et \textbf{Sergey Brindrop} de \textbf{Stanford} ont créé \textbf{Google}
+			\item Un moteur de recherche Web qui utilise leur nouvel algorithme \textbf{PageRank} pour classer les résultats des moteurs de recherche
+			
+			\item Google provient d'une \textbf{faute d'orthographe} de Google qui est 1 suivi de 100 zéros
+			
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/googlefirstserver.jpg}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ Réseaux sociaux en ligne (200x)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Les réseaux sociaux en ligne (et le partage d'informations) sont devenus populaires au début des années 2000
+			
+			\item 2002: \textbf{Friendster} créé par \textbf{Jonathan Abrams} et \textbf{Peter Chin}
+			\item 2003: \textbf{MySpace} créé par les employés de \textbf{eUniverse}
+			
+			\item 2004: \textbf{Facebook} créé par \textbf{Mark Zuckerberg} alors qu'il était étudiant à \textbf{Harvard}
+			\item 2006: \textbf{Twitter} créé par \textbf{Jack Dorsey}
+			
+	\end{itemize}}
+	{\includegraphics[width=4.2cm]{figs/socialNetork.jpeg}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ Processeurs multicoeurs (2005)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Les PC avec les processeurs double coeur arrivent sur le marché.
+			\item Les processeurs multicoeurs ont plusieurs processeurs sur une seule puce (chip)
+			\item Ils permettent plus de débit avec une vitesse de processeur inférieure
+			\item Utilisant ainsi moins d'énergie
+			\item Met davantage l'accent sur la programmation parallèle
+			
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/multicoreProcessor.jpg}}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{ iPhone (2007)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item iPhone par Apple révolutionne les interfaces à écran tactile pour les appareils mobiles
+			
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/iPhone.png}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{ iPad (2010)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item L'iPad d'Apple relance le marché de l'informatique sur tablette
+			
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/iPAd.jpg}}
+\end{frame}
+
+
+%\begin{frame}
+%	\frametitle{  IBM's Watson (2011)}
+%	
+%	\mycolumns{c}{7}{4}{
+%		\begin{itemize}
+%			\item Watson d?IBM bat les vétérans de Jeopardy
+%			
+%	\end{itemize}}
+%	{\includegraphics[width=4cm]{figs/eniac.jpg}}
+%\end{frame}
+
+\begin{frame}
+	\frametitle{  Voiture sans conducteur de Google (2012)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Google obtient la première perlmit de conduire autonome dans le Nevada		
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/googleDriverLessCar.jpg}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{  Lunettes Google (2013)}
+	
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Google Glass affiche les informations dans un format mains libres, similaire à celui d'un smartphone
+			\item Les utilisateurs ont communiqué avec Internet via des commandes vocales en langage naturel	
+	\end{itemize}}
+	{\includegraphics[width=4cm]{figs/googleGlass*.jpg}}
+\end{frame}
+
+
+
+
+%\begin{frame}
+%	\frametitle{Le premier ordinateur portable(Osborne 1)}
+%	
+%	\mycolumns{c}{7}{4}{
+%		\begin{itemize}
+%			\item EDVAC signifie Electronic Discrete Variable Automatic Computer		
+%			\item Fabriqué en 1981 par Osborne Computer Corporation
+%	\end{itemize}}
+%	{\includegraphics[width=4cm]{figs/eniac.jpg}}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{La première entreprise informatique}
+%	
+%	\mycolumns{c}{7}{4}{
+%		\begin{itemize}
+%			\item La première société informatique était la société de contrôle électronique		
+%			\item Fondée en 1949 par J. Presper Eckert et John Mauchly
+%	\end{itemize}}
+%	{\includegraphics[width=4cm]{figs/eniac.jpg}}
+%\end{frame}
+
+
+
+
+
+
+
+\begin{frame}
+\frametitle{Naissance de l'industrie informatique}
+
+{\includegraphics[width=11cm]{figs/generations_ordi.pdf}}
+% \begin{itemize}
+% \item 1ère génération ($\sim$1950): tubes à vide.
+% \item 2ème génération ($\sim$1960): transistors. Moindre coût, bus unique pour
+% interconnecter les différents composants.
+% \item 3ème génération ($\sim$1970): circuits intégrés. Multi-programmation
+% (plusieurs programmes en mémoire).\\
+% Principe: dès qu'un programme est en attente d'une entrée-sortie,
+% l'unité de commande poursuit l'exécution d'un autre programme.
+% \item 4ème génération ($\sim$1980): puces avec des millions de
+% transistors. \og{}Very-Large-Scale Integration\fg{} (VLSI) + multiplication
+% des unités périphériques (stockage, écran, imprimante, etc.).
+% \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Générations informatiques}
+	\mycolumns{c}{11}{0}{
+		Il y a cinq générations d'ordinateur:
+		\begin{itemize}
+			\item  Première génération - 1946 -1958
+			\item Deuxième génération - 1959 -1964
+			\item Troisième génération - 1965-1970
+			\item quatrième génération - de 1971 à aujourd'hui
+			\item  Cinquième génération - Aujourd'hui à l'avenir
+		\end{itemize}
+	}
+	{
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Première Génération}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Tubes à vide usagés pour circuits et tambours magnétiques pour mémoire
+			
+			\item Étaient souvent énormes, occupant des pièces entières.
+			
+			\item Étaient très coûteux à exploiter
+			\item Utilisez beaucoup d'électricité
+			\item Généré beaucoup de chaleur
+			\item Ce qui était souvent la cause de dysfonctionnements
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.16]{figs/vaccumTubes.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Première Génération}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\item Basé sur le langage machine
+			
+			\item Le langage de programmation de niveau le plus bas pour effectuer des opérations
+			
+			\item Ne pouvait résoudre qu'un problème à la fois
+			
+			\item L'entrée était basée sur des cartes perforées et du ruban adhésif
+			
+			\item  La sortie était affichée sur les impressions
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.16]{figs/vaccumTubes.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Deuxième Génération}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\footnotesize{
+			\item Les transistors ont remplacé les tubes à vide
+
+			\item Un transistor a remplacé l'équivalent de 40 tubes à vide.
+
+			\item Les ordinateurs deviennent plus petits, plus rapides, moins chers, plus écoénergétiques et plus fiables
+
+			\item Génère encore beaucoup de chaleur qui peut endommager l'ordinateur
+			\item Déplacé d'un langage machine binaire cryptique à un langage symbolique, ou d'assemblage
+			\item Qui permettait aux programmeurs de spécifier des instructions en mot
+			}
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.16]{figs/Transistorer.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Deuxième Génération}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\footnotesize{
+				\item Toujours basé sur des cartes perforées pour l'entrée et des impressions pour la sortie
+				
+				\item Les premiers ordinateurs qui ont stocké leurs instructions dans leur mémoire,
+				
+				\item Qui est passé du tambour magnétique à la technologie du noyau magnétique.
+			}
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.16]{figs/Transistorer.jpg} \\
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.16]{figs/drummemory.jpg} \\
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.12]{figs/corememory.jpg}
+		\end{figure}
+	}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Troisième Génération}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\footnotesize{
+				\item Le développement du circuit intégré
+				
+				\item Les transistors ont été miniaturisés et placés sur des puces de silicium, appelées semi-conducteurs,
+				
+				\item Qui a considérablement augmenté la vitesse et l'efficacité des ordinateurs.
+				
+				\item Beaucoup plus petit et moins cher
+				
+				\item Peut exécuter des instructions en milliardièmes de seconde
+			}
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.36]{figs/intregateed.jpeg}
+		\end{figure}
+	}
+\end{frame}	
+
+\begin{frame}
+	\frametitle{Troisième Génération}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\footnotesize{
+				\item Interaction à travers les claviers et les moniteurs et interfacée avec un système d'exploitation,
+				
+				\item Autorisé le périphérique à exécuter plusieurs applications différentes en même temps avec un programme central qui surveillait la mémoire
+				
+				\item Devenu accessible à un public de masse parce qu'ils étaient plus petits et moins chers que leurs prédécesseurs
+			}
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.36]{figs/intregateed.jpeg}
+		\end{figure}
+	}
+\end{frame}	
+
+\begin{frame}
+	\frametitle{Quatrième Génération}
+	\mycolumns{c}{7}{4}{
+		\begin{itemize}
+			\footnotesize{
+				\item Le microprocesseur a été inventé
+				
+				\item Des milliers de circuits intégrés ont été construits sur une seule puce de silicium
+				
+				\item Les ordinateurs sont devenus plus puissants
+				
+				\item Pourraient être reliés entre eux pour former des réseaux, ont conduit au développement de l'Internet.
+				
+				\item Vu le développement des interfaces graphiques, de la souris et des appareils de poche
+			}
+		\end{itemize}
+	}
+	{
+		\begin{figure}
+			\includegraphics[trim = 0cm 0cm 0cm 0cm, clip,scale=0.36]{figs/microprocessor.jpeg}
+		\end{figure}
+	}
+\end{frame}	
+
+
+\begin{frame}
+	\frametitle{Cinquième Génération}
+	\mycolumns{c}{11}{0}{
+		\begin{itemize}
+			\footnotesize{
+				\item Basé sur l'intelligence artificielle
+				
+				\item Encore en développement
+				
+				\item L'utilisation du traitement parallèle et des supraconducteurs contribue à faire de l'intelligence artificielle une réalité
+				
+				\item L'objectif est de développer des dispositifs qui répondent aux idées du langage naturel et qui sont capables d'apprentissage et d'auto-organisation.
+				
+				\item Certaines applications, telles que la reconnaissance vocale, sont utilisées aujourd'hui
+			}
+		\end{itemize}
+	}
+	{
+	}
+\end{frame}	
+
+
+\note{Wikipedia:
+\begin{itemize}
+\item Les tubes électroniques désignent les composants qui utilisent des
+électrodes, placées dans le vide ou dans un gaz, isolées entre elles par ce
+milieu, et comprenant au moins une source d'électrons.
+\item Un transistor est un dispositif semi-conducteur à trois électrodes
+actives, qui permet de contrôler un courant (ou une tension) sur une des
+électrodes de sorties grâce à une électrode d'entrée.
+\item Le circuit intégré, aussi appelé puce électronique, est un composant
+électronique reproduisant une, ou plusieurs, fonction électronique plus ou
+moins complexe, intégrant souvent plusieurs types de composants électroniques
+de base dans un volume réduit, rendant le circuit facile à mettre en oeuvre.
+\end{itemize}}
+
+\begin{frame}
+\frametitle{Loi de Moore (1965)}
+
+Nombre de transistors (des microprocesseurs = $\sim$CPU) sur une puce de
+silicium double tous les deux ans.
+
+    \begin{center}
+        \includegraphics[width=9cm]{figs/Loi_de_Moore.png}
+    \end{center}
+\end{frame}
+
+\note{Discussion et lien vers la page Wikipedia sur la loi de
+  Moore. Wikipedia: La loi de Moore (Gordon Moore, co-fondateur
+  d'Intel en 1968) s'est jusqu'ici révélée étonnamment exacte, et elle
+  pourrait en principe le rester jusque vers 2015 avant qu'on ne soit
+  réellement confronté aux effets quantiques, car vers 2015, les
+  processeurs devraient contenir plus de 15 milliards de transistors.}
+
+\begin{frame}
+\frametitle{Évolution des microprocesseurs Intel}
+
+\begin{center}
+\includegraphics[width=10cm]{figs/intel-proc.png}
+\end{center}
+\end{frame}
+
+\note{ Expliquer l'évolution des noms
+
+Expliquer le nombre de transistors
+
+Expliquer l'évolution du nombre de bits : de 4 à 64 bits actuellement
+
+Expliquer la relative stagnation de la fréquence d'horloge depuis
+2004, à cause des difficultés à refroidir les processeurs On a remédié
+à cela en produisant des processeurs parallèles multi-coeurs (Duo, Quad, ...)
+
+MIPS = million d'instructions par seconde.\\
+Elle est la meilleure unité pour établir des comparatifs de puissance entre
+processeurs, même si le FLOPS (Floating-point operations per second) ne doit pas
+être négligé.
+}
+
+%\begin{frame}
+
+%\begin{center}
+%\includegraphics[width=8.5cm]{figs/ibm.jpg}
+%\end{center}
+%\end{frame}
+
+\note{
+Émergence d'une nouvelle discipline: l'informatique.\\
+Proposer votre définition de ce que c'est que l'informatique (1 phrase).\\
+Informatique (Académie française, 1965): la science du traitement rationnel de
+l'information, considérée comme le support des connaissances dans les domaines
+scientifiques, économiques et sociaux, notamment à l'aide de machines
+automatiques; ensemble des applications de cette science, mettant en oeuvre des matériels (ordinateurs) et des logiciels.\\
+\begin{itemize}
+\item Discuter l'existence déjà en 65 des mots "scientifiques, économiques,
+sociaux";
+\item Discuter le fait que les anglais disent "Computer Science"...\\
+As the School of Informatics at the University of Edinburgh defines it,
+Informatics is the study of the structure, behaviour, and interactions of
+natural and engineered computational systems (i.e., representation, processing
+and communication of information in natural and artificial systems.). The
+central notion is the transformation of information - whether by computation or
+communication, whether by organisms or artifacts.
+\end{itemize}}
+
+%\begin{frame}
+%\frametitle{Calculateurs quantiques}
+%
+%\begin{block}{Limites de la miniaturisation et de la loi de Moore}
+%\begin{itemize}
+%\footnotesize
+%\item Taille des transistors de l'ordre de l'atome en~2020;
+%\item Effets quantiques sous 8~nanomètres (série Skylake d'Intel en~2015).
+%\normalsize
+%\end{itemize}
+%\end{block}
+%
+%\begin{block}{Exploiter la mécanique quantique}
+%\begin{itemize}
+%\footnotesize
+%\item Utilisation de la superposition et de l'intrication;
+%\item Calculs sur des qbits dont l'état quantique a plusieurs valeurs;
+%\item Intéressants pour des calculs combinatoires (des algorithmes
+%  existent pour casser beaucoup de méthodes cryptographiques);
+%\item Premiers calculateurs quantiques dès~1990;
+%\item Décohérence (pertes des effets quantiques dans le
+%  macroscopique);
+%\item Avancées majeures chez Google, IBM, Intel et Microsoft.
+%\normalsize
+%%\item Calculateur à 49~qbits chez Google d'ici la fin de l'année.
+%\end{itemize}
+%\end{block}
+%\end{frame}
+
+
+\begin{frame}
+	\frametitle{Programmes exécutés par les ordinateurs}
+	
+	\begin{itemize}
+		\item Programme = séquence d'instructions;
+		\item Instruction = additionner deux nombres, tester si un nombre est
+		nul, déplacer un nombre vers/depuis la mémoire centrale, ...;
+		\item \textbf{Jeu d'instructions} que l'ordinateur sait exécuter
+		forment un langage = \textbf{langage machine};
+		\item Un fabriquant de processeur décide du langage machine à fournir (\textcolor{Mycolor2}{le plus simple
+		possible pour réduire la complexité et le coût de l'électronique})
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Organisation structurée des ordinateurs}
+	
+	\begin{itemize}
+		\item Langage machine est souvent trop simple \\$\Rightarrow$ difficile
+		à utiliser par les informaticiens \textbf{pour résoudre des problèmes de
+		plus haut niveau} (que de simples additions, ...);
+
+		\item L'ordinateur propose un langage (machine) L0 et l'utilisateur
+		veut écrire un programme dans un langage plus \textbf{évolué}
+		L1.\\
+		\item  Comme exécuter ces programmes écrits en L1 ?
+		\begin{itemize}
+			\item les \textbf{traduire} vers L0;
+			\item écrire un programme dans L0, qui prend le programme écrit en L1
+			comme donnée et exécute, pour chaque instruction L1, des instructions
+			L0 (un \textbf{interprète} ou \textbf{machine virtuelle})
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Organisation en couches d'abstraction}
+	
+	\begin{itemize}
+		\item L0 et L1 ne doivent pas être ``très'' différents pour que la
+		traduction ou l'interprétation soient efficaces et pas trop
+		complexes;
+%		\item Solution : ajouter d'autres langages L2, ... (avec leurs
+%		machines virtuelles M2, ...) qui s'empilent comme des
+%		\textbf{couches} d'abstraction
+	\end{itemize}
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Un ordinateur avec une architecture multi-couches}
+%\begin{center}
+%\includegraphics[width=8cm]{figs/archi_en_couches.png}
+%\end{center}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Un ordi. avec une archi. multi-couches possible}
+\begin{center}
+\includegraphics[width=8cm]{figs/archi_en_couches_pratique.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Remerciements et références}
+
+\begin{block}{Remerciements}
+	Chouki Tibermacine, professeur à la FDS (mon prédécesseur)
+\end{block}
+
+\begin{block}{Références bibliographiques}
+\begin{itemize}
+\item Andrew Tanenbaum. Architecture de l'ordinateur, 5ème
+  édition. Pearson Education, 2009\\
+  Andrew Tanenbaum. \textit{Structured Computer Organization, 6th
+    edition}. Pearson, 2012.
+\item Andrew Tanenbaum. Systèmes d'exploitation 3ème Ed. Pearson,
+  2008.\\
+  Andrew Tanenbaum \& Herbert Bos. Modern Operating Systems. Pearson
+  2016.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\end{document}

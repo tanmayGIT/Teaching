@@ -1,0 +1,15 @@
+\frametitle{Affichage du bytecode (code objet pour l'interprète
+    Python)}
+
+  {\tiny
+\begin{lstlisting}
+>>> def hello():
+...     print "hello!"
+>>> import dis
+>>> dis.dis(hello)
+  2           0 LOAD_CONST               1 ('hello!')
+              3 PRINT_ITEM
+              4 PRINT_NEWLINE
+              5 LOAD_CONST               0 (None)
+              8 RETURN_VALUE
+\end{lstlisting}}

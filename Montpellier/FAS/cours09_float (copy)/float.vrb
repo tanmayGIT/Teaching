@@ -1,0 +1,10 @@
+\frametitle{Du décimal au binaire}
+
+\begin{itemize}
+\item 0.375 $\rightarrow$ ?
+  \begin{itemize}
+  \item 0.375 x 2 = 0.75 = \hl{0} + 0.75
+  \item 0.75 x 2 = 1.5  = \hl{1} + 0.5
+  \item 0.5 x 2 = 1.0 = \hl{1} + 0.0
+  \end{itemize}
+\end{itemize}

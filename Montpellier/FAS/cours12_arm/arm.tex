@@ -1,0 +1,1068 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+%\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ulem}
+\usepackage{lstlangarm}
+\usepackage{xcolor}
+% For multirow tables
+\usepackage{multirow}
+\definecolor{CommentGreen}{rgb}{0,.6,0}
+\lstdefinestyle{arm}
+{
+  language=[arm]Assembler,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{CommentGreen},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\lstdefinestyle{C}
+{
+  language=C,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{darkgray},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\newcommand{\mycolumns}[5]{
+\begin{columns}[#1]
+    \column{#2cm}
+    #4
+    \column{#3cm}
+    #5
+\end{columns}
+}
+
+\newcommand{\hlrose}[1]{\sethlcolor{rosepale}\hl{#1}}
+\newcommand{\non}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\mytriangle}[6]{
+\begin{center}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    #5 & \includegraphics[width=#1cm]{figs/#4} \\
+    \multicolumn{2}{m{#3cm}}{#6} \\
+\end{tabular}
+\end{center}
+}
+
+\title[Intro à l'Assembleur ARM]{Introduction à l'Assembleur ARM}
+\author[C.~Tibermacine]{\large{Chouki TIBERMACINE}\\
+\vspace{1cm}
+\small{Chouki.Tibermacine@umontpellier.fr}}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{center}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Objectifs du cours}
+
+\begin{enumerate}
+\item Manipuler un langage de programmation de bas niveau;
+\item Utiliser des jeux d'instructions pour écrire des mini-programmes;
+\item Comprendre la segmentation logique de la mémoire (pile, tas, etc.);
+\item Comprendre le mécanisme d'appel de procédure (sous-programme);
+\item Percevoir les principes de programmation universelle.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pourquoi? [Strandth \& Durand, 2005]}
+
+\begin{block}{Une petite citation}
+Le rôle d'un informaticien n'est pas de concevoir des architectures, en revanche
+il a besoin d'un modèle de fonctionnement de l'ordinateur qui lui donne une
+bonne idée de la performance de son programme et de l'impact que chaque
+modification du programme aura sur sa performance.
+
+\bigskip{}
+
+Assimiler un tel modèle suppose un certain nombre de connaissances sur le
+fonctionnement d'un ordinateur, notamment le mécanisme d'appel de fonction, la
+transmission des paramètres d'une fonction à l'autre, l'allocation ou la
+libération d'espace mémoire, etc.
+\end{block}
+
+\begin{block}{Conclusion}
+$\Rightarrow$ Apprendre l'architecture et un langage machine permet cela.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Niveaux de programmation}
+
+\mycolumns{c}{6}{5}{
+\begin{block}{Langage machine}
+  Le programmeur a le choix entre différents langages (Assembleur,
+  Python, Java, C, etc.). La machine ne comprend que le langage machine
+  (i.e., instructions binaires)!
+\end{block}}
+{\begin{center}
+\includegraphics[width=5cm]{figs/prog.png}
+\end{center}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Niveaux de programmation}
+\begin{itemize}
+\item L'assembleur (langage d'assemblage) est le premier langage non binaire
+accessible au programmeur;
+\item Code mnémoniques et symboles;
+\item L'assembleur (programme traducteur) convertit le langage
+d'assemblage en langage machine;
+\item Permet d'exploiter au maximum les ressources de la machine;
+\item Dépend de la machine, de son architecture.
+\end{itemize}
+\end{frame}
+
+\note{
+\begin{itemize}
+\item \emph{Code machine} = \textbf{code objet} ... mais depuis l'avènement des
+langages à objet de haut niveau à objet, on utilise moins ce terme pour éviter
+la confusion.
+\item Les traducteurs des langages de haut niveaux en langage assembleur ou
+machine sont appelés des \textbf{compilateurs}.
+\item Si le code machine n'est pas produit explicitement mais interprété à la
+volée, on parle d'\textbf{interpréteur}.
+\end{itemize}}
+
+\begin{frame}
+\frametitle{Interprétation et compilation}
+
+\begin{block}{Interprétation}
+Conversion et exécution d'un programme en une seule étape: les instructions
+sont lues les unes après les autres et sont exécutées immédiatement par la
+machine.
+
+\begin{itemize}
+\item Pas de programme objet intermédiaire;
+\item Répétition du travail de traduction à chaque exécution.
+\end{itemize}
+\end{block}
+\begin{block}{Compilation}
+Génération d'un programme équivalent au code source appelé code objet.
+
+\begin{itemize}
+\item Traduction réalisée une seule fois;
+\item Exécution rapide et efficace.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interprétation et compilation}
+  \begin{block}{Compilation}
+    Deux types de compilation:
+    \begin{itemize}
+    \item Native: le code objet est de l'assembleur et sera traduit en
+      langage machine. Cette compilation est donc dépendante de
+      l'architecture, mais est la plus efficace;
+    \item \og{}Bytecode\fg{}: le code objet est exécuté par une
+      machine virtuelle. Cette compilation est donc indépendante de
+      l'architecture, mais est en moyenne 5~fois moins efficace qu'une
+      compilation native.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Interprétation: cas de Python}
+
+\begin{center}
+\includegraphics[width=10cm]{img/python.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Compilation native: cas de C}
+
+\begin{center}
+\includegraphics[width=9cm]{figs/assembleur.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Langage d'assemblage}
+
+\begin{itemize}
+\item Utilisés par les spécialistes $\Rightarrow$ optimisation;
+\item Pour valoriser l'architecture spécifique de la machine;
+\item Diagnostic d'erreurs (i.e., examen du contenu de la mémoire);
+\item L'assembleur est une variante symbolique du langage machine\\
+$\Rightarrow$ même jeu d'instructions;
+\item Propre à chaque type de machine;
+\item Permet d'accéder aux ressources de la machine (i.e., registres);
+\item Permet d'accéder aux facilités de traitement (e.g., décalage);
+\end{itemize}
+
+Le programmeur peut utiliser:
+\begin{itemize}
+\item Codes mnémoniques (jeu d'instruction);
+\item Étiquettes/\textit{labels} (adresses symboliques);
+\item Littéraux (constantes numériques ou caractères ASCII);
+\item Directives.
+\end{itemize}
+\end{frame}
+
+\note{
+\begin{itemize}
+\item Mentionner les cas d'utilisations suivants: prof de machine
+  parallèle, routines des drivers, procédures du système
+  d'exploitation (changement de tâche), programmation des systèmes
+  embarqués.
+\end{itemize}}
+
+\begin{frame}
+\frametitle{Processeurs CISC et RISC}
+
+\begin{block}{CISC}
+\begin{itemize}
+\item \og{}Complex Instruction Set Computer\fg{};
+\item Jeu étendu d'instructions complexes;
+\item Chaque instruction peut effectuer plusieurs opérations élémentaires;
+\item Jeu d'instructions comportant beaucoup d'exceptions;
+\item Instructions codées sur une taille variable.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Processeurs CISC et RISC}
+\begin{block}{RISC}
+\begin{itemize}
+\item \og{}Reduced Instruction Set Computer\fg{};
+\item Jeu d'instructions réduit;
+\item Chaque instruction effectue une seule opération élémentaire;
+\item Jeu d'instructions plus uniforme;
+\item Instructions codées sur la même taille et s'exécutant dans le même temps
+(un cycle d'horloge en général).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Processeurs CISC et RISC}
+\begin{block}{Répartition des principaux processeurs}
+\bigskip{}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+{\centering CISC (pré-1985)} & {\centering RISC (post-1985)}\\
+\hline
+S/360 (IBM) & Alpha (DEC)\\
+VAX (DEC) & PowerPC (IBM)\\
+68xx, 680x0 (Motorola) & MIPS\\
+x86, Pentium (Intel) & PA-RISC (Hewlett-Packard)\\
+                             & SPARC (Sun)\\
+  & \textbf{ARM}\\
+\hline
+\end{tabular}
+\end{center}
+\smallskip{}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Les processeurs ARM}
+\vspace{-.5cm}
+\mycolumns{c}{7}{3}{
+\begin{itemize}
+\item Langage ARM : assembleur des processeurs ARM
+\item Processeurs avec une architecture de type RISC 32 bits (ARMv1 à
+  ARMv7) et 64 bits (ARMv8)
+\item Introduits en 1983 par Arcon Computers
+\item Développés par ARM Ltd depuis 1990
+\item Processeurs à faible consommation : équipent les smartphones,
+  les tablettes et les raspberries!
+\end{itemize}}
+{\begin{center}
+\includegraphics[width=3cm]{img/arm_powered.png}
+\end{center}}
+
+\vspace{.2cm} Processeurs avec une \textbf{architecture} (licence)
+\textbf{ARM}, mais fabriqués par des entreprises différentes (Apple,
+Broadcom (Raspberries), Huawei, Nvidia, Qualcomm, Samsung,
+STMicroelec., Texas Instr., Toshiba, ...)
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Les registres dans l'ARM}
+
+\begin{block}{Registres dans l'ARMv7 (ce qui équipe nos rasp.)}
+  \begin{itemize}
+  \item L'architecture dispose de 16~registres généraux de 32 bits,
+    nommés $r0$ à $r15$
+  \item Les registres $r0$ à $r12$ peuvent être utilisés dans les
+    calculs (registres non dédiés)
+  \item Les trois registres $r13$, $r14$ et $r15$ sont utilisés dans
+    des tâches spécifiques réalisés par le processeur~:
+      \begin{itemize}
+      \item $r15$ (nommé pc aussi) est dédié en permanence au stockage
+        du compteur ordinal (PC: \textit{Program Counter})
+      \item $r14$ (nommé lr -- \textit{Link Register}) est utilisé
+        lors de l'exécution d'une instruction précise (\textit{branch
+          with link}) pour stocker une copie du compteur ordinal \\
+      \item $r13$ (nommé sp -- \textit{stack pointer}) : prochain
+        cours
+  \end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Les registres dans l'ARM -suite-}
+
+\begin{block}{Compteur ordinal}
+  \begin{itemize}
+\item Compteur ordinal = 00....0 au départ
+\item Il est incrémenté de 4 (4 octets) à chaque fois
+\item Certaines instructions altèrent la valeur du PC (instr. de saut)
+  \end{itemize}
+
+  \begin{block}{Autre registre: cpsr (current program status register)}
+    Contient des fanions/flags pour indiquer l'état des calculs :
+  \begin{itemize}
+  \item Bit 31: N $\rightarrow$ résultat \textbf{n}égatif
+  \item Bit 30: Z $\rightarrow$ résultat nul (\textbf{z}ero)
+  \item Bit 29: C $\rightarrow$ résultat avec retenue (\textbf{c}arry)
+  \item Bit 28 : V $\rightarrow$ dépassement de capacité
+    (o\textbf{V}erflow)
+    \item ... (IRQ, user mode, system mode, ...)
+    \end{itemize}
+
+\end{block}
+
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Les instructions dans l'ARM}
+
+\begin{block}{Jeu d'instructions ARM}
+  ARM propose trois types principaux d'instructions (sur 32 bits
+  principalement):
+\begin{enumerate}
+\item Les instructions de transfert entre registres et mémoire;
+\item Les instructions de calcul;
+\item Les instructions de saut (branchement);
+\end{enumerate}
+
+Seules les instructions de transfert permettent d'accéder à la
+mémoire; les autres opèrent uniquement sur les registres.
+\end{block}
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Compteur ordinal: registre $r15$}
+% \begin{center}
+%   \includegraphics[width=10cm]{img/pc.png}
+% \end{center}
+
+% \begin{itemize}
+% \item Bits 2 à 25 contiennent l'adresse du mot en mémoire dans lequel
+%   se trouve la prochaine instruction à exécuter
+% \only<1>{
+% \item  Bits 0 et 1 sont initialisés à 0 0 (user mode)\\
+%   Bus d'adresse à 26 bits (bits 0-25) $\Rightarrow$ {\color{red}
+%     Taille maximale de la mémoire pour un programme ?}
+% }
+% \only<2>{
+%     Bits 0 et 1 sont initialisés à 0 0 (user mode)\\
+%   Bus d'adresse à 26 bits (bits 0-25) $\Rightarrow$ {\color{red}
+%     Taille maximale de la mémoire pour un programme ?} $2^{24}$=16Mo
+%   }
+% \item Compteur ordinal = 00....0 au départ
+% \item Il est incrémenté après que chaque instruction est récupérée de
+%   la mémoire
+% \item Certaines instructions altèrent la valeur du PC (instr. de saut)
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{Compteur ordinal -suite-}
+
+%   Les bits 0-1 et 26-31 : bits d'état (\textit{flags}) du processeur
+%   et des calculs \mycolumns{c}{7}{4}{
+%  \begin{itemize}
+%  \item Bits 0 et 1 : valeurs autres que 0 0\\ $\Rightarrow$ execution
+%    d'instructions en mode ``system'' (interruptions IRQ)\\
+%    ça donne accès à d'autres registres invisibles en mode ``user''
+%  \item Autres bits :
+%  \begin{itemize}
+%  \item signal des interruptions prioritaires (FIQ) et interruptions
+%    normales (IRQ)
+%  \item état des résultats du calcul (retenue, dépassement de capacité, ...)
+%  \end{itemize}
+%  \end{itemize}
+% }{\begin{center}
+%     \includegraphics[width=4.5cm]{img/pc_status.png}
+% \end{center}
+% }
+
+% \end{frame}
+
+\begin{frame}
+  \frametitle{Mémoire et processeur}
+  \mycolumns{c}{8}{3}{
+    \begin{itemize}
+    \item La mémoire est organisée en cellules d'un octet (8 bits),
+      chacune possédant une adresse
+    \item Un processeur accède aux programmes stockés en mémoire pour
+      les exécuter en respectant un cycle :
+      \textbf{fetch-decode-execute}
+      
+      \begin{center}
+      \includegraphics[width=7cm]{img/fetch_decode_execute.pdf}
+    \end{center}
+    \end{itemize}
+  }{
+    \begin{center}
+      \includegraphics[width=3cm]{img/memoria.png}
+    \end{center}
+  }
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Mémoire et adressage}
+
+  \begin{itemize}
+
+  \item Le texte d'un programme en Assembleur ARM comporte deux
+    sections : \texttt{.data} (variables utilisées par le programme)
+    et \texttt{.text} (instructions du programme)
+\begin{lstlisting}[style=arm]
+/* - - mon_programme.s */
+/* - - Data section */
+.data
+/* - - Instruction section */
+.text
+.global main
+main:
+  bl exit
+\end{lstlisting}
+\item Chaque unité du programme (une donnée ou une instruction) est
+  représentée sur 32 bits (possibilité sur 8/16 bits)\\
+  $\Rightarrow$ occupe 4 octets (PC incrémenté de 4 après un
+  \textit{execute} si l'instruction n'affecte pas le PC)
+
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Sur vos Raspberries}
+  \begin{itemize}
+  \item Se connecter en SSH
+  \item On va utiliser un éditeur de texte pour écrire le code source
+    des programmes (fichiers .s)
+  \item Installer emacs : sudo apt-get install emacs
+  \item Créer un fichier hello.s et y ajouter le code du slide
+    précédent
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+  \frametitle{Pour exécuter le code Assembleur}
+  \begin{itemize}
+  \item Pour exécuter un programme Assembleur, on utilisera l'outil
+    Gnu \textbf{as} en ligne de commande pour générer le code machine
+    (objet)
+    \begin{lstlisting}
+    as -o hello.o -g hello.s
+    \end{lstlisting}
+  \item On utilisera l'outil Gnu \textbf{gcc} pour faire l'édition des
+    liens
+\begin{lstlisting}
+  gcc -o hello hello.o
+\end{lstlisting}
+  \item Pour exécuter :
+\begin{lstlisting}
+  ./hello
+\end{lstlisting}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Pour debugger}
+    \begin{itemize}
+    \item On utilisera l'outil Gnu \textbf{gdb} en ligne de commande
+      en mode interactif
+      \begin{lstlisting}
+        gdb ./hello
+      \end{lstlisting}
+      
+    \item ça donne accès à un Shell qui permet de taper des commandes
+      de debugage (start, disassemble, info registers, modifier les
+      registres, avancer pas à pas dans l'exécution, ...)
+      
+    \item Consulter le site Web ci-dessous et faire l'ensemble des
+      étapes :\\
+      \tiny
+      \url{https://thinkingeek.com/2013/01/12/arm-assembler-raspberry-pi-chapter-4/}
+      \normalsize
+      
+      Explorer d'autres commandes (avec la touche Tabulation)
+      \end{itemize}
+  \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Format des déclarations de variables}
+  \begin{itemize}
+  \item Une déclaration de données est faite de la façon suivante~:
+    \begin{lstlisting}[style=arm]
+/* - - Data section */
+.data
+/* Definir une variable nommée myvar1 */
+myvar1:
+  /* myvar1 correspond à 4 octets contenant le nombre 3 */
+  .word 3
+\end{lstlisting}
+\item .word est une directive indiquant que le nombre 3 va occuper un
+  mot (4 octets). Possibilités : .byte et .2byte
+\item myvar1 est une étiquette/label : symbole représentant l'adresse
+  mémoire du premier octet du mot dans lequel est stocké le nombre 3
+  \item TP : Tester le debugger avec cette déclaration
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Format des instructions}
+  \begin{itemize}
+  \item Toute instruction prend la forme suivante :
+    $Code\_Operation~~Operande1,~~Operande2$\\
+    ou $Code\_Operation~~Operande1,~~Operande2,~~Operande3$
+    
+    Les opérandes sont soit des registres (r0, r1, ...), des variables
+    ou des valeurs littérales (\#3 pour le nombre entier 3, \#'c' pour
+    le caractère 'c', par exemple)
+
+  \item Les valeurs littérales : nombre binaire \#0b10110, octal
+    \#01726, hexadécimal \#0x19DA, décimal \#3
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Instructions de transfert : Mémoire $\leftrightarrow$
+    Registres}
+
+\begin{block}{Lecture et écriture}
+
+  \begin{itemize}
+\item Lecture (\og{}LoaD Register -- ldr\fg{}):\\
+\medskip{}
+\textbf{ldr} $r_{dest}$, $source$\\
+\medskip{}
+
+\begin{itemize}
+\item Si $source$ est définie sans crochets ([ et ]) : une adresse est
+  transférée dans le registre\\
+  $source$ peut être une variable ou un registre qui contiennent une
+  adresse,\\
+  $source$ peut être =variable : c'est l'adresse de la variable qui sera
+  transférée dans le registre (équiv. \&variable en C)
+\item Si $source$ est définie avec crochets ([ et ]) : c'est la valeur se
+  trouvant à l'adresse (et non l'adresse) qui est transférée dans le
+  registre (équiv. *variable en C)
+\end{itemize}
+
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Instructions de transfert : Mémoire $\leftrightarrow$
+    Registres}
+  \begin{block}{Lecture et écriture}    
+    \begin{itemize}
+\item Écriture (\og{}STore Register -- str\fg{}):\\
+\medskip{}
+\textbf{str} $r_{source}, r_{dest}$\\
+\medskip{}
+
+\item Le mot stocké dans le registre $r_{source}$ est copié vers
+  la cellule mémoire dont l'adresse est indiquée dans $r_{dest}$.
+\end{itemize}
+\end{block}
+  \begin{block}{Lecture et écriture avec un offset}    
+    \begin{itemize}
+    \item Écriture avec offset (lecture avec offset possible aussi):\\
+\medskip{}
+\textbf{str} $r_{source}, [r_{dest},\#offset]$\\
+\medskip{}
+
+\item Le mot stocké dans le registre $r_{source}$ est copié vers la
+  cellule mémoire dont l'adresse est indiquée dans $r_{dest}$ + un
+  décalage égal à \#offset.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instructions de calcul}
+
+\only<1>{
+\begin{block}{Principe}
+  Ces instructions lisent la valeur de 0, 1 ou 2 registres dits
+  arguments, effectuent un calcul, puis écrivent le résultat dans un
+  registre dit destination.
+
+\bigskip{}
+
+Un même registre peut figurer plusieurs fois parmi les arguments et
+destination.
+\end{block}
+
+}
+ 
+\only<2>{
+\begin{block}{Instruction de déplacement}
+\begin{itemize}
+\item Déplacement (\og{}mov\fg{}):\\
+\medskip{}
+\textbf{mov} dest, source\\
+\medskip{}
+Le contenu de source est transféré vers le registre dest.
+\begin{itemize}
+\item source peut être un opérande ``immédiat'' (littéral)\\
+  Ex : mov r0, \#15\\
+  Transférer l'entier 15 dans le registre r0
+\item $source$ peut être un registre
+\end{itemize}
+\end{itemize}
+\end{block}
+}
+
+\only<3>{
+\begin{block}{Opérations arithmétiques}
+\begin{itemize}
+\item Addition (\og{}add\fg{}):\\
+  \medskip{}
+  \textbf{add} dest, op1, op2\\
+  \medskip{}
+  Produit la somme de op1 et op2 et range le résultat dans le registre dest.
+
+  dest et op1 doivent être des registres et op2 peut être :
+  \begin{itemize}
+  \item  un opérande ``immédiat'':\\
+    $add~r1,~r1,~\#1$ // Incrémentation : équiv. à r1++
+  \item ou un registre :\\
+      $add~r0,~r0,~r1$
+  \end{itemize}
+  
+\item Autres opérations arithmétiques: sub, mul, div, asl (arithmetic
+  shift left), asr, ror (rotate right), ...
+\end{itemize}
+\end{block}
+}
+
+\only<4>{
+\begin{block}{Opérations logiques}
+\begin{itemize}
+\item Même principe que pour les opérations arithmétiques
+\item \textbf{and} (ET logique) :\\
+  \textbf{and} r0, r1, r2\\
+  produit un ``et-logique'' à chaque bit des opérandes r1 et r2 et range
+  le résultat dans r0
+\item \textbf{bic} (et logique entre l'opérande 1 et le not de
+  l'opérande 2)
+\item \textbf{orr} (ou inclusif), \textbf{eor} (ou exclusif), ...
+\end{itemize}
+\end{block}
+}
+
+\only<5>{
+  \begin{block}{Comparaisons}
+    \begin{itemize}
+    \item Comparaison (\og{}cmp\fg{}):\\
+      \medskip{}
+      \textbf{cmp} op1, op2\\
+      \medskip{} Compare op1 et op2 et met à jour les fanions
+      (\textit{flags}) d'état (\textit{status})
+
+      op1 doit être un registre et op2 un registre ou un opérande
+      immédiat
+
+    \item Le résultat de la comparaison est exploité par les
+      instructions qui s'exécuteront après (instructions avec codes
+      mnémoniques suffixées)
+
+    \end{itemize}
+  \end{block}
+}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Suffixes aux mnémoniques (instructions conditionnelles)}
+  \begin{itemize}
+  \item Tout mnémonique dans une instruction peut être suffixé d'une
+    condition (deux lettres, comme \textbf{addne} ou \textbf{mullt})
+  \item Si cette condition est vraie, l'instruction est
+    exécutée. Sinon, elle est ignorée
+  \item Ces conditions sont souvent liés aux fanions d'état (résultat
+    d'un calcul ou une comparaison précédents, qui ont produits un
+    résultat nul, négatif, une retenue ou un débordement,
+    ...)
+  \item Exemple :\\
+    \textbf{cmp} r0, \#0\\
+    \textbf{addgt} r1,r2\\
+    Exécuter l'addition si la comparaison qui la précède a produit un
+    résultat de type ``strictement supérieur à'' (\textbf{gt} :
+    \textit{greater than})
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Suffixes aux mnémoniques (Mise à jour des
+    fanions/\textit{flags})}
+  \begin{itemize}
+  \item Un code mnémonique peut être suffixé aussi de la lettre s pour
+    indiquer que l'instruction doit mettre à jour les
+    fanions (s = \textit{set flags})\\
+    \textbf{mov} fait un transfert sans toucher aux fanions\\
+    \textbf{movs} modifie les fanions
+  \item L'instruction \textbf{cmp} modifie systématiquement les
+    fanions (pas besoin d'ajouter un s)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Instructions de saut}
+
+\only<1>{
+\begin{block}{Principe}
+  Une instruction de saut (\textbf{branch}) permet de faire un saut à
+  n'importe quel endroit dans le programme (changer le flux de
+  contrôle)
+  
+
+\begin{itemize}
+\item Le code mnémonique de la forme la plus simple est \textbf{b} ou
+  \textbf{bal} (le \textbf{al} est un suffixe pour dire \textit{Branch
+    ALways})
+
+\item Un seul opérande est défini : une expression qui indique où
+  aller dans le programme (c'est souvent une étiquette)
+
+\item Possibilités : blt (\textit{branch if less than}), bge
+  (\textit{branch if greater than or equal}), beq (\textit{if equal}),
+  bne (\textit{if not equal}), ...
+
+\item ça sert à écrire des if-then-else et des boucles
+\end{itemize}
+\end{block}}
+
+\only<2>{
+\begin{block}{Saut avec lien/retour}
+  \begin{itemize}
+    \item Code mnénmonique : \textbf{bl} (\textit{branch with link})
+\item Avant le saut, l'adresse de l'instruction qui suit l'instruction
+  courante (obtenue du PC=r15) est stockée dans le registre r14
+\item De cette façon le programme peut revenir au point de départ du
+  saut
+\item ça sert à écrire des appels de fonctions et des \textit{returns}
+\item Pour faire un return, il suffit d'écrire :\\
+\textbf{movs} r15,r14  ou \textbf{mov} r15,r14
+\end{itemize}
+\end{block}}
+
+\only<3>{
+\begin{block}{Exercice}
+\begin{itemize}
+\item Écrire un programme Assembleur avec un si-alors\\ (si(r4 <>
+  r5) alors r3=r4 fin-si)
+\item Écrire un programme Assembleur avec un si-alors-sinon\\ (si(r4 < r5) alors r3=r4 sinon r3=r5 fin-si)
+\item Écrire un programme Assembleur avec une boucle tant-que\\
+  (tant-que(r4 >= r5) r3=r3+r4 ; r4-=1 fin-tant-que)
+\end{itemize}
+\end{block}}
+
+\only<4>{
+\begin{block}{Une instruction spéciale}
+\begin{itemize}
+\item Appel système (\og{}system call\fg{}):\\
+\medskip{}
+\textbf{swi}\\
+\medskip{}
+\item Provoque un appel au noyau du système d'exploitation
+\item Le code mnémnique est suivi d'un seul opérande : une expression
+  qui dépend du système d'exploitation
+
+\item Appels systèmes courants : lire et écrire depuis/vers l'E/S
+  standards, lire et écrire des fichiers/périph. sur le disque, ...
+  
+\end{itemize}
+\end{block}}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Programme \og{}Hello World\fg{}}
+
+\begin{block}{Code}
+  \begin{lstlisting}[style=arm]
+/* -- hello.s */
+.data
+msg: .ascii "Hello World\n"
+.text
+.global main
+main:
+  mov r2, #12 // Nb de caractères à afficher                              
+  mov r7, #4 // Dire à l'OS que l'IRQ ci-dessous est un syscall print                  
+  mov r0, #1 // Dire à l'OS que l'IRQ est un syscall print                  
+  ldr r1, =msg // Message à afficher stocké dans r1                       
+  swi 0 // SoftWare Interrupt (IRQ)                                       
+  mov r7, #1 // IRQ = syscall exit                                        
+  swi 0
+
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Programme \og{}Hello World\fg{} plus simple}
+
+\begin{block}{Code}
+  On utilise des fonctions système de la bibliotèque standard du langage C
+  (\texttt{printf} et \texttt{exit})
+  \begin{lstlisting}[style=arm]
+/* -- hello2.s */
+
+.data
+msg:     .ascii "Hello World\n"
+
+.text
+.global main
+
+main:
+        ldr r0, =msg
+        bl printf
+        bl exit
+
+\end{lstlisting}
+\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Un autre programme}
+\begin{block}{Code}
+      Demander la saisie d'un entier et afficher s'il est positif (>=0).
+\begin{lstlisting}[style=arm]
+/* -- positif.s */
+.data
+enter:  .asciz "Entrer un nombre : "
+scan:   .asciz "%d"
+print:  .asciz "C'est un nombre %s"
+msg1:   .asciz "positif ou nul\n"
+nb:     .word 0 // La variable dans laquelle le nombre saisi sera stocké
+.text
+.global main
+main:
+        ldr r0, =enter
+        bl printf
+        ldr r0, =scan
+        ldr r1, =nb // On range dans r1 un pointeur vers nb
+        bl scanf // Après ça, dans nb on a le nombre saisi 
+      \end{lstlisting}
+      La directive .asciz permet de bien aligner les chaînes de
+      caractères (insertion d'un symbole spécial (nul =
+      $\backslash 0$) à la fin de chacune)
+    \end{block}
+    \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Un autre programme -suite-}
+  
+\begin{block}{Code}
+  \begin{lstlisting}[style=arm]
+        ldr r1, =nb // On repointe dans r1 vers nb (après le scanf)
+        ldr r2, [r1] // On récupère dans r2 le nombre pointé par r1
+        cmp r2, #0
+        blt fin
+        ldr r0, =print
+        ldr r1, =msg1
+        bl printf
+fin:
+        bl exit
+      \end{lstlisting}
+ \end{block}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{À vous de jouer!}
+
+\begin{block}{Exercices}
+  \begin{itemize}
+  \item Modifier le programme positif.s pour afficher si le nombre est
+    négatif
+\item Demander la saisie d'un entier et rendre la valeur absolue de cet entier
+(afficher le résultat);
+
+%\item Initialiser un tableau de 3~entiers (sans le saisir) et permuter les
+%éléments de ce tableau;
+
+\item Afficher les $n$ premiers entiers (en partant de~1), où l'entier $n$ sera
+demandé à l'utilisateur;
+
+\item Demander la saisie d'un entier et dire si cet entier est pair ou non
+(afficher le résultat).
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Diapos et références}
+
+\begin{block}{Diapos constuites sur la base du cours de :}
+  David Delahaye, professeur à la FDS (mon prédécesseur)
+\end{block}
+
+\begin{block}{Références en ligne}
+  \begin{itemize}
+    \footnotesize
+\item \url{https://thinkingeek.com/arm-assembler-raspberry-pi/}
+\item \url{http://www.peter-cockerell.net/aalp/}
+  \item \url{https://community.arm.com/}
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+% \ifCORR
+% \begin{frame}[fragile]
+% \frametitle{Correction}
+
+% \begin{block}{Code}
+% \begin{lstlisting}[style=mips,basicstyle=\tiny]
+% # abs.asm
+
+% .data
+% msg:    .asciiz "Enter an integer: "
+
+% .text
+% main:   li $v0, 4
+%         la $a0, msg
+%         syscall
+%         li $v0, 5
+%         syscall
+%         li $t0, 0
+%         bge $v0, $t0, disp
+%         neg $v0, $v0
+% disp:   move $a0, $v0
+%         li $v0, 1
+%         syscall
+% \end{lstlisting}
+% \end{block}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Correction}
+
+% \begin{block}{Code}
+% \begin{lstlisting}[style=mips,basicstyle=\tiny]
+% # array.asm
+
+% .data
+% array:  .space 12
+
+% .text
+% main:   la $t0, array
+%         li $t1, 1
+%         sw $t1, ($t0)
+%         li $t1, 2
+%         sw $t1, 4($t0)
+%         li $t1, 3
+%         sw $t1, 8($t0)
+%         lw $t1, ($t0)
+%         lw $t2, 8($t0)
+%         sw $t2, ($t0)
+%         sw $t1, 8($t0)
+% \end{lstlisting}
+% \end{block}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Correction}
+
+% \begin{block}{Code}
+% \begin{lstlisting}[style=mips,basicstyle=\tiny]
+% # int.asm
+
+% .data
+% msg:    .asciiz "Enter an integer: "
+
+% .text
+% main:   li $v0, 4
+%         la $a0, msg
+%         syscall
+%         li $v0, 5
+%         syscall
+%         li $t0, 1
+%         move $t1, $v0
+% for:    bgt $t0, $t1, end
+%         move $a0, $t0
+%         li $v0, 1
+%         syscall
+%         addi $t0, $t0, 1
+%         j for
+% end:
+% \end{lstlisting}
+% \end{block}
+% \end{frame}
+
+% \begin{frame}[fragile]
+% \frametitle{Correction}
+
+% \begin{block}{Code}
+% \begin{lstlisting}[style=mips,basicstyle=\tiny]
+% # even.asm
+
+% .data
+% msg:    .asciiz "Enter an integer: "
+% meven:  .asciiz "Even"
+% modd:   .asciiz "Odd"
+
+% .text
+% main:   li $v0, 4
+%         la $a0, msg
+%         syscall
+%         li $v0, 5
+%         syscall
+%         li $t0, 2
+%         div $v0, $t0
+%         mfhi $t0
+%         bnez $t0, odd
+%         la $a0, meven
+%         j disp	
+% odd:    la $a0, modd
+% disp:   li $v0, 4
+%         syscall
+% \end{lstlisting}
+% \end{block}
+% \end{frame}
+% \fi
+
+\end{document}

@@ -1,0 +1,544 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+
+\newcounter{saveenumi}
+\newcommand{\seti}{\setcounter{saveenumi}{\value{enumi}}}
+\newcommand{\conti}{\setcounter{enumi}{\value{saveenumi}}}
+
+\resetcounteronoverlays{saveenumi}
+
+%\input{head}
+% %%%%%%%%%%%%%%%%%%% SLIDE PATTERN %%%%%%%%%%%%%%%%%%%%
+
+% 2 columns slide
+% \mycolumns{align}{size_c1}{size_c2}{content_c1}{content_c2}
+\newcommand{\mycolumns}[5]{
+\begin{columns}[#1]
+    \column{#2cm}
+    #4
+    \column{#3cm}
+    #5
+\end{columns}
+}
+
+% 2 columns and 1 row slide
+% \mytriangle{figure_size}{column_size}{row_size}{figure}{column}{row}
+\newcommand{\mytriangle}[6]{
+\begin{center}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    #5 & \includegraphics[width=#1cm]{figs/#4} \\
+    \multicolumn{2}{m{#3cm}}{#6} \\
+\end{tabular}
+\end{center}
+}
+
+% 2 columns and 2 rows slide
+% \mygrid{text_size}{image_size}{figure1}{figure2}{text1}{text2}
+\newcommand{\mygrid}[6]{
+\begin{center}
+\begin{tabular}{m{#1cm}m{#2cm}}
+    #5 & \includegraphics[width=#2cm]{figs/#3} \\
+\end{tabular}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    \includegraphics[width=#2cm]{figs/#4} & #6\\
+\end{tabular}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title[Histoire de l'ordinateur]{\Large{Histoire de l'ordinateur}}
+\author[C.~Tibermacine]{\large{Chouki~Tibermacine}\\
+\vspace{1cm}
+\small{Chouki.Tibermacine@umontpellier.fr}}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+%\setbeamertemplate{navigation symbols}{}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{flushright}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{flushright}
+\end{frame}
+
+\note{Expliquer que le PC est la première machine dont l'architecture a était
+diffusée/ouverte pour favoriser son adoption...  mais c'est plutôt Apple qui a
+inventer le PC... "IBM PC compatible", etc.}
+
+\begin{frame}
+\frametitle{Objectifs de ce cours}
+
+\begin{flushright}
+\includegraphics[width=4cm]{figs/ibm-pc.jpg}
+\end{flushright}
+
+\begin{enumerate}
+\item Connaître les grandes étapes de l'histoire de l'informatique;
+\item Découvrir l'architecture de Von~Neumann.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Besoin de calculer}
+\mycolumns{c}{6}{5}{
+\begin{itemize}
+\item Tablettes scolaires mathématiques de l'époque paléo-babylonienne (deuxième
+millénaire avant notre ère);
+\item L'ordinateur est né du besoin de calculer de manière:
+\begin{itemize}
+\item toujours plus complexe;
+\item toujours rapide.
+\end{itemize}
+\item $\Rightarrow$ Automatiser le calcul.
+\end{itemize}}
+{\includegraphics[width=5cm]{figs/plimton.png}\\
+\includegraphics[width=5cm]{figs/boulier.jpg}}
+\end{frame}
+
+\note{Boulier utilisé plusieurs siècles avant JC.\\
+La numérotation romaine (1er millénaire) n'était pas une numérotation
+positionnelle: c'est a dire que la position des chiffres dans la représentation
+d'un nombre n'était pas associée à des poids (unités, dizaines) permettant une
+écriture des chiffres plus compacte et une grande simplification des calculs.\\
+C'est le cas des chiffres arabes + base 10.}
+
+\begin{frame}
+\frametitle{Un peu d'histoire}
+
+\begin{itemize}
+\item XIème siècle: adoption des chiffres arabes;
+\item XVIIème siècle et avant: arithmétique, mathématique;
+\item XIXème siècle: les calculateurs;
+\item XXème siècle: théorie de l'information + machine universelle;
+\item 1945: architecture de Von~Neumann et naissance de l'ordinateur;
+\item Depuis 1945: 4~grandes générations d'ordinateurs se sont succédées.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Fondations}
+
+ \begin{itemize}
+\item \emph{John~Neper} (1614): théorie des logarithmes permettant de
+transformer des multiplications en additions;
+
+\item \emph{Blaise~Pascal} (1642): première machine a calculer, la pascaline
+(principe de roues dentées). Cette machine pouvait additionner et soustraire
+des nombres de six chiffres et prenait en compte les retenues!
+
+\item \emph{Gottfried~Leibniz} (1673), mathématicien:
+\begin{itemize}
+\item Améliore la machine de Pascal en y ajoutant un mécanisme permettant
+d'automatiser l'exécution répétitive d'additions et de soustraction. La
+première machine à calculer autorisant les 4~opérations arithmétiques était née.
+\item Système binaire sous sa forme moderne basé sur les deux chiffres 0 et 1 et
+montra la puissance et la simplicité de l'arithmétique binaire, système
+utilisé par les ordinateurs actuels.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=8cm]{figs/pascaline.jpg}
+\end{center}
+\caption{La pascaline (exposée au CNAM à Paris)}
+\end{figure}
+\end{frame}
+
+\note{L'idée de la gestion de la retenue était que chaque roue dentées pouvait
+dépasser le chiffre 9 en effectuant une rotation complète et en décalant d'un
+cran la roue supérieure.}
+
+\begin{frame}
+\frametitle{Les grandes étapes}
+
+\begin{itemize}
+\item \emph{Jean-Baptiste~Falcon} (1728): commande pour métier a tisser.\\
+\footnotesize
+$\Rightarrow$ Première machine avec un programme externe!
+\normalsize
+\item \emph{Joseph~Jacquard} (1805): cartes perforées pour métier a tisser.
+
+\item \emph{Charles~Babbage} (1833): considéré comme le père de l'ordinateur
+(rapprochement entre commande externe et machine calculer).\\
+\footnotesize
+$\Rightarrow$ Réalisation de sa machine analytique avec l'aide
+d'\emph{Ada~Augusta}, l'ancêtre des ordinateurs.
+\normalsize
+\item \emph{George~Boole} (1854): système de logique symbolique.\\
+\footnotesize
+$\Rightarrow$ Calcul booléen: fonctions logiques décrivant le fonctionnement
+d'un système le plus simple possible.
+\normalsize
+\item \emph{Herman~Hollerith} (1890): calculateur à statistiques (tabulatrice).\\
+\footnotesize
+$\Rightarrow$ Cartes perforées: premiers supports d'entrée-sortie et premières
+mémoires de masse (mécanographie).
+\normalsize
+\end{itemize}
+\end{frame}
+
+\note{\begin{itemize}
+\item Babbage: premier a avoir l'idée de s'inspirer à la fois des machines a
+calculer e.g., Pascaline et des métiers à tisser
+\item La machine analytique de Babbage: conçue pour exécuter des séquences
+d'opérations arithmétiques en fonctions d'instructions données par
+l'utilisateur => ne verra jamais le jour (trop en avance sur son temps)
+\item Herman~Hollerith est le fondateur en 1896 d'une société qui deviendra plus
+tard IBM.
+\end{itemize}}
+
+\begin{frame}
+
+\mycolumns{c}{6}{5}{
+\begin{figure}[h]
+\includegraphics[width=5cm]{figs/tabulating.pdf}
+\caption{La \og{}Tabulating Machine\fg{} d'Herman~Hollerith}
+\end{figure}}
+{\begin{figure}[h]
+\includegraphics[width=4cm]{figs/holcard.jpg}
+\caption{Cartes perforées}
+\end{figure}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Naissance de l'ordinateur}
+
+\begin{itemize}
+\item \emph{Claude~Shannon} (1948): chiffres binaires pour les relations
+logiques et les calculs logiques et arithmétiques.\\
+\footnotesize
+$\Rightarrow$ Tout calcul peut être réalisé avec les 3~opérations logiques de
+base \og{}et\fg{}, \og{}ou\fg{}, et \og{}non\fg{}.
+\normalsize
+\item \emph{Alan~Turing}: formalise une machine universelle ou Machine de
+Turing, décrivant un modèle abstrait du fonctionnement des appareils mécaniques
+de calcul.\\
+\footnotesize
+$\Rightarrow$ La thèse de Church-Turing postule que tout problème de calcul
+fondé sur une procédure algorithmique peut être résolu par une machine de
+Turing.\\
+$\Rightarrow$ Invente le concept de programme.
+\normalsize
+\item \emph{John~Von~Neumann} (1945): enregistrer le programme en mémoire.\\
+\footnotesize
+$\Rightarrow$ Architecture de l'ordinateur moderne: l'architecture de
+Von~Neumann.
+\normalsize
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Construction de l'ENIAC (1945)}
+
+\mycolumns{c}{5}{5}{
+\begin{itemize}
+\item \og{}Electronic Numerical Integrator Analyser and Calculator\fg{};
+\item Technologie des tubes à vide (18000, 30~tonnes);
+\item Construit à l'Université de Pennsylvanie;
+\item Construit pour être Turing-complet;
+\item Multiplication de 2~nombres de 10~chiffres en 3~ms!
+\end{itemize}}
+{\includegraphics[width=5cm]{figs/eniac.jpg}}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\includegraphics[width=6.5cm]{figs/historique.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Principes de l'ordinateur selon Von~Neumann}
+
+\begin{itemize}
+\item Machine universelle contrôlée par programme;
+\item Programme = séquence d'instructions décrivant comment effectuer
+  une tâche;
+\item Instructions du programme codées sous forme numérique binaire et
+  enregistrées en mémoire (tout comme les données utilisées par le
+  programme);
+\item Existence d'instructions permettant les ruptures de séquences.
+\end{itemize}
+\end{frame}
+
+\note{Remarque: Un programme est constitué de plusieurs instructions.
+Question: quel est le nouveau concept dans cette transparent? "instruction en
+séquence" le reste avaient plus ou moins déjà était proposé avant VN... qui a
+était le premier à imaginer tout ensemble.}
+
+\begin{frame}
+\frametitle{Architecture de Von~Neumann}
+
+\begin{center}
+\includegraphics[width=6cm]{figs/archi_von_neumann.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Composants classiques d'un ordinateur}
+
+\mycolumns{c}{5}{6}{
+\begin{itemize}
+\item La mémoire centrale qui contient les données et les programmes à
+  exécuter;
+\item L'unité centrale de traitement (UCT/CPU) qui exécute les programmes
+  chargés en mémoire;
+\item Les unités d'entrée/sortie qui permettent le lien et l'échange
+d'information avec les périphériques (clavier, écran, souris, imprimante,
+etc.).
+\end{itemize}}
+{\includegraphics[width=6cm]{figs/composant.pdf}}
+\end{frame}
+
+\note{Expliquer la séparation données/programmes. Par exemple, la fonction qui
+réalise la moyenne de 10 nombres: c'est le programme. Les 10 notes des
+étudiants d'IG, c'est les données.}
+
+\begin{frame}
+\frametitle{Naissance de l'industrie informatique}
+
+{\includegraphics[width=11cm]{figs/generations_ordi.pdf}}
+% \begin{itemize}
+% \item 1ère génération ($\sim$1950): tubes à vide.
+% \item 2ème génération ($\sim$1960): transistors. Moindre coût, bus unique pour
+% interconnecter les différents composants.
+% \item 3ème génération ($\sim$1970): circuits intégrés. Multi-programmation
+% (plusieurs programmes en mémoire).\\
+% Principe: dès qu'un programme est en attente d'une entrée-sortie,
+% l'unité de commande poursuit l'exécution d'un autre programme.
+% \item 4ème génération ($\sim$1980): puces avec des millions de
+% transistors. \og{}Very-Large-Scale Integration\fg{} (VLSI) + multiplication
+% des unités périphériques (stockage, écran, imprimante, etc.).
+% \end{itemize}
+\end{frame}
+
+\note{Wikipedia:
+\begin{itemize}
+\item Les tubes électroniques désignent les composants qui utilisent des
+électrodes, placées dans le vide ou dans un gaz, isolées entre elles par ce
+milieu, et comprenant au moins une source d'électrons.
+\item Un transistor est un dispositif semi-conducteur à trois électrodes
+actives, qui permet de contrôler un courant (ou une tension) sur une des
+électrodes de sorties grâce à une électrode d'entrée.
+\item Le circuit intégré, aussi appelé puce électronique, est un composant
+électronique reproduisant une, ou plusieurs, fonction électronique plus ou
+moins complexe, intégrant souvent plusieurs types de composants électroniques
+de base dans un volume réduit, rendant le circuit facile à mettre en oeuvre.
+\end{itemize}}
+
+\begin{frame}
+\frametitle{Loi de Moore (1965)}
+
+Nombre de transistors (des microprocesseurs = $\sim$CPU) sur une puce de
+silicium double tous les deux ans.
+
+    \begin{center}
+        \includegraphics[width=9cm]{figs/Loi_de_Moore.png}
+    \end{center}
+\end{frame}
+
+\note{Discussion et lien vers la page Wikipedia sur la loi de
+  Moore. Wikipedia: La loi de Moore (Gordon Moore, co-fondateur
+  d'Intel en 1968) s'est jusqu'ici révélée étonnamment exacte, et elle
+  pourrait en principe le rester jusque vers 2015 avant qu'on ne soit
+  réellement confronté aux effets quantiques, car vers 2015, les
+  processeurs devraient contenir plus de 15 milliards de transistors.}
+
+\begin{frame}
+\frametitle{Évolution des microprocesseurs Intel}
+
+\begin{center}
+\includegraphics[width=10cm]{figs/intel-proc.png}
+\end{center}
+\end{frame}
+
+\note{ Expliquer l'évolution des noms
+
+Expliquer le nombre de transistors
+
+Expliquer l'évolution du nombre de bits : de 4 à 64 bits actuellement
+
+Expliquer la relative stagnation de la fréquence d'horloge depuis
+2004, à cause des difficultés à refroidir les processeurs On a remédié
+à cela en produisant des processeurs parallèles multi-coeurs (Duo, Quad, ...)
+
+MIPS = million d'instructions par seconde.\\
+Elle est la meilleure unité pour établir des comparatifs de puissance entre
+processeurs, même si le FLOPS (Floating-point operations per second) ne doit pas
+être négligé.
+}
+
+\begin{frame}
+
+\begin{center}
+\includegraphics[width=8.5cm]{figs/ibm.jpg}
+\end{center}
+\end{frame}
+
+\note{
+Émergence d'une nouvelle discipline: l'informatique.\\
+Proposer votre définition de ce que c'est que l'informatique (1 phrase).\\
+Informatique (Académie française, 1965): la science du traitement rationnel de
+l'information, considérée comme le support des connaissances dans les domaines
+scientifiques, économiques et sociaux, notamment à l'aide de machines
+automatiques; ensemble des applications de cette science, mettant en oeuvre des matériels (ordinateurs) et des logiciels.\\
+\begin{itemize}
+\item Discuter l'existence déjà en 65 des mots "scientifiques, économiques,
+sociaux";
+\item Discuter le fait que les anglais disent "Computer Science"...\\
+As the School of Informatics at the University of Edinburgh defines it,
+Informatics is the study of the structure, behaviour, and interactions of
+natural and engineered computational systems (i.e., representation, processing
+and communication of information in natural and artificial systems.). The
+central notion is the transformation of information - whether by computation or
+communication, whether by organisms or artifacts.
+\end{itemize}}
+
+\begin{frame}
+\frametitle{Calculateurs quantiques}
+
+\begin{block}{Limites de la miniaturisation et de la loi de Moore}
+\begin{itemize}
+\footnotesize
+\item Taille des transistors de l'ordre de l'atome en~2020;
+\item Effets quantiques sous 8~nanomètres (série Skylake d'Intel en~2015).
+\normalsize
+\end{itemize}
+\end{block}
+
+\begin{block}{Exploiter la mécanique quantique}
+\begin{itemize}
+\footnotesize
+\item Utilisation de la superposition et de l'intrication;
+\item Calculs sur des qbits dont l'état quantique a plusieurs valeurs;
+\item Intéressants pour des calculs combinatoires (des algorithmes
+  existent pour casser beaucoup de méthodes cryptographiques);
+\item Premiers calculateurs quantiques dès~1990;
+\item Décohérence (pertes des effets quantiques dans le
+  macroscopique);
+\item Avancées majeures chez Google, IBM, Intel et Microsoft.
+\normalsize
+%\item Calculateur à 49~qbits chez Google d'ici la fin de l'année.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Programmes exécutés par les ordinateurs}
+
+\begin{itemize}
+\item Programme = séquence d'instructions;
+\item Instruction = additionner deux nombres, tester si un nombre est
+  nul, déplacer un nombre vers/depuis la mémoire centrale, ...;
+\item \textbf{Jeu d'instructions} que l'ordinateur sait exécuter
+  forment un langage = \textbf{langage machine};
+\item Un fabriquant d'UCT décide du langage machine à fournir (le plus simple
+  possible pour réduire la complexité et le coût de l'électronique).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Organisation structurée des ordinateurs}
+
+\begin{itemize}
+\item Langage machine est souvent trop simple $\Rightarrow$ difficile
+  à utiliser par les informaticiens pour résoudre des problèmes de
+  plus haut niveau (que de simples additions, ...);
+\item Au fil du temps, des niveaux abstractions se sont ajoutés au
+  dessus du langage machine, dans une structure en couches;
+\item L'ordinateur propose un langage (machine) L0 et l'utilisateur
+  veut écrire un programme dans un langage plus \textbf{évolué}
+  L1. Comme exécuter ces programmes écrits en L1 ?
+\begin{itemize}
+\item les \textbf{traduire} vers L0;
+\item écrire un programme dans L0, qui prend le programme écrit en L1
+  comme donnée et exécute, pour chaque instruction L1, des instructions
+  L0 (un \textbf{interprète} ou \textbf{machine virtuelle});
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Organisation en couches d'abstraction}
+
+\begin{itemize}
+\item L0 et L1 ne doivent pas être ``très'' différents pour que la
+  traduction ou l'interprétation soient efficaces et pas trop
+  complexes;
+\item Solution : ajouter d'autres langages L2, ... (avec leurs
+  machines virtuelles M2, ...) qui s'empilent comme des
+  \textbf{couches} d'abstraction
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Un ordinateur avec une architecture multi-couches}
+\begin{center}
+\includegraphics[width=8cm]{figs/archi_en_couches.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Un ordi. avec une archi. multi-couches possible}
+\begin{center}
+\includegraphics[width=8cm]{figs/archi_en_couches_pratique.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Besoin d'inventer un système d'exploitation}
+\begin{itemize}
+\item Dans les premiers jours de l'informatique (années 50), les
+  ordinateurs étaient des machines complètements ouvertes
+\item Pour exécuter un programme Fortran (1954) :
+\mycolumns{c}{6}{5}{
+\begin{enumerate}
+\item Réserver un créneau d'utilisation de l'ordinateur
+\item Charger dans le lecteur de cartes perforées le bloc de cartes du
+  compilateur (traducteur) Fortran
+\item Charger les cartes du programme Fortran
+\seti
+\end{enumerate}
+}
+{
+\includegraphics[width=5cm]{figs/punched_card.jpg}
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Besoin d'inventer un système d'exploitation}
+\begin{itemize}
+\item Pour exécuter un programme Fortran (1954) : -suite-
+\begin{enumerate}
+\conti
+\item L'ordinateur lit les cartes (``lentement'') parfois plusieurs fois
+\item Il produit des cartes avec le programme compilé (en langage
+  machine) s'il n'y a pas d'erreurs
+\item Introduire les nouvelles cartes + les librairies
+\item S'il y a des erreurs, il faut corriger et répéter
+\end{enumerate}
+\end{itemize}
+\only<2>{
+\color{red}{ $\Rightarrow$ Naissance (autour de 1960) des systèmes
+  d'exploitation = programmes ``permanents'', qui
+  évitent de répéter ces tâches}
+
+\vspace{.5cm}
+
+\color{black}{Un système d'exploitation fait bien plus de choses que
+  cette prise en charge des programmes utilisateurs (objet du cours
+  suivant)} }
+\end{frame}
+
+\end{document}

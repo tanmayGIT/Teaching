@@ -1,0 +1,660 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ulem}
+\usepackage{xcolor}
+
+\lstdefinestyle{C}
+{
+  language=C,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{green},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\newcommand{\mycolumns}[5]{
+\begin{columns}[#1]
+    \column{#2cm}
+    #4
+    \column{#3cm}
+    #5
+\end{columns}
+}
+
+
+\title[FAS]{Représentation des données\break{}
+  -- Arithmétique entière}
+\author[C.~Tibermacine]{\large{Chouki TIBERMACINE}\\
+\vspace{1cm}
+\small{Chouki.Tibermacine@umontpellier.fr}}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{flushright}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{flushright}
+\end{frame}
+
+\note[itemize]{
+\item Début de semaine: les faire résumer les cours de la semaine précédente.
+\item Expliquer qu'il s'agit de trouver des représentations binaires appropriés
+(facile a comprendre et manipuler par l'ordinateur) pour nos
+données/informations. Passer à nos représentations (par exemple, les petits
+cailloux) au bits.}
+
+\begin{frame}
+\frametitle{Objectifs du cours}
+
+\begin{flushright}
+\includegraphics[width=3cm]{figs/binaire.jpg}
+\end{flushright}
+
+\begin{enumerate}
+\item Comprendre le principe des codages binaires;
+\item Savoir représenter des nombres entiers dans diverses représentations;
+\item Savoir représenter des nombres réels (prochain cours);
+\item Savoir calculer avec les représentations des nombres.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Différents types d'informations}
+
+\begin{itemize}
+\item Instructions;
+\item Données:
+\begin{itemize}
+\item Nombres (entiers, réels);
+\item Caractères et chaînes;
+\item Images;
+\item Sons et vidéos.
+\end{itemize}
+\end{itemize}
+
+Toujours représentées sous forme binaire (0 ou~1) à l'aide de bits.
+
+\begin{block}{Codage}
+Fonction établissant une correspondance entre la représentation externe de
+l'information (par exemple, 'A', 36, un son, ou une image) et sa représentation
+interne qui est une suite de bits (par exemple, 01000001, 100100, etc.).
+\end{block}
+\end{frame}
+
+\note[itemize]{
+\item En mémoire sont codés deux types d'information, les instructions et les
+données. Les données à leur tour peuvent être de deux types : numériques et non
+numériques.
+\item On retrouve la différence donnée/calcul de notre carte conceptuelle.}
+
+\begin{frame}
+\frametitle{Système binaire}
+
+Un système de numération utilisant la base~2. Toutes les informations sont
+codées avec des~0 et des~1.
+
+\begin{itemize}
+\item 1~bit : 2$^1$ possibilités = 0, 1;
+\item 2~bits : 2$^2$ possibilités = 00, 01, 10, 11;
+\item n~bits : 2$^n$ possibilités;
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Système binaire -suite-}
+
+\begin{itemize}
+
+\item Un mot de taille n = un ensemble de bit avec un poids
+$2^{n-1}\ldots{}2^1,2^0$;
+\end{itemize}
+
+\begin{center}
+\begin{tabular}
+{|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|p{0.5cm}|}
+\hline
+2$^7$&2$^6$&2$^5$&2$^4$&2$^3$&2$^2$&2$^1$&2$^0$\\
+\hline
+1&1&0&0&1&1&0&0\\
+\hline
+\end{tabular}
+\end{center}
+
+\only<1>{
+\begin{block}{Avantages}
+\begin{itemize}
+\item Facile à réaliser techniquement. En électronique, ces 2 états
+correspondent à l'existence ou non d'une tension (+5V=1 et 0V=0).
+\item Opérations fondamentales faciles à effectuer (circuits logiques).
+\item Arithmétique binaire réalisée à partir de la logique symbolique.
+\end{itemize}
+\end{block}}
+
+\only<2>{
+\begin{block}{Exercice}
+L'opération puissance permet de connaître le nombre de mots possibles
+pour un nombre $n$ de bits. Mais quelle opération permet de faire l'inverse,
+c'est-à-dire de savoir combien il faut de bits pour représenter
+$n$~possibilités?\\
+Par exemple, combien de bits faudra-t-il pour représenter 256~possibilités?
+\end{block}}
+
+\only<3>{
+\begin{block}{Solution}
+\begin{itemize}
+\item $n$~bits $\Rightarrow$ $2^n$ possibilités (donc $2^n$ mots);
+\item $x$~possibilités $\Rightarrow$ $log_2(x)=log_2(2^y)=y$ bits;
+\item Si $x$ n'est pas une puissance de~2, prendre le plus petit $y$
+t.q. $2^y>x$.
+\end{itemize}
+
+Pour 256~possibilités, il faut donc 8~bits: $log_2(256)=log_2(2^8)=8$.
+\end{block}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Représentation de l'information}
+
+\begin{itemize}
+\item Instructions:
+\begin{itemize}
+\item Le codage dépend du processeur;
+\item Décodage par l'unité de commande.
+\item Nombre limité d'instructions (processeur CISC/RISC).
+\end{itemize}
+
+\item Données:
+\begin{itemize}
+\item Non numériques (codage assez simple car aucune opération arithmétique ou
+logique ne sera appliquée sur ces données, une table de correspondance
+suffit);
+\item Numériques (codage complexe qui doit faciliter la mise en place de
+circuits réalisant les opérations arithmétiques).
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\note{Dans ce chapitre on va se concentrer sur la représentation des données. Au
+chapitre sur le CPU, nous verrons comment peuvent être représentées des
+instructions.}
+
+\begin{frame}
+\frametitle{Données non numériques}
+
+Afin de faciliter les échanges entre machines, des codages binaires normalisés
+ont été établis (BCD, ASCII, Unicode, etc.).
+
+\begin{itemize}
+\item Nombre variable de bits, 6, 7, 8, 16, 32;
+\item Certains bits réservés au contrôle des autres.
+\end{itemize}
+
+Certains codages ne sont pas normalisés. C'est pourquoi l'on peut rencontrer des
+problèmes lors d'échanges de fichiers comportant des caractères
+spéciaux/accentués (entre Mac et PC par exemple).
+\end{frame}
+
+\begin{frame}
+\frametitle{Caractères ASCII}
+
+\begin{itemize}
+\item ASCII = American Standard Code for Information Interchange;
+\item 7~bits ($\Rightarrow$ 128~caractères);
+\item Pas de caractères accentués (accents: ISO~8859-1, 8~bits);
+\item 1~bit supplémentaire utilisé pour le contrôle de parité (si voulu).
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=10.2cm]{figs/ascii.png}
+\end{center}
+\end{frame}
+
+\note{Dès le début des années~80 il est devenu évident que~7 ou 8~bits
+  (128 ou 256~valeurs) ne suffisent pas pour représenter tous les
+  caractères des différentes langues de la planète.}
+
+\begin{frame}
+\frametitle{Caractères Unicode}
+
+\mycolumns{c}{4.5}{6.5}{
+\begin{itemize}
+\item 1 à 4~octets ($\Rightarrow$ 1~114~112~caractères);
+\item Codage unique quelle que soit la plate-forme, le logiciel, la langue;
+\item Inclus des propriétés fonctionnelles et des renseignements linguistiques
+ou typographiques;
+\item Normalisé ISO/IEC 10646 (UTF-8, UTF-16, UTF-32);
+\end{itemize}}
+{\includegraphics[width=6.5cm]{figs/unicode.pdf}}
+\end{frame}
+
+\note{Attention un codage de caractère n'est pas une police! Les possibles
+formes des caractères (glyphes) ne sont pas attachées au codage mais à la
+police (interprétation graphique du codage).}
+
+\begin{frame}
+\frametitle{Données numériques}
+
+\begin{itemize}
+\item Nombres entiers non signés (positifs ou nuls): 0; 1; 315;
+\item Nombres entiers signés (positifs et négatifs): -1 ; -1255;
+\item Nombres flottants (réels) : 3,1415; -0,5 (prochain cours).
+\end{itemize}
+
+Un algorithme de codage réalise la conversion en binaire.\\
+Les opérations arithmétiques (+, -, *, /) sont effectuées exclusivement en
+arithmétique binaire.
+\end{frame}
+
+\note[itemize]{
+\item Rappeler les résultats des opérations arithmétique binaire (1+1, 0+1, 1*1,
+etc.) cf Table 3.2 de Zanella13.
+\item Les nombres "flottants" sont une approximation des nombres réels, car leur
+partie significative ne tient que sur un nombre de bits fini.}
+
+\begin{frame}
+\frametitle{Entiers non signés}
+
+\begin{block}{Représentation en base $b$}
+Tout nombre entier positif (de $n$ chiffres $a_i$) peut être représenté, en base
+$b$, par une expression de la forme:
+\vspace{-.4cm}
+$$x=a_{n-1}*b^{n-1}+a_{n-2}*b^{n-2}+\ldots{}+a_1*b^1+a_0*b^0$$
+\end{block}
+
+\begin{block}{335 en base 10}
+  $335=3*10^2+3*10^1+5*10^0$
+  \vspace{-.5cm}
+$$ \Rightarrow{}335$$
+\end{block}
+\footnotesize
+\begin{block}{335 en base 2}
+  $335=1*2^8+0*2^7+1*2^6+0*2^5+0*2^4+1*2^3+1*2^2+1*2^1+1*2^0$
+    \vspace{-.3cm}
+$$\Rightarrow{}101001111$$
+\end{block}
+\normalsize
+\end{frame}
+
+\begin{frame}
+\frametitle{Changement de base: binaire $\rightarrow$ décimal (décodage)}
+
+\begin{block}{Méthode}
+Additionner les puissances de 2 correspondants aux bits de valeur 1.
+\end{block}
+
+\begin{block}{Exemple}
+$101001111=2^8+2^6+2^3+2^2+2^1+2^0=256+64+8+4+2+1=335$
+\end{block}
+
+\begin{block}{Attention au poids!}
+\begin{itemize}
+\item Bit de poids faible: bit ayant la moindre valeur (celui de droite);
+\item Bit de poids fort: bit ayant la plus grande valeur (celui de gauche).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\note{La gauche et la droite n'étant pas formelle sur un ordinateur... il vaut
+mieux se méfier!}
+
+\begin{frame}
+\frametitle{Changement de base : décimal $\rightarrow$ binaire (encodage)}
+\vspace{-.5cm}
+\begin{center}
+\includegraphics[width=9cm]{figs/dec2bin.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercices}
+
+\begin{block}{Décodage}
+Combien valent en décimal les nombres binaires suivants:
+\begin{enumerate}
+\item 1010000100; %644
+\item 0100011111. %287
+\end{enumerate}
+\end{block}
+
+\begin{block}{Encodage}
+Combien valent en binaire les nombres décimaux suivants:
+\begin{enumerate}
+\item 365; %101101101
+\item 171. %10101011
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Correspondance entre les systèmes les plus utilisés}
+\vspace{-.6cm}
+\begin{center}
+\includegraphics[width=11cm]{figs/bases.jpg}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Addition de nombres binaires}
+
+\begin{block}{$222+17$ en base 2}
+\begin{center}
+\begin{tabular}{p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}
+p{0.5cm}p{0.5cm}}
+& & 1 & 1 & $^1$0 & 1 & 1 & 1 & 1 & 0\\
++ & & 0 & 0 & $~$0 & 1 & 0 & 0 & 0 & 1\\
+\hline
+& & 1 & 1 & $~$1 & 0 & 1 & 1 & 1 & 1
+\end{tabular}
+\end{center}
+$\Rightarrow$ 239.
+\end{block}
+	
+\begin{block}{$222+199$ en base 2}
+\begin{center}
+\begin{tabular}{p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}p{0.5cm}
+p{0.5cm}p{0.5cm}}
+& $^1$ &$^1$1 & 1 & $^1$0 & $^1$1 & $^1$1 & $^1$1 & 1 & 0\\
++ & & $~$1 & 1 & $~$0 & $~$0 & $~$0 & $~$1 & 1 & 1\\
+\hline
+& 1 & $~$1 & $~$0 & $~$1 & $~$0 & $~$0 & $~$1 & 0 & 1
+\end{tabular}
+\end{center}
+$\Rightarrow$ 421;\\
+$\Rightarrow$ Attention au bit de retenue (\og{}carry\fg{}).
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Soustraction de nombres binaires}
+
+\begin{block}{$8-1$ en base 2}
+      \vspace{-.2cm}
+  \begin{center}
+    
+  \begin{tabular}{ccccc}
+& 1 & $_1$0 & $_1$0 & $_1$0\\
+-& 0 & 0 & 0 & 1\\
+& 1 & 1 & 1 &\\
+\hline
+& 0 & 1 & 1 & 1
+\end{tabular}
+\end{center}
+\vspace{-.2cm}
+$\Rightarrow$ 7.
+\end{block}
+
+\begin{block}{$13-6$ en base 2}
+      \vspace{-.2cm}
+\begin{center}
+\begin{tabular}{ccccc}
+& 1 & $_1$1 & $_1$0 & 1\\
+- & 0 & 1 & 1 & 0\\
+& 1 & 1\\
+\hline
+& 0 & 1 & 1 & 1
+\end{tabular}
+\end{center}
+    \vspace{-.2cm}
+$\Rightarrow$ 7.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Multiplication et division de nombres binaires}
+
+\begin{block}{$7\times{}5$ en base 2}
+      \vspace{-.2cm}
+\begin{center}
+\begin{tabular}{ccccccc}
+& & & & 1 & 1 & 1\\
+$\times$ & & & & 1 & 0 & 1\\
+\hline
+& & & &1&1&1 \\
+& $^1$ & $^1$ & $^1$0 & 0 & 0 & 0\\
++ & & 1 & 1 & 1 & 0 & 0\\
+\hline
+& 1 & 0 & 0 & 0 & 1 & 1
+\end{tabular}
+\end{center}
+    \vspace{-.4cm}
+$\Rightarrow$ 35.
+\end{block}
+
+\only<1>{
+  \begin{block}{$356/4$ en base 2}
+        \vspace{-.2cm}
+\begin{center}
+\begin{tabular}{cccccccccc}
+& 1 & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 0\\
+/& & & & & & & 1 & 0 & 0\\
+\hline
+& & & 1 & 0 & 1 & 1 & 0 & 0 & 1
+\end{tabular}
+\end{center}
+    \vspace{-.4cm}
+$\Rightarrow$ 89.
+\end{block}}
+
+\only<2>{
+\begin{block}{Exercice}
+Dérouler la division de 356 par 4.
+\end{block}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Taille fixe}
+
+L'entier maximal pouvant être codé dépendra du nombre de bits que l'on réserve
+pour coder un nombre. En général, les entiers sont codés sur un mot. Par
+exemple, pour un ordinateur 32~bits : $2^{32}-1=4~294~967~295$.
+
+\begin{block}{Dépassement de capacité (\og{}Overflow\fg{})}
+Se produit lorsque par exemple le résultat d'une opération sur des nombres
+produit un nombre plus grand que la taille du mot prévu pour représenter ces
+nombres (bit de retenue).
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Entiers signés}
+
+\begin{block}{Principe}
+\begin{itemize}
+\item Taille de la représentation connue;
+\item Nombres positifs codés comme précédemment;
+\item Négatifs sont représentés par le complément à~2;
+\item Bit $n-1$ pour le signe (signe + = 0 , signe - = 1);
+\item Bits $n-2...0$ pour les positifs et leurs compléments.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Entiers signés}
+\only<1>{
+\begin{block}{Complément à~2}
+\begin{itemize}
+\item Complément à~1 (inverser les bits): $6=0110\rightarrow{}1001$;
+\item Complément à~2 (complément à~1 + 1):
+$6=0110\rightarrow{}1001+1\rightarrow{}1010=-6$;
+\item Méthode rapide: repérer le premier~1 en partant de la droite, le laisser,
+et prendre le complément à~1 du reste qui se trouve à gauche: $01{\color{red}1}0\rightarrow{}1010$;
+\item Décodage: réappliquer le complément à~2.
+\end{itemize}
+\end{block}}
+
+\only<2>{
+\begin{block}{Nombres représentables}
+\begin{itemize}
+\item Sur 4~bits: $6=0110$, $-6=1001+1=1010$;
+\item Sur 4~bits: $0=0000$ (0 est positif dans cette représentation).
+\end{itemize}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=20pc]{figs/comp2.png} \\ pour n=8, [-128; 127]
+\end{center}
+\end{figure}
+\end{block}
+\begin{block}{Exercice}
+  Comment représenter -8 en complément à 2 sur 4 bits ?
+\end{block}
+}
+
+\only<3>{
+\begin{block}{Exercice}
+Quelle est la représentation binaire sur 8~bits des décimaux suivants:
+\begin{enumerate}
+\item 112; %0111~0000
+\item -112. %1001~0000
+\end{enumerate}
+
+Quelle est la valeur décimale des entiers binaires sur 8~bits suivants:
+\begin{enumerate}
+\item 1111~1111; %-1
+\item 1000~0000.%-128
+\end{enumerate}
+\end{block}}
+\end{frame}
+
+\note[itemize]{
+\item Expliquer qu'il n'est pas possible d'avoir a la fois la symétrie et une
+seule représentation du zéro!
+\item En fait c'est la représentation en complément à 2 qui est la plus
+utilisée, voir quasiment la seule utilisée désormais.
+\item L'inconvénient d'avoir une représentation non symétrique est mineur par
+rapport aux avantages de n'avoir qu'un zéro (pas de problème de comparaison)
+et des opérations arithmétiques simplifiées.}
+
+\begin{frame}
+\frametitle{Opérations arith. avec les nombres en comp. à~2}
+
+\begin{block}{Addition}
+4~cas sont possibles:
+
+\begin{itemize}
+\item Les deux nombres sont positifs: addition binaire classique. Le bit de
+signe à~1 indique un dépassement de capacité.
+
+\item Le nombre positif est plus grand (ou égal) que le nombre négatif: addition
+binaire classique et on oublie la dernière retenue (à gauche). La somme est
+positive.
+
+\item Le nombre négatif est plus grand que le nombre positif: addition binaire
+classique. La somme est négative et représentée directement dans le système
+complément à~2.
+
+\item Les deux nombres sont négatifs: addition binaire classique et on oublie la
+dernière retenue (à gauche). Le bit de signe à~0 indique un dépassement de
+capacité.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Opérations arith. avec les nombres en comp. à~2}
+
+\begin{block}{Soustraction}
+La soustraction est considérée comme un cas particulier de l'addition:
+\begin{itemize}
+\item A - B = A + (-B);
+\item -A - B = (-A) + (-B).
+\end{itemize}
+
+On prend donc le système complément à deux pour représenter les négatifs, et on
+effectue une addition (voir transparent précédent).
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Opérations arith. avec les nombres en comp. à~2}
+
+\begin{block}{Multiplication}
+Les deux nombres doivent être représentés dans une forme sans complément (en
+valeur absolue). On effectue la multiplication et on décide du signe du
+résultat:
+
+\begin{itemize}
+\item Opérandes de même signe: le résultat est positif;
+\item Opérandes de signes différents: le résultat est négatif, on le représente
+avec son complément à~2;
+\item Il peut y avoir dépassement de capacité dans les deux cas.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Opérations arith. avec les nombres en comp. à~2}
+\vspace{-.2cm}
+\begin{block}{Division}
+  Les deux nombres doivent être représentés dans une forme sans
+  complément (en valeur absolue):
+\vspace{-.2cm}
+\begin{enumerate}
+\item Déterminer si le dividende et le diviseur sont de mêmes signes
+  ou de signes différents. Ceci va déterminer le signe du quotient;
+  initialiser le quotient à~0.
+
+\item Soustraire le diviseur du dividende en utilisant l'addition avec
+complément à deux pour obtenir le premier reste partiel; incrémenter le
+quotient. Si le reste partiel est positif aller à l'étape trois. Si le
+reste partiel est~0 ou négatif la division est terminée.
+
+\item Soustraire le diviseur du reste partiel et incrémenter le
+  quotient. Si le résultat est positif, répéter l'opération pour le
+  reste partiel trouvé. Si le résultat est~0 ou négatif la division
+  est terminée.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Opérations arith. avec les nombres en comp. à~2}
+
+\begin{block}{Exercice}
+Additionner en binaire sur 8~bits les nombres décimaux suivants:
+\begin{enumerate}
+\item 127 et 1;
+\item 127 et -1.
+\end{enumerate}
+
+Soustraire en binaire sur 8~bits les nombres décimaux suivants:
+\begin{enumerate}
+\item -1 et 1;
+\item -1 et -128.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Remerciements et références}
+
+\begin{block}{Remerciements}
+  David Delahaye, professeur à la FDS (mon prédécesseur)
+\end{block}
+
+\begin{block}{Références bibliographiques}
+\begin{itemize}
+\item Paolo Zanella, Yves Ligier et Emmanuel Lazard. Architecture et
+  technologie des ordinateurs - 6e éd. - Cours et exercices
+  corrigés. Septembre 2018
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+
+\end{document}

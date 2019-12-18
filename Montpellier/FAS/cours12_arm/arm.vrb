@@ -1,0 +1,16 @@
+\frametitle{Un autre programme -suite-}
+
+\begin{block}{Code}
+  \begin{lstlisting}[style=arm]
+        ldr r1, =nb // On repointe dans r1 vers nb (après le scanf)
+        ldr r2, [r1] // On récupère dans r2 le nombre pointé par r1
+        cmp r2, #0
+        blt fin
+        ldr r0, =print
+        ldr r1, =msg1
+        bl printf
+fin:
+        bl exit
+      \end{lstlisting}
+ \end{block}
+

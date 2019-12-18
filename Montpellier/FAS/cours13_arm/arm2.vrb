@@ -1,0 +1,18 @@
+\frametitle{Sujet de TP -suite-}
+
+\begin{block}{Exercices}
+\begin{itemize}
+\item Écrire une fonction qui effectue récursivement la somme des $n$
+  premiers entiers, où $n$ est un entier passé en argument;
+
+\item Écrire la fonction de Fibonacci:
+
+$$fib(n)=
+\left\{
+\begin{array}{l}
+1\mbox{, si }n=0,1\\
+fib(n-1)+fib(n-2)\mbox{, sinon}
+\end{array}
+\right.$$
+\end{itemize}
+\end{block}

@@ -1,0 +1,267 @@
+% %%%%%%%%%%%%%%%%%%% PACKAGES  %%%%%%%%%%%%%%%%%%%%
+% For characters encoding
+%\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ulem}
+
+% For hyperlinks
+%\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdfborder={0 0 0},      % border style
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=true,     % window fit to page when opened
+    pdfstartview={FitV},    % fits the width of the page to the window
+    pdfproducer={PDFLaTeX}, % producer of the document
+    pdfnewwindow=true,      % links in new window
+    % pagebackref=false,     % activate back references inside bibliography. % Must be specified as part of the \usepackage{} statement.
+    colorlinks=true,        % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links
+    linktoc=all,            % {one,section,page,all} defines which part of an entry in the table of contents is made into a link
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue,          % color of external links
+    % linkbordercolor={1 0 0},% color of frame around internal links (if colorlinks=false)
+    % citebordercolor={0 1 0},% color of frame around citations
+    % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % Document related
+    % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    pdftitle={Architecture des ordinateurs
+    },% title
+    pdfauthor={Clement Jonquet
+    }, % author
+    pdfsubject={Cours IG3 - Polytech' Montpellier - 2014-2015
+    }, % subject of the document
+    pdfkeywords={
+    }, % list of keywords
+    pdfcreator={Clement Jonquet
+    }, % creator of the document
+}
+
+% For graphics
+\usepackage{graphicx}
+
+% For alignements in tabular
+\usepackage{array}
+\usepackage{calc}
+
+% For color in tabular and array
+\usepackage{colortbl}
+
+% packages from Ludivine
+%\usepackage{ae}
+\usepackage{color}
+\usepackage[francais]{babel}
+\usepackage[footheight=1em]{beamerthemeboxes}
+\usepackage{longtable}
+\usepackage{ifthen}
+
+% For multirow tables
+\usepackage{multirow}
+
+% for digital circuits symbols
+%\input milstd
+
+% Conditional compilation
+\newif\ifCORR
+\ifthenelse{\equal{\detokenize{corr}}{\jobname}}{
+\CORRtrue
+}{
+\CORRfalse
+}
+
+\usepackage{hhline}
+\usepackage{listings}
+\usepackage{mips}
+\usepackage{comment}
+\usepackage{eurosym}
+
+\definecolor{CommentGreen}{rgb}{0,.6,0}
+\lstdefinestyle{mips}
+{
+  language=[mips]Assembler,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{CommentGreen},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+\lstdefinestyle{C}
+{
+  language=C,
+  escapechar=@, % include LaTeX code between `@' characters
+  keepspaces,   % needed to preserve spacing with lstinline
+  basicstyle=\scriptsize\ttfamily\bfseries,
+  commentstyle=\color{CommentGreen},
+  stringstyle=\color{cyan},
+  showstringspaces=false,
+  keywordstyle=[1]\color{blue},    % instructions
+  keywordstyle=[2]\color{magenta}, % directives
+  keywordstyle=[3]\color{red},     % registers
+}
+
+% %%%%%%%%%%%%%%%%%%% COMMANDS %%%%%%%%%%%%%%%%%%%%
+
+\iffalse This is a comment \fi
+
+\newcommand{\non}[1]{\ensuremath{\overline{#1}}}
+
+% %%%%%%%%%%%%%%%%%%% SLIDE PATTERN %%%%%%%%%%%%%%%%%%%%
+
+% 2 columns slide
+% \mycolumns{align}{size_c1}{size_c2}{content_c1}{content_c2}
+\newcommand{\mycolumns}[5]{
+\begin{columns}[#1]
+    \column{#2cm}
+    #4
+    \column{#3cm}
+    #5
+\end{columns}
+}
+
+% 2 columns and 1 row slide
+% \mytriangle{figure_size}{column_size}{row_size}{figure}{column}{row}
+\newcommand{\mytriangle}[6]{
+\begin{center}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    #5 & \includegraphics[width=#1cm]{figs/#4} \\
+    \multicolumn{2}{m{#3cm}}{#6} \\
+\end{tabular}
+\end{center}
+}
+
+% 2 columns and 2 rows slide
+% \mygrid{text_size}{image_size}{figure1}{figure2}{text1}{text2}
+\newcommand{\mygrid}[6]{
+\begin{center}
+\begin{tabular}{m{#1cm}m{#2cm}}
+    #5 & \includegraphics[width=#2cm]{figs/#3} \\
+\end{tabular}
+\begin{tabular}{m{#2cm}m{#1cm}}
+    \includegraphics[width=#2cm]{figs/#4} & #6\\
+\end{tabular}
+\end{center}
+}
+
+% Command for beginning of sections
+% \myatbeginsection{current_or_not}{image_file_name}{image_size}
+\newcommand{\myatbeginsection}[3]{
+\begin{frame}
+    \frametitle{Plan du cours}
+    \mycolumns{c}{7}{5}{
+        \tableofcontents[#1]
+    }{
+        \hfill
+        \includegraphics[width=#3cm]{figs/#2}
+    }
+\end{frame}
+}
+
+% Command for conceptualmap frame
+% \myconceptualmap{image_file_name}
+\newcommand{\myconceptualmap}[1]{
+\begin{frame}
+    \frametitle{De quoi allons-nous \\parler et quel chemin\\ allons nous suivre ?}
+    \mycolumns{c}{5}{6.7}{
+    }{
+        \vspace{-2.1cm}
+        \includegraphics[width=67mm]{figs/#1}
+     }
+\end{frame}
+}
+
+% Nearpod note slide
+% \nearpodnote{content}
+\newcommand{\nearpodnote}[1]{
+\note{
+    \includegraphics[width=4cm]{figs/nearpod.jpg} \\
+    #1
+}}
+
+% EClicker note slide
+% \eclickernote{content}
+\newcommand{\eclickernote}[1]{
+\note{
+    \includegraphics[width=4cm]{figs/eclicker.png} \\
+    #1
+}}
+
+% Slide d'exercice réflexif
+% \exoreflexif
+\newcommand{\exoreflexif}[0]{
+\nearpodnote{
+    Exercice réflexif (3 min)
+    \begin{alertblock}{}
+        Qu'avez-vous appris de plus important pendant ces chapitres ?
+    \end{alertblock}
+    \begin{alertblock}{}
+        Pourquoi est-ce important selon vous et pour vous ?
+    \end{alertblock}
+}
+}
+% Exo réflexif (3 min) - Qu'avez-vous appris de plus important ? Pourquoi est-ce important pour vous ?
+
+% Slide de proposition de questions
+% \propquestion
+\newcommand{\propquestion}[0]{
+\nearpodnote{
+    Proposez vos propres questions pour l'examen.
+    \begin{alertblock}{Exercice (5 min)}
+        Proposez 4 questions de cours ou petits exercices que vous aimeriez avoir à l'examen ?
+    \end{alertblock}
+    En lien avec le cours bien sur !
+}
+}
+
+% Slide d'exercice de recherche de news
+% \recherchenews
+\newcommand{\recherchenews}[0]{
+\nearpodnote{
+    \begin{alertblock}{Travail de groupe (5-6 min)}
+        Est-ce que quelqu'un parle de notre sujet sur le Web ? \\
+        Par groupe de 2-3, recherchez sur le web un article, post ou discussion sur un des sujets que vous pensez en lien a ce cours.\\
+        Saisissez son URL et résumez le par une courte phrase.
+    \end{alertblock}
+}
+}
+
+%%%%%%%%%%%%%% BEAMER %%%%%%%%%%%%%%%%%%
+% Possible blocks : {block} = bleu/violet
+%                   {alertblock} = rouge/saumon
+%                   {exampleblock} = vert
+
+
+%%%%%%%%%%%%%% DOCUMENT SETTINGS %%%%%%%%%%%%%%%%%%
+
+\usetheme{Boadilla}
+\usefonttheme[onlysmall]{structurebold}
+\setbeamercovered{transparent}
+
+% Beamer notes
+% To display notes on second screen
+\setbeameroption{hide notes}
+%\setbeameroption{show notes}
+%\setbeameroption{show only notes}
+%\setbeameroption{notes on second screen}
+
+% Macros
+
+\def\arduino{\textsf{Arduino}}
+\def\clang{\textsf{C}}
+\def\claroline{\textsf{Claroline}}
+\def\cnam{\textsf{Cnam}}
+\def\grove{\textsf{Grove}}
+\def\moodle{\textsf{Moodle}}
+\def\numalis{\textsf{Numalis}}
+\def\pascal{\textsf{Pascal}}
+\def\python{\textsf{Python}}
+\def\raspberry{\textsf{Raspberry~Pi}}
+
+\setbeamertemplate{navigation symbols}{}

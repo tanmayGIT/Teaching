@@ -1,0 +1,192 @@
+\documentclass{beamer}
+\usetheme[faculty=econ]{fibeamer}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{ulem}
+
+\lstset{
+  language=OCL,                
+  basicstyle=\tiny,
+  escapeinside={@}{@},
+  frame=single,
+  xleftmargin=2mm,
+  xrightmargin=2mm,
+  keepspaces=true,
+  tabsize=2
+}
+
+\title[FASO]{\Large{Fondamentaux de l'Architecture et des
+Systèmes d'exploitation (FAS)}}
+\author[C.~Tibermacine]{\large{Chouki Tibermacine}\\
+\vspace{1cm}
+\small{Chouki.Tibermacine@umontpellier.fr}}
+\institute{Polytech Montpellier}
+\date{\tiny{IG3 2018-2019}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\begin{flushright}
+\includegraphics[width=4cm]{figs/polytech.png}
+\end{flushright}
+\end{frame}
+
+\begin{frame}
+\frametitle{De quoi allons-nous parler dans ce cours?}
+
+\begin{block}{Ce que nous verrons}
+\begin{itemize}
+\item Architecture d'un ordinateur;
+\item Système d'exploitation d'un ordinateur.
+\end{itemize}
+\end{block}
+
+\begin{block}{Ce que nous ne verrons pas (second semestre)}
+\begin{itemize}
+\item Réseaux;
+\item Programmation parallèle (concurrente) et répartie.
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Connaissances et compétences}
+\footnotesize
+\only<1>{
+\begin{block}{Connaissances}
+\begin{itemize}
+\item Architecture de Von~Neumann;
+\item Représentation des données en mémoire;
+\item Logique des calculs (UAL, circuits logiques);
+\item Algèbre de Boole (De Morgan);
+\item Entrées/Sorties;
+\item Mécanisme d'interruption.
+\end{itemize}
+\end{block}
+
+\begin{block}{Compétences}
+\begin{itemize}
+\item Administrer un système;
+\item Comprendre la logique d'exécution d'une application;
+\item Développer des applications utilisant des appels systèmes;
+\item Utiliser/créer des librairies.
+\end{itemize}
+\end{block}
+\normalsize
+}
+
+\only<2>{
+\begin{alertblock}{}
+$\Rightarrow$ Voir \og{}ce qui se passe sous le capot\fg{}!
+\end{alertblock}
+
+\begin{alertblock}{}
+$\Rightarrow$ Comprendre les concepts clés pour mieux appréhender la suite des
+cours d'informatique (en particulier les cours d'algorithmique et
+programmation).
+\end{alertblock}}
+\end{frame}
+
+\begin{frame}
+\frametitle{Organisation du cours}
+
+\begin{block}{Séances}
+\begin{itemize}
+\footnotesize
+\item 45h de cours, et 20h de projet (dont 12h encadrées);
+\item Emploi du temps sur ADE (toujours le vérifier);
+\item Transparents disponibles en ligne avant les cours;
+\item Transparents mis en ligne sous :
+ \url{https://moodle.umontpellier.fr/course/view.php?id=2800};
+\normalsize
+\item Clé d'inscription: FAStoche
+\end{itemize}
+\end{block}
+
+\begin{block}{Vos enseignants}
+\begin{itemize}
+\footnotesize
+\item Vincent~Berry;
+\item \sout{David~Delahaye} $\rightarrow$ Chouki~Tibermacine;
+\item Quentin~Péntek;
+\item + Quelques autres intervenants;
+\normalsize
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Projet}
+
+\only<1>{
+\begin{block}{Résoudre un problème donné afin}
+\begin{itemize}
+\item D'appréhender les aspects archi. et système concrètement;
+\item De savoir programmer à ce niveau (parfois assez bas).
+\end{itemize}
+\end{block}
+
+\begin{block}{Utilisation de}
+\begin{itemize}
+\item Nano-ordinateurs: Raspberry Pi;
+\end{itemize}
+\end{block}
+
+\begin{center}
+\includegraphics[width=3.5cm]{figs/raspberry.png}
+\end{center}}
+
+\only<2>{
+\begin{block}{Organisation}
+\begin{itemize}
+\item Plusieurs sujets, plusieurs groupes;
+\item Présentation des projets le 25.09 à 14h15;
+\item Sujets proposés à rendre la semaine suivante;
+\item Pas de sujet proposé $\Rightarrow$ sujet imposé;
+\item Soutenances prévues le lundi 21.01 (date à confirmer);
+\end{itemize}
+\end{block}
+}
+\end{frame}
+
+\begin{frame}
+\frametitle{Évaluation}
+
+\begin{block}{Modalités}
+\begin{itemize}
+\item QCM dans certaines séances (on ne préviendra pas forcément);
+\item Projet (soutenance);
+\item Examen (écrit);
+\item Semaine du Shell (Plage);
+\item Note finale : moyenne pondérée des 4 notes;
+\item C'est une ECUE (compensation possible).
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Remerciements et références}
+
+\begin{block}{Remerciements}
+  David Delahaye, professeur à la FDS (mon prédécesseur)
+\end{block}
+
+\begin{block}{Références bibliographiques}
+\begin{itemize}
+\item Andrew Tanenbaum. Architecture de l'ordinateur, 5ème
+  édition. Pearson Education, 2009\\
+  Andrew Tanenbaum. \textit{Structured Computer Organization, 6th
+    edition}. Pearson, 2012.
+\item Andrew Tanenbaum. Systèmes d'exploitation 3ème Ed. Pearson,
+  2008.\\
+  Andrew Tanenbaum \& Herbert Bos. Modern Operating Systems. Pearson
+  2016.
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\end{document}

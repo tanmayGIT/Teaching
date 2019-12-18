@@ -1,0 +1,10 @@
+\frametitle{Algèbre de Boole}
+
+\mytriangle{3}{8}{11}{boole.jpg}{ George Boole a défini (milieu du
+  19ème siècle) une algèbre qui s'applique à des fonctions logiques de
+  variables logiques (variables booléennes).}{\begin{itemize}
+\item Toute fonction logique peut être réalisée à partir de fonctions logiques
+de base.
+\item Les opérations arithmétiques peuvent être réalisées à l'aide d'opérations
+logiques de base.
+\end{itemize}}
