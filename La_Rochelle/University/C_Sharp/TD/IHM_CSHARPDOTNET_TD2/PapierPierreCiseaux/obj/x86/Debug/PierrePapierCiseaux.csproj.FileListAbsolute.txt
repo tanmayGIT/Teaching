@@ -1,0 +1,34 @@
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\WindowsFormsApplication7.exe
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\bin\Debug\WindowsFormsApplication7.pdb
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\x86\Debug\PierrePapierCiseaux.Form1.resources
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\x86\Debug\WindowsFormsApplication7.Properties.Resources.resources
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\x86\Debug\WindowsFormsApplication7.exe
+C:\Users\Bernard\Documents\Visual Studio 2010\Projects\WindowsFormsApplication7\WindowsFormsApplication7\obj\x86\Debug\WindowsFormsApplication7.pdb
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.exe
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.pdb
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\bin\Debug\WindowsFormsApplication7.exe
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\bin\Debug\WindowsFormsApplication7.pdb
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\PierrePapierCiseaux.Form1.resources
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.Properties.Resources.resources
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\enseignement\Mes documents\Visual Studio 2010\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.exe
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.pdb
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\bin\Debug\WindowsFormsApplication7.exe
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\bin\Debug\WindowsFormsApplication7.pdb
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\PierrePapierCiseaux.Form1.resources
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.Properties.Resources.resources
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\PierrePapierCiseaux.csproj.GenerateResource.Cache
+C:\Projects\TD8_CSHARPDOTNET2\PapierPierreCiseaux\obj\x86\Debug\PierrePapierCiseaux.csprojResolveAssemblyReference.cache
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.pdb
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\bin\Debug\WindowsFormsApplication7.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\bin\Debug\WindowsFormsApplication7.pdb
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\obj\x86\Debug\PierrePapierCiseaux.csprojResolveAssemblyReference.cache
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\obj\x86\Debug\PierrePapierCiseaux.Form1.resources
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\obj\x86\Debug\WindowsFormsApplication7.Properties.Resources.resources
+C:\Projects\IHM_CSHARPDOTNET_TD2\PapierPierreCiseaux\obj\x86\Debug\PierrePapierCiseaux.csproj.GenerateResource.Cache

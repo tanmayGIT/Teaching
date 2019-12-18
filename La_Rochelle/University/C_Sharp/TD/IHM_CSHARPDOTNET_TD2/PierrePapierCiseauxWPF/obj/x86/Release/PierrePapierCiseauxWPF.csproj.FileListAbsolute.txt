@@ -1,0 +1,11 @@
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\MainWindow.baml
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\MainWindow.g.cs
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\App.g.cs
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\PierrePapierCiseauxWPF_MarkupCompile.cache
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\PierrePapierCiseauxWPF.g.resources
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\PierrePapierCiseauxWPF.Properties.Resources.resources
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\PierrePapierCiseauxWPF.csproj.GenerateResource.Cache
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\bin\Release\PierrePapierCiseauxWPF.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\bin\Release\PierrePapierCiseauxWPF.pdb
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\PierrePapierCiseauxWPF.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\PierrePapierCiseauxWPF\obj\x86\Release\PierrePapierCiseauxWPF.pdb

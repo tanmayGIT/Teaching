@@ -1,0 +1,6 @@
+C:\Projects\IHM_CSHARPDOTNET_TD3\Histogram\obj\x86\Debug\Histogram.Properties.Resources.resources
+C:\Projects\IHM_CSHARPDOTNET_TD3\Histogram\obj\x86\Debug\Histogram.csproj.GenerateResource.Cache
+C:\Projects\IHM_CSHARPDOTNET_TD3\Histogram\bin\Debug\Histogram.exe
+C:\Projects\IHM_CSHARPDOTNET_TD3\Histogram\bin\Debug\Histogram.pdb
+C:\Projects\IHM_CSHARPDOTNET_TD3\Histogram\obj\x86\Debug\Histogram.exe
+C:\Projects\IHM_CSHARPDOTNET_TD3\Histogram\obj\x86\Debug\Histogram.pdb

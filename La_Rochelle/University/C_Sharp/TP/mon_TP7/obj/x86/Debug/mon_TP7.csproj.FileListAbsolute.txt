@@ -1,0 +1,18 @@
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\bin\Debug\mon_TP7.exe
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\bin\Debug\mon_TP7.pdb
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.Form1.resources
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.Properties.Resources.resources
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.exe
+C:\Documents and Settings\RP\Mes documents\IHM\TP\TP7\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.pdb
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.exe
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\bin\Debug\mon_TP7.exe
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\bin\Debug\mon_TP7.pdb
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.Form1.resources
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.Properties.Resources.resources
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Bernard\Documents\Enseignement2012\IHM\IHM_TP_C#\TP7_Csharp\Mon_T7\mon_TP7\obj\x86\Debug\mon_TP7.pdb

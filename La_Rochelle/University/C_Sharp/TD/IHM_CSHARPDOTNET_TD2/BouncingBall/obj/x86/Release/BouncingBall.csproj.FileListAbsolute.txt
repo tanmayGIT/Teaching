@@ -1,0 +1,7 @@
+C:\Projects\IHM_CSHARPDOTNET_TD2\BouncingBall\bin\Release\BouncingBall.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\BouncingBall\bin\Release\BouncingBall.pdb
+C:\Projects\IHM_CSHARPDOTNET_TD2\BouncingBall\obj\x86\Release\BouncingBall.Form1.resources
+C:\Projects\IHM_CSHARPDOTNET_TD2\BouncingBall\obj\x86\Release\BouncingBall.Properties.Resources.resources
+C:\Projects\IHM_CSHARPDOTNET_TD2\BouncingBall\obj\x86\Release\BouncingBall.csproj.GenerateResource.Cache
+C:\Projects\IHM_CSHARPDOTNET_TD2\BouncingBall\obj\x86\Release\BouncingBall.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\BouncingBall\obj\x86\Release\BouncingBall.pdb

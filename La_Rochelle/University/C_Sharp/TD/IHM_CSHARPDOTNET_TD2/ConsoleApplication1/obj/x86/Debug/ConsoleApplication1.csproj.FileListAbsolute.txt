@@ -1,0 +1,4 @@
+C:\Projects\IHM_CSHARPDOTNET_TD2\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Projects\IHM_CSHARPDOTNET_TD2\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.exe
+C:\Projects\IHM_CSHARPDOTNET_TD2\ConsoleApplication1\obj\x86\Debug\ConsoleApplication1.pdb
