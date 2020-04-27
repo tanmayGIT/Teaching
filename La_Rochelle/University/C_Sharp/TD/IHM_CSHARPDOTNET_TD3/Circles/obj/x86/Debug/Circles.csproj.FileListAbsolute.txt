@@ -1,7 +1,0 @@
-C:\Projects\IHM_CSHARPDOTNET_TD3\Circles\obj\x86\Debug\Circles.Properties.Resources.resources
-C:\Projects\IHM_CSHARPDOTNET_TD3\Circles\obj\x86\Debug\Circles.csproj.GenerateResource.Cache
-C:\Projects\IHM_CSHARPDOTNET_TD3\Circles\bin\Debug\Circles.exe
-C:\Projects\IHM_CSHARPDOTNET_TD3\Circles\bin\Debug\Circles.pdb
-C:\Projects\IHM_CSHARPDOTNET_TD3\Circles\obj\x86\Debug\Circles.exe
-C:\Projects\IHM_CSHARPDOTNET_TD3\Circles\obj\x86\Debug\Circles.pdb
-C:\Projects\IHM_CSHARPDOTNET_TD3\Circles\obj\x86\Debug\Circles.csprojResolveAssemblyReference.cache

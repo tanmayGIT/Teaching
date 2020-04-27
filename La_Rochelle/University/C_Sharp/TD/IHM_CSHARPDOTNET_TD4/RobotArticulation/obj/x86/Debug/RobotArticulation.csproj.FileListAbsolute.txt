@@ -1,6 +1,0 @@
-C:\Projects\IHM_CSHARPDOTNET_TD3_TD4\RobotArticulation\bin\Debug\RobotArticulation.exe
-C:\Projects\IHM_CSHARPDOTNET_TD3_TD4\RobotArticulation\bin\Debug\RobotArticulation.pdb
-C:\Projects\IHM_CSHARPDOTNET_TD3_TD4\RobotArticulation\obj\x86\Debug\RobotArticulation.Properties.Resources.resources
-C:\Projects\IHM_CSHARPDOTNET_TD3_TD4\RobotArticulation\obj\x86\Debug\RobotArticulation.csproj.GenerateResource.Cache
-C:\Projects\IHM_CSHARPDOTNET_TD3_TD4\RobotArticulation\obj\x86\Debug\RobotArticulation.exe
-C:\Projects\IHM_CSHARPDOTNET_TD3_TD4\RobotArticulation\obj\x86\Debug\RobotArticulation.pdb
