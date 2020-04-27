@@ -1,0 +1,537 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F137A86520047FF2006C42AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F137A86420047FF2006C42AB /* main.m */; };
+		F137A86820047FF2006C42AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F137A86720047FF2006C42AB /* AppDelegate.m */; };
+		F137A86B20047FF2006C42AB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F137A86A20047FF2006C42AB /* ViewController.m */; };
+		F137A86E20047FF2006C42AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F137A86C20047FF2006C42AB /* Main.storyboard */; };
+		F137A87020047FF2006C42AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F137A86F20047FF2006C42AB /* Assets.xcassets */; };
+		F137A87320047FF2006C42AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F137A87120047FF2006C42AB /* LaunchScreen.storyboard */; };
+		F137A87E20047FF3006C42AB /* AddTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F137A87D20047FF3006C42AB /* AddTextViewTests.m */; };
+		F137A88920047FF3006C42AB /* AddTextViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F137A88820047FF3006C42AB /* AddTextViewUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F137A87A20047FF3006C42AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F137A85820047FF2006C42AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F137A85F20047FF2006C42AB;
+			remoteInfo = AddTextView;
+		};
+		F137A88520047FF3006C42AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F137A85820047FF2006C42AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F137A85F20047FF2006C42AB;
+			remoteInfo = AddTextView;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F137A86020047FF2006C42AB /* AddTextView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AddTextView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F137A86420047FF2006C42AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F137A86620047FF2006C42AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F137A86720047FF2006C42AB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F137A86920047FF2006C42AB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F137A86A20047FF2006C42AB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F137A86D20047FF2006C42AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F137A86F20047FF2006C42AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F137A87220047FF2006C42AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F137A87420047FF2006C42AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F137A87920047FF3006C42AB /* AddTextViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AddTextViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F137A87D20047FF3006C42AB /* AddTextViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTextViewTests.m; sourceTree = "<group>"; };
+		F137A87F20047FF3006C42AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F137A88420047FF3006C42AB /* AddTextViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AddTextViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F137A88820047FF3006C42AB /* AddTextViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddTextViewUITests.m; sourceTree = "<group>"; };
+		F137A88A20047FF3006C42AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F137A85D20047FF2006C42AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F137A87620047FF3006C42AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F137A88120047FF3006C42AB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F137A85720047FF2006C42AB = {
+			isa = PBXGroup;
+			children = (
+				F137A86220047FF2006C42AB /* AddTextView */,
+				F137A87C20047FF3006C42AB /* AddTextViewTests */,
+				F137A88720047FF3006C42AB /* AddTextViewUITests */,
+				F137A86120047FF2006C42AB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F137A86120047FF2006C42AB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F137A86020047FF2006C42AB /* AddTextView.app */,
+				F137A87920047FF3006C42AB /* AddTextViewTests.xctest */,
+				F137A88420047FF3006C42AB /* AddTextViewUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F137A86220047FF2006C42AB /* AddTextView */ = {
+			isa = PBXGroup;
+			children = (
+				F137A86620047FF2006C42AB /* AppDelegate.h */,
+				F137A86720047FF2006C42AB /* AppDelegate.m */,
+				F137A86920047FF2006C42AB /* ViewController.h */,
+				F137A86A20047FF2006C42AB /* ViewController.m */,
+				F137A86C20047FF2006C42AB /* Main.storyboard */,
+				F137A86F20047FF2006C42AB /* Assets.xcassets */,
+				F137A87120047FF2006C42AB /* LaunchScreen.storyboard */,
+				F137A87420047FF2006C42AB /* Info.plist */,
+				F137A86320047FF2006C42AB /* Supporting Files */,
+			);
+			path = AddTextView;
+			sourceTree = "<group>";
+		};
+		F137A86320047FF2006C42AB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F137A86420047FF2006C42AB /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F137A87C20047FF3006C42AB /* AddTextViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				F137A87D20047FF3006C42AB /* AddTextViewTests.m */,
+				F137A87F20047FF3006C42AB /* Info.plist */,
+			);
+			path = AddTextViewTests;
+			sourceTree = "<group>";
+		};
+		F137A88720047FF3006C42AB /* AddTextViewUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F137A88820047FF3006C42AB /* AddTextViewUITests.m */,
+				F137A88A20047FF3006C42AB /* Info.plist */,
+			);
+			path = AddTextViewUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F137A85F20047FF2006C42AB /* AddTextView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F137A88D20047FF3006C42AB /* Build configuration list for PBXNativeTarget "AddTextView" */;
+			buildPhases = (
+				F137A85C20047FF2006C42AB /* Sources */,
+				F137A85D20047FF2006C42AB /* Frameworks */,
+				F137A85E20047FF2006C42AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AddTextView;
+			productName = AddTextView;
+			productReference = F137A86020047FF2006C42AB /* AddTextView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F137A87820047FF3006C42AB /* AddTextViewTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F137A89020047FF3006C42AB /* Build configuration list for PBXNativeTarget "AddTextViewTests" */;
+			buildPhases = (
+				F137A87520047FF3006C42AB /* Sources */,
+				F137A87620047FF3006C42AB /* Frameworks */,
+				F137A87720047FF3006C42AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F137A87B20047FF3006C42AB /* PBXTargetDependency */,
+			);
+			name = AddTextViewTests;
+			productName = AddTextViewTests;
+			productReference = F137A87920047FF3006C42AB /* AddTextViewTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F137A88320047FF3006C42AB /* AddTextViewUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F137A89320047FF3006C42AB /* Build configuration list for PBXNativeTarget "AddTextViewUITests" */;
+			buildPhases = (
+				F137A88020047FF3006C42AB /* Sources */,
+				F137A88120047FF3006C42AB /* Frameworks */,
+				F137A88220047FF3006C42AB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F137A88620047FF3006C42AB /* PBXTargetDependency */,
+			);
+			name = AddTextViewUITests;
+			productName = AddTextViewUITests;
+			productReference = F137A88420047FF3006C42AB /* AddTextViewUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F137A85820047FF2006C42AB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = Tanmoy;
+				TargetAttributes = {
+					F137A85F20047FF2006C42AB = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 8J3ZX75TJ7;
+						ProvisioningStyle = Automatic;
+					};
+					F137A87820047FF3006C42AB = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 8J3ZX75TJ7;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F137A85F20047FF2006C42AB;
+					};
+					F137A88320047FF3006C42AB = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 8J3ZX75TJ7;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F137A85F20047FF2006C42AB;
+					};
+				};
+			};
+			buildConfigurationList = F137A85B20047FF2006C42AB /* Build configuration list for PBXProject "AddTextView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F137A85720047FF2006C42AB;
+			productRefGroup = F137A86120047FF2006C42AB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F137A85F20047FF2006C42AB /* AddTextView */,
+				F137A87820047FF3006C42AB /* AddTextViewTests */,
+				F137A88320047FF3006C42AB /* AddTextViewUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F137A85E20047FF2006C42AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F137A87320047FF2006C42AB /* LaunchScreen.storyboard in Resources */,
+				F137A87020047FF2006C42AB /* Assets.xcassets in Resources */,
+				F137A86E20047FF2006C42AB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F137A87720047FF3006C42AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F137A88220047FF3006C42AB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F137A85C20047FF2006C42AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F137A86B20047FF2006C42AB /* ViewController.m in Sources */,
+				F137A86820047FF2006C42AB /* AppDelegate.m in Sources */,
+				F137A86520047FF2006C42AB /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F137A87520047FF3006C42AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F137A87E20047FF3006C42AB /* AddTextViewTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F137A88020047FF3006C42AB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F137A88920047FF3006C42AB /* AddTextViewUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F137A87B20047FF3006C42AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F137A85F20047FF2006C42AB /* AddTextView */;
+			targetProxy = F137A87A20047FF3006C42AB /* PBXContainerItemProxy */;
+		};
+		F137A88620047FF3006C42AB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F137A85F20047FF2006C42AB /* AddTextView */;
+			targetProxy = F137A88520047FF3006C42AB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F137A86C20047FF2006C42AB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F137A86D20047FF2006C42AB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F137A87120047FF2006C42AB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F137A87220047FF2006C42AB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F137A88B20047FF3006C42AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		F137A88C20047FF3006C42AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F137A88E20047FF3006C42AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8J3ZX75TJ7;
+				INFOPLIST_FILE = AddTextView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Univ-La-Rochelle.AddTextView";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F137A88F20047FF3006C42AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8J3ZX75TJ7;
+				INFOPLIST_FILE = AddTextView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Univ-La-Rochelle.AddTextView";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F137A89120047FF3006C42AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8J3ZX75TJ7;
+				INFOPLIST_FILE = AddTextViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Univ-La-Rochelle.AddTextViewTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AddTextView.app/AddTextView";
+			};
+			name = Debug;
+		};
+		F137A89220047FF3006C42AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8J3ZX75TJ7;
+				INFOPLIST_FILE = AddTextViewTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Univ-La-Rochelle.AddTextViewTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AddTextView.app/AddTextView";
+			};
+			name = Release;
+		};
+		F137A89420047FF3006C42AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 8J3ZX75TJ7;
+				INFOPLIST_FILE = AddTextViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Univ-La-Rochelle.AddTextViewUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AddTextView;
+			};
+			name = Debug;
+		};
+		F137A89520047FF3006C42AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 8J3ZX75TJ7;
+				INFOPLIST_FILE = AddTextViewUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Univ-La-Rochelle.AddTextViewUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AddTextView;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F137A85B20047FF2006C42AB /* Build configuration list for PBXProject "AddTextView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F137A88B20047FF3006C42AB /* Debug */,
+				F137A88C20047FF3006C42AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F137A88D20047FF3006C42AB /* Build configuration list for PBXNativeTarget "AddTextView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F137A88E20047FF3006C42AB /* Debug */,
+				F137A88F20047FF3006C42AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F137A89020047FF3006C42AB /* Build configuration list for PBXNativeTarget "AddTextViewTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F137A89120047FF3006C42AB /* Debug */,
+				F137A89220047FF3006C42AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F137A89320047FF3006C42AB /* Build configuration list for PBXNativeTarget "AddTextViewUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F137A89420047FF3006C42AB /* Debug */,
+				F137A89520047FF3006C42AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F137A85820047FF2006C42AB /* Project object */;
+}
